@@ -1,0 +1,17 @@
+@import '../../styles/includes/main';
+
+.wrapper{
+	background: #fff;
+}
+
+.header{
+	@extend %header;
+}
+
+.content{
+	padding: 1rem;
+
+	&>p{
+		padding: 0 .2rem;
+	}
+}

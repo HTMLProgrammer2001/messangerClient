@@ -1,0 +1,29 @@
+@import './variables';
+
+%header{
+	margin: 0;
+	padding: 1rem;
+
+	background: $bgBlue;
+	color: #fff;
+}
+
+%button_text{
+    appearance: none;
+    outline: none;
+    border: none;
+    background: transparent;
+
+    color: $textLight;
+    font: {
+        size: 1.2rem;
+        weight: bold;
+        family: Roboto;
+    };
+
+    cursor: pointer;
+
+    &:disabled{
+        color: #ddd;
+    }
+}

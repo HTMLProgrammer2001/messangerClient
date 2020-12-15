@@ -1,0 +1,92 @@
+@import '../../styles/includes/main';
+
+.wrapper{
+	background: #fff;
+}
+
+.header{
+	@extend %header;
+    position: relative;
+}
+
+.info{
+	@include flex(flex-start, center);
+
+	margin-top: 1rem;
+
+	&_row{
+		margin-left: 1rem;
+
+		@include flex(flex-start, flex-start, column);
+	}
+
+	&_name{
+		font-weight: 700;
+		margin-bottom: .25rem;
+	}
+
+	&_status{
+		color: $textMuted;
+	}
+}
+
+.mediaElem{
+    @include flex(center, center);
+
+    position: absolute;
+    right: 3rem;
+    bottom: -2rem;
+    
+    width: 4rem;
+    height: 4rem;
+
+    background: #fff;
+    border-radius: 50%;
+    border: 1px solid $gray;
+
+    color: $textMuted;
+    font-size: 1.5rem;
+
+    cursor: pointer;
+
+    &:hover{
+        color: $blue;
+    }
+}
+
+.content{
+	padding: 3rem;
+    font-size: .9rem;
+
+    &_item{
+        @include flex(space-between, center);
+
+        &_icon{
+            color: $gray;
+            font-size: 1.4rem;
+
+            align-self: flex-start;
+            padding-top: 10px;
+            width: 25%;
+        }
+
+        &_data{
+            width: 75%;
+
+            padding-bottom: 1rem;
+            border-bottom: 1px solid $gray;
+
+            &>div{
+                margin-top: 1rem;
+            }
+
+            &>div:nth-child(0){
+                margin-top: 0;
+            }
+        }
+    }
+}
+
+.switcher{
+    @include flex(space-between, center);
+}

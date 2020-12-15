@@ -1,0 +1,45 @@
+@import "../../../styles/includes/main";
+
+.switch{
+    display: block;
+    width: 30px;
+    height: 12px;
+
+    border-radius: 10px;
+    background: $gray;
+
+    position: relative;
+    cursor: pointer;
+
+    transition: .3s all;
+
+    &>.inner{
+        right: calc(100% - 15px);
+    }
+
+    &.active{
+        background: lighten($blue, 25%);
+
+        &>.inner{
+            background: $blue;
+            border: none;
+
+            right: 0;
+        }
+    }
+}
+
+.inner{
+    width: 18px;
+    height: 18px;
+
+    position: absolute;
+    top: -3px;
+    right: 0;
+
+    border-radius: 50%;
+    border: 1px solid $gray;
+    background: #fff;
+
+    transition: .3s all;
+}

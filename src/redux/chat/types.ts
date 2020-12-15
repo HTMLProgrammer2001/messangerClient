@@ -1,0 +1,5 @@
+export const CHAT_LOAD_START = 'CHAT_LOAD_START';
+export const CHAT_LOAD_SUCCESS = 'CHAT_LOAD_SUCCESS';
+export const CHAT_LOAD_ERROR = 'CHAT_LOAD_ERROR';
+
+export const CHAT_MORE = 'CHAT_MORE';

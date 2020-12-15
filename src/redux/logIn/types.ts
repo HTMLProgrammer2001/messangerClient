@@ -1,0 +1,5 @@
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_RESET = 'LOGIN_RESET';
+
+export const LOGIN_CODE_VERIFY = 'LOGIN_CODE_VERIFY';
+export const LOGIN_VERIFY = 'LOGIN_VERIFY';

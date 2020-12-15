@@ -1,0 +1,62 @@
+@import '../../styles/includes/main';
+
+.wrapper{
+	@include flex(center, center);
+
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	width: 100vw;
+    height: 100vh;
+
+	background: transparentize(#000, .5);
+}
+
+.wr {
+    &_enter {
+        opacity: 0;
+    }
+
+    &_enter_active {
+        opacity: 1;
+        transition: opacity 700ms;
+    }
+
+    &_exit {
+        opacity: 1;
+    }
+
+    &_exit_active {
+        opacity: 0;
+        transition: 700ms opacity;
+    }
+}
+
+.popUp{
+	width: 75%;
+	max-width: 400px;
+
+	background: $bg;
+
+	border-radius: 3px;
+
+	&_close{
+		position: absolute;
+		top: 1rem;
+		right: 2rem;
+
+		cursor: pointer;
+		transition: .3s;
+
+		color: darken(#fff, 20%);
+		font: {
+			size: 3rem;
+			weight: bold;
+		};
+
+		&:hover{
+			color: #fff;
+		}
+	}
+}

@@ -1,0 +1,88 @@
+@import "../../../../styles/includes/main";
+
+.message_row{
+    display: flex;
+}
+
+.message_text{
+    appearance: none;
+    border: none;
+    outline: none;
+    resize: none;
+
+    position: relative;
+
+    width: 90%;
+    height: 100%;
+    margin-left: 1rem;
+
+    border-bottom: 1px solid silver;
+
+    font-family: Roboto;
+    color: #000;
+
+    &:focus{
+        outline: none;
+    }
+
+    &::after{
+        content: '';
+        transition: .3s all;
+
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+
+        width: 0;
+        height: 1px;
+        background: $blue;
+    }
+
+    &:focus::after{
+        left: 0;
+        width: 100%;
+    }
+}
+
+.message_form{
+    width: 75%;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.message_send{
+    color: $gray;
+    font-size: 1.5rem;
+
+    cursor: pointer;
+    transition: .3s all;
+
+    &:hover{
+        color: $blue;
+    }
+}
+
+.message_button{
+    appearance: none;
+    background: none;
+    border: none;
+    outline: none;
+}
+
+.message_actions{
+    margin: 10px;
+    position: relative;
+
+    & > * {
+        margin: 0 5px;
+    }
+}
+
+.picker{
+    position: absolute;
+    bottom: 30px;
+    right: calc(100% - 20px);
+}

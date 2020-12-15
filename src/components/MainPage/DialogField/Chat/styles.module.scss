@@ -1,0 +1,53 @@
+@import "../../../../styles/includes/main";
+
+.chat{
+    display: flex;
+    flex-direction: column;
+
+    height: calc(100% - 100px);
+    width: 90%;
+    margin: 0 auto;
+
+    overflow: scroll;
+}
+
+.message{
+    @include flex(space-between, flex-start);
+
+    margin-bottom: 1rem;
+
+    cursor: pointer;
+    transition: .3s all;
+
+    &:hover{
+        background: transparentize($bgBlue, .3);
+    }
+
+    &_data{
+        margin: 5px 0 0 10px;
+    }
+    
+    &_from{
+        text-decoration: underline;
+        color: $blue;
+
+        margin-bottom: 5px;
+        
+        &:hover{
+            text-decoration: none;
+        }
+    }
+
+    &_content{
+        display: flex;
+    }
+
+    &_time{
+        color: $gray;
+        margin-top: 20px;
+    }
+}
+
+.noMessage{
+    align-self: center;
+}
