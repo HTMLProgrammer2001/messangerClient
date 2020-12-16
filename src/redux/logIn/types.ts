@@ -4,3 +4,4 @@ export const LOGIN_ERROR = 'login/error';
 
 export const LOGIN_CODE_VERIFY = 'login/code_verify';
 export const LOGIN_VERIFY = 'login/verify';
+export const LOGIN_RESEND = 'login/resend';

@@ -28,14 +28,12 @@ const authAPI = {
 		return client.post<ILoginResponse>('/confirm/login', values);
 	},
 	resendLogin(values: ILogInFormData){
-		return client.post<IUser>('/resend', {phone: values.phone, type: 1});
+		return client.post<IUser>('/resend', {phone: values.phone, type: 2});
 	},
 
 	getMe(token: string){
 		return client.get<{}>('/me', {
-			headers: {
-				Authorization: `Bearer ${token}`
-			}
+			headers: {Authorization: `Bearer ${token}`}
 		})
 	}
 };

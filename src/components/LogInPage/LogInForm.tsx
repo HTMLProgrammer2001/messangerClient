@@ -18,9 +18,9 @@ export type ILogInFormData = {
 type IOwnProps = {
 	verifing: boolean,
 	isLoading: boolean,
-	err: any,
+	err: Object,
 	cancel: () => void,
-	resend: () => void,
+	resend: (vals: ILogInFormData) => void,
 	onSubmit: (vals: ILogInFormData) => any
 };
 
@@ -61,7 +61,7 @@ const LogInForm: React.FC<ILogInFormProps> = ({resend, cancel, verifing, errors,
 			<CodeInput
 				verifing={verifing}
 				cancel={cancel}
-				resend={resend}
+				resend={() => resend(formik.values)}
 			/>
 		</div>
 	</Form>

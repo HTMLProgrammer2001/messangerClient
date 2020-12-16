@@ -3,6 +3,7 @@ import {Field, useFormikContext} from 'formik';
 
 import styles from './styles.module.scss';
 import FormikInput from '../../FormElements/FormikInput';
+import ResendButton from './ResendButton';
 
 
 type ICodeInputProps = {
@@ -43,7 +44,7 @@ const CodeInput: React.FC<ICodeInputProps> = ({verifing, cancel, resend}) => {
 
 			<div className={styles.buttons}>
 				<button type="button" className={styles.buttons_item} onClick={cancel}>Cancel</button>
-				<button type="button" className={styles.buttons_item} onClick={resend}>Resend</button>
+				<ResendButton clickHandler={resend}/>
 			</div>
 		</>
 	);

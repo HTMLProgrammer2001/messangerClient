@@ -2,11 +2,12 @@ import {takeEvery, put, all, call} from 'redux-saga/effects';
 import {AxiosResponse} from 'axios';
 
 import {ILoginResponse} from '../../interfaces/Responses/ILoginResponse';
-import {LOGIN_VERIFY, LOGIN_CODE_VERIFY} from './types';
-import {logInCodeVerify, loginError, logInSuccess, logInVerify} from './actions';
+import {LOGIN_VERIFY, LOGIN_CODE_VERIFY, LOGIN_RESEND} from './types';
+import {logInCodeVerify, loginError, loginResend, logInSuccess, logInVerify} from './actions';
 import authAPI from '../../utils/api/authAPI';
 import expressErrorsToObject from '../../utils/helpers/expressErrorsToObject';
 import {meSet} from '../me/actions';
+import {toast} from 'react-toastify';
 
 
 function* logIn({payload}: ReturnType<typeof logInVerify>){
@@ -42,11 +43,24 @@ function* logInCode({payload}: ReturnType<typeof logInCodeVerify>){
 	}
 }
 
+function* loginResendSaga({payload}: ReturnType<typeof loginResend>){
+	try{
+		//make API call
+		yield call(authAPI.resendLogin, payload);
+		toast.success('New code was sent on your phone');
+	}
+	catch (e) {
+		console.log(e);
+		toast.error('Something went wrong. Try again.');
+	}
+}
+
 function* watchLogInSaga(){
 	//watch 
 	yield all([
 		takeEvery(LOGIN_VERIFY, logIn),
-		takeEvery(LOGIN_CODE_VERIFY, logInCode)
+		takeEvery(LOGIN_CODE_VERIFY, logInCode),
+		takeEvery(LOGIN_RESEND, loginResendSaga)
 	]);
 }
 
