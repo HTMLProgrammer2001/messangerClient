@@ -1,4 +1,4 @@
-import {takeEvery, put, all, call} from 'redux-saga/effects';
+import {takeEvery, put, all, call, takeLeading} from 'redux-saga/effects';
 import {AxiosResponse} from 'axios';
 
 import {ILoginResponse} from '../../interfaces/Responses/ILoginResponse';
@@ -60,7 +60,7 @@ function* watchLogInSaga(){
 	yield all([
 		takeEvery(LOGIN_VERIFY, logIn),
 		takeEvery(LOGIN_CODE_VERIFY, logInCode),
-		takeEvery(LOGIN_RESEND, loginResendSaga)
+		takeLeading(LOGIN_RESEND, loginResendSaga)
 	]);
 }
 

@@ -32,7 +32,12 @@ const authAPI = {
 	},
 
 	getMe(token: string){
-		return client.get<{}>('/me', {
+		return client.get<IUser>('/me', {
+			headers: {Authorization: `Bearer ${token}`}
+		})
+	},
+	logout(token: string){
+		return client.post<{message: string}>('/logout', null,{
 			headers: {Authorization: `Bearer ${token}`}
 		})
 	}

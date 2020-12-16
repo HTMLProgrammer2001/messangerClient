@@ -29,7 +29,7 @@ const IsAuthenticated = (isAuth: boolean = true) =>
 				return <Redirect to='/login'/>;
 
 			if(user && !isAuth)
-				return <Redirect to='/profile'/>;
+				return <Redirect to='/'/>;
 
 			return <Elem {...(props)}/>;
 		};

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import styles from './styles.module.scss';
 
@@ -8,15 +8,21 @@ import Header from '../Header/';
 import IsAuthenticated from '../../utils/HOC/IsAuthenticated';
 
 
-const MainPage: React.FC<{}> = () => (
-	<div className="container">
-		<Header/>
+const MainPage: React.FC<{}> = () => {
+	useEffect(() => {
+		document.title = 'Messanger';
+	}, []);
 
-		<div className={styles.wrapper}>
-			<Dialogs/>
-			<DialogField/>
+	return (
+		<div className="container">
+			<Header/>
+
+			<div className={styles.wrapper}>
+				<Dialogs/>
+				<DialogField/>
+			</div>
 		</div>
-	</div>
-);
+	);
+};
 
 export default IsAuthenticated(true)(MainPage);

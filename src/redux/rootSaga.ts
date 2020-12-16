@@ -5,6 +5,7 @@ import userSaga from './me/sagas';
 import dialogsSaga from './dialogs/sagas';
 import signInSaga from './signIn/sagas';
 import logInSaga from './logIn/sagas';
+import logoutSaga from './logout';
 import chatSaga from './chat/sagas';
 import newGroup from './newGroup/sagas';
 
@@ -17,6 +18,7 @@ function* rootSaga(){
 		dialogsSaga(),
 		signInSaga(),
 		logInSaga(),
+		logoutSaga(),
 		chatSaga(),
 		newGroup()
 	]);

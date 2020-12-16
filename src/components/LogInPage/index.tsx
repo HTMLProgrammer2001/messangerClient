@@ -8,6 +8,7 @@ import {RootState} from '../../redux/';
 import {selectLogInState} from '../../redux/logIn/selectors';
 import {logInVerify, logInCodeVerify, logInReset, loginResend} from '../../redux/logIn/actions';
 import IsAuthenticated from '../../utils/HOC/IsAuthenticated';
+import {useLocation} from 'react-router';
 
 
 //connect component to redux store
@@ -31,9 +32,11 @@ const connected = connect(mapStateToProps, mapDispatchToProps);
 type ILogInPageProps = ConnectedProps<typeof connected>;
 
 const LogInPage: React.FC<ILogInPageProps> = ({verifing, logIn, resetLogin, errors, isLoading, resendLogin}) => {
+	const location = useLocation();
+
 	useEffect(() => {
 		document.title = 'Messanger | Log in';
-		logInReset();
+		resetLogin();
 	}, []);
 
 	return (
