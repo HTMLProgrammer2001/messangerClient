@@ -26,7 +26,7 @@ type IOwnProps = {
 
 type ILogInFormProps = FormikProps<ILogInFormData> & IOwnProps;
 
-const LogInForm: React.FC<ILogInFormProps> = ({resend, cancel, verifing, errors, ...formik}) => (
+const LogInForm: React.FC<ILogInFormProps> = ({resend, cancel, verifing, err, ...formik}) => (
 	<Form noValidate className={styles.form} onSubmit={formik.handleSubmit}>
 		<div className={styles.form_header}>
 			<Logo/>
@@ -47,7 +47,7 @@ const LogInForm: React.FC<ILogInFormProps> = ({resend, cancel, verifing, errors,
 			</p>
 
 			{
-				errors && <div className="red">{(errors as any)._error}</div>
+				err && <div className="red">{(err as any)._error}</div>
 			}
 
 			<Field
@@ -70,6 +70,7 @@ const LogInForm: React.FC<ILogInFormProps> = ({resend, cancel, verifing, errors,
 export default withFormik<IOwnProps, ILogInFormData>({
 	mapPropsToValues: () => ({phone: '', code: ''}),
 	handleSubmit: (values, formikBag) => formikBag.props.onSubmit(values),
+	validateOnBlur: false,
 	validationSchema: Yup.object().shape({
 		phone: Yup.string().required().matches(/\+?\d{7,}/, 'Incorrect format of phone number'),
 		code: Yup.string().length(8).matches(/^\d+$/, 'Incorrect code')

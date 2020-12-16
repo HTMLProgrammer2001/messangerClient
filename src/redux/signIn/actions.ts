@@ -1,18 +1,31 @@
-import {SIGNIN_SUCCESS, SIGNIN_RESET, SIGNIN_VERIFY, SIGNIN_CODE_VERIFY} from './types';
+import {SIGNIN_SUCCESS, SIGNIN_RESET, SIGNIN_VERIFY, SIGNIN_CODE_VERIFY, SIGNIN_ERROR, SIGNIN_RESEND} from './types';
+import {ISignInFormData} from '../../components/SingInPage/SignInForm';
 
 
 export const signInSuccess = () => <const>({
 	type: SIGNIN_SUCCESS
 });
 
+export const signInError = (errors: Object) => <const>({
+	type: SIGNIN_ERROR,
+	payload: errors
+});
+
 export const signInReset = () => <const>({
 	type: SIGNIN_RESET
 });
 
-export const signInVerify = () => <const>({
-	type: SIGNIN_VERIFY
+export const signInVerify = (vals: ISignInFormData) => <const>({
+	type: SIGNIN_VERIFY,
+	payload: vals
 });
 
-export const signInCodeVerify = () => <const>({
-	type: SIGNIN_CODE_VERIFY
+export const signInCodeVerify = (vals: ISignInFormData) => <const>({
+	type: SIGNIN_CODE_VERIFY,
+	payload: vals
+});
+
+export const signInResend = (vals: ISignInFormData) => <const>({
+	type: SIGNIN_RESEND,
+	payload: vals
 });

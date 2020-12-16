@@ -1,5 +1,7 @@
-export const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
-export const SIGNIN_RESET = 'SIGNIN_RESET';
+export const SIGNIN_SUCCESS = 'sign/success';
+export const SIGNIN_RESET = 'sign/reset';
+export const SIGNIN_ERROR = 'sign/error';
 
-export const SIGNIN_CODE_VERIFY = 'SIGNIN_CODE_VERIFY';
-export const SIGNIN_VERIFY = 'SIGNIN_VERIFY';
+export const SIGNIN_CODE_VERIFY = 'sign/code_verify';
+export const SIGNIN_VERIFY = 'sign/verify';
+export const SIGNIN_RESEND = 'sign/resend';

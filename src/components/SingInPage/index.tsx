@@ -3,43 +3,52 @@ import {connect, ConnectedProps} from 'react-redux';
 
 
 import {RootState} from '../../redux/';
-import {selectSignInVerifing} from '../../redux/signIn/selectors';
-import {signInVerify, signInCodeVerify} from '../../redux/signIn/actions';
+import {selectSignInState} from '../../redux/signIn/selectors';
+import {signInVerify, signInCodeVerify, signInReset} from '../../redux/signIn/actions';
 
 import styles from './styles.module.scss';
-import Form, {ISignInFormData} from './SignInForm';
+import SignInForm, {ISignInFormData} from './SignInForm';
+import IsAuthenticated from '../../utils/HOC/IsAuthenticated';
 
 
 //connect component to redux store
-const mapStateToProps = (state: RootState) => ({
-	verifing: selectSignInVerifing(state)
-});
+const mapStateToProps = (state: RootState) => selectSignInState(state);
 
 const mapDispatchToProps = (dispatch: any) => ({
-	signIn(verifing: boolean){
-		dispatch(verifing ? signInCodeVerify() : signInVerify());
+	signIn(verifing: boolean, vals: ISignInFormData){
+		dispatch(verifing ? signInCodeVerify(vals) : signInVerify(vals));
+	},
+	resetSignIn(){
+		dispatch(signInReset());
 	}
 });
 
 const connected = connect(mapStateToProps, mapDispatchToProps);
 
 type ISignInPageProps = ConnectedProps<typeof connected>;
-
-export const SignInPage: React.FC<ISignInPageProps> = (props) => {
+export const SignInPage: React.FC<ISignInPageProps> = ({verifing, isLoading, errors, signIn, resetSignIn}) => {
 	useEffect(() => {
 		//change page title
 		document.title = 'Messanger | Sign in';
+		resetSignIn();
 	}, []);
 
 	const onSubmit = (vals: ISignInFormData) => {
-		props.signIn(props.verifing);
+		signIn(verifing, vals);
 	};
 
 	return (
 		<div className={styles.wrapper}>
-			<Form onSubmit={onSubmit} verifing={props.verifing}/>
+			<SignInForm
+				onSubmit={onSubmit}
+				resend={() => {}}
+				cancel={resetSignIn}
+				verifing={verifing}
+				err={errors}
+				isLoading={isLoading}
+			/>
 		</div>
 	);
 };
 
-export default connected(SignInPage);
+export default IsAuthenticated(false)(connected(SignInPage));

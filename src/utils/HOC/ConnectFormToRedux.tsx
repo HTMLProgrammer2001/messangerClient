@@ -17,7 +17,7 @@ const connectFormToRedux = <T extends object>(Elem: React.ComponentType<T>) => {
 		}, [isLoading]);
 
 		//return base elem
-		return <Elem {...props as T}/>
+		return <Elem {...props as T} err={err}/>
 	};
 
 	//return wrapped elem

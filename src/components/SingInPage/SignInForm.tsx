@@ -1,34 +1,41 @@
 import React from 'react';
-import {InjectedFormProps, reduxForm, Field} from 'redux-form';
+import {FormikProps, Form, Field, withFormik} from 'formik';
+import * as Yup from 'yup';
 
 import styles from './styles.module.scss';
 import Logo from '../Logo';
 
-import InputElement from '../FormElements/Input/';
-import phoneValidator from '../../utils/validators/phone';
-import sizeBetween from '../../utils/validators/sizeBetween';
 import CodeInput from '../Common/CodeInput/';
+import FormikInput from '../FormElements/FormikInput';
+import connectFormToRedux from '../../utils/HOC/ConnectFormToRedux';
 
 
 export type ISignInFormData = {
 	name: string,
 	phone: string,
-	nick: string,
+	nickname: string,
 	code?: string
 };
 
-type IOwnProps = {verifing: boolean};
-type ISignInFormProps = InjectedFormProps<ISignInFormData, IOwnProps> & IOwnProps;
+type IOwnProps = {
+	verifing: boolean,
+	err: Object,
+	onSubmit: (vals: ISignInFormData) => void,
+	resend: (vals: ISignInFormData) => void,
+	isLoading: boolean,
+	cancel: () => void
+};
 
-const size = sizeBetween(3, 25);
+type ISignInFormProps = FormikProps<ISignInFormData> & IOwnProps;
 
-const SignInForm: React.FC<ISignInFormProps> = (props) => (
-		<form onSubmit={props.handleSubmit} className={styles.form}>
+const SignInForm: React.FC<ISignInFormProps> = ({verifing, err, cancel, resend, ...formik}) => (
+		<Form onSubmit={formik.handleSubmit} className={styles.form}>
 			<div className={styles.form_header}>
 				<Logo/>
 				<button 
 					className={styles.form_next} 
-					disabled={props.pristine || props.submitting}
+					disabled={!formik.isValid || formik.isSubmitting || !formik.dirty}
+					type="submit"
 				>Next</button>
 			</div>
 
@@ -40,38 +47,45 @@ const SignInForm: React.FC<ISignInFormProps> = (props) => (
 				</p>
 
 				{
-					props.error && <div className="red">{props.error}</div>
+					err && <div className="red">{(err as any)._error}</div>
 				}
 
 				<Field 
 					name="name" 
-					component={InputElement} 
+					component={FormikInput}
 					type="text" 
 					placeholder="Name"
-					validate={size}
+					disabled={verifing}
 				/>
 
 				<Field 
 					name="phone" 
-					component={InputElement} 
+					component={FormikInput}
 					type="text" 
-					placeholder="Phone" 
-					validate={phoneValidator}
+					placeholder="Phone"
+					disabled={verifing}
 				/>
 
 				<Field 
-					name="nick" 
-					component={InputElement} 
+					name="nickname"
+					component={FormikInput}
 					type="text" 
 					placeholder="NickName"
-					validate={size}
+					disabled={verifing}
 				/>
 
-				<CodeInput verifing={props.verifing}/>
+				<CodeInput verifing={verifing} resend={() => resend(formik.values)} cancel={cancel}/>
 			</div>
-		</form>
+		</Form>
 );
 
-export default reduxForm<ISignInFormData, IOwnProps>({
-	form: 'signIn'
-})(SignInForm);
+export default withFormik<IOwnProps, ISignInFormData>({
+	mapPropsToValues: () => ({name: '', phone: '', nickname: ''}),
+	handleSubmit: (vals, formikBag) => formikBag.props.onSubmit(vals),
+	validateOnBlur: false,
+	validationSchema: Yup.object().shape({
+		name: Yup.string().min(4).max(32).required(),
+		phone: Yup.string().required().matches(/\+?\d{7,}/, 'Incorrect format of phone number'),
+		nickname: Yup.string().min(4).max(32).required()
+	})
+})(connectFormToRedux<any>(SignInForm));

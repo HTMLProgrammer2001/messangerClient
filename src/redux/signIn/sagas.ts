@@ -1,61 +1,65 @@
-import {takeEvery, put, all, call, select} from 'redux-saga/effects';
-import {startSubmit, stopSubmit, reset, getFormValues} from 'redux-form';
+import {takeEvery, put, all, call, takeLeading} from 'redux-saga/effects';
+import {toast} from 'react-toastify';
+import {AxiosResponse} from 'axios';
 
-import {ISignInFormData} from '../../components/SingInPage/SignInForm';
-
-import {SIGNIN_VERIFY, SIGNIN_CODE_VERIFY} from './types';
-import {signInSuccess} from './actions';
+import {ISignInResponse} from '../../interfaces/Responses/ISignInResponse';
+import {SIGNIN_VERIFY, SIGNIN_CODE_VERIFY, SIGNIN_RESEND} from './types';
+import {signInCodeVerify, signInError, signInResend, signInSuccess} from './actions';
 import authAPI from '../../utils/api/authAPI';
+import expressErrorsToObject from '../../utils/helpers/expressErrorsToObject';
+import {meSet} from '../me/actions';
 
 
-function* signIn(){
-	yield put(startSubmit('signIn'));
-
+function* signInSaga({payload}: ReturnType<typeof signInCodeVerify>){
 	try{
-		//get form values
-		const selector = getFormValues('signIn');
-		const formValues = select(selector);
-		const formValuesT = (<any>formValues) as ISignInFormData;
-
 		//make API request
-		yield call(authAPI.signIn, formValuesT);
+		yield call(authAPI.signIn, payload);
 		yield put(signInSuccess());
 	}
 	catch(e){
 		//update error
-		yield put(stopSubmit('signIn', {
+		yield put(signInError({
 			_error: e.response?.data.message || e.message,
-			...e.response?.data.errors
+			...expressErrorsToObject(e.response?.data.errors)
 		}));
 	}
 }
 
-function* signInCode(){
-	yield put(startSubmit('signIn'));
-
+function* signInCodeSaga({payload}: ReturnType<typeof signInCodeVerify>){
 	try{
-		//get form values
-		const selector = getFormValues('signIn');
-		const formValues = select(selector);
-		const formValuesT = (<any>formValues) as ISignInFormData;
-
 		//make api request
-		yield call(authAPI.confirmSignin, formValuesT);
+		const resp: AxiosResponse<ISignInResponse> = yield call(authAPI.confirmSignIn, payload);
+
+		//log in user
+		yield put(meSet(resp.data.user));
 	}
 	catch(e){
 		//update error
-		yield put(stopSubmit('signIn', {
+		yield put(signInError({
 			_error: e.response?.data.message || e.message,
-			...e.response?.data.errors
+			...expressErrorsToObject(e.response?.data.errors)
 		}));
+	}
+}
+
+function* signInResendSaga({payload}: ReturnType<typeof signInResend>) {
+	try{
+		//make API call
+		yield call(authAPI.resendSignIn, payload);
+		toast.success('New code was sent on your phone');
+	}
+	catch (e) {
+		console.log(e);
+		toast.error('Something went wrong. Try again.');
 	}
 }
 
 function* watchSignInSaga(){
 	//setup watch
 	yield all([
-		takeEvery(SIGNIN_VERIFY, signIn),
-		takeEvery(SIGNIN_CODE_VERIFY, signInCode)
+		takeEvery(SIGNIN_VERIFY, signInSaga),
+		takeEvery(SIGNIN_CODE_VERIFY, signInCodeSaga),
+		takeLeading(SIGNIN_RESEND, signInResendSaga)
 	]);
 }
 

@@ -1,9 +1,10 @@
-import axios, {AxiosResponse} from 'axios';
+import axios from 'axios';
 
 import {ISignInFormData} from '../../components/SingInPage/SignInForm';
 import {ILogInFormData} from '../../components/LogInPage/LogInForm';
 import {IUser} from '../../interfaces/IUser';
 import {ILoginResponse} from '../../interfaces/Responses/ILoginResponse';
+import {ISignInResponse} from '../../interfaces/Responses/ISignInResponse';
 
 
 const client = axios.create({
@@ -15,10 +16,13 @@ const client = axios.create({
 
 const authAPI = {
 	signIn(values: ISignInFormData){
-		return client.post<{}>('/signin', values);
+		return client.post<{}>('/sign', values);
 	},
-	confirmSignin(values: ISignInFormData){
-		return client.post<{}>('signin/confirm', values);
+	confirmSignIn(values: ISignInFormData){
+		return client.post<ISignInResponse>('confirm/sign', values);
+	},
+	resendSignIn(values: ISignInFormData){
+		return client.post<{message: string}>('/resend', {phone: values.phone, type: 1});
 	},
 
 	logIn(values: ILogInFormData){
@@ -28,7 +32,7 @@ const authAPI = {
 		return client.post<ILoginResponse>('/confirm/login', values);
 	},
 	resendLogin(values: ILogInFormData){
-		return client.post<IUser>('/resend', {phone: values.phone, type: 2});
+		return client.post<{message: string}>('/resend', {phone: values.phone, type: 2});
 	},
 
 	getMe(token: string){
