@@ -5,7 +5,7 @@ import {ISignInFormData} from '../../components/SingInPage/SignInForm';
 
 import {SIGNIN_VERIFY, SIGNIN_CODE_VERIFY} from './types';
 import {signInSuccess} from './actions';
-import authAPI from '../../api/authAPI';
+import authAPI from '../../utils/api/authAPI';
 
 
 function* signIn(){

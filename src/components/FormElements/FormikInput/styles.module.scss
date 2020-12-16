@@ -1,0 +1,67 @@
+@import '../../../styles/includes/main';
+
+.input{
+    margin-top: 30px;
+    width: 100%;
+    position: relative;
+
+    &_elem{
+        appearance: none;
+        outline: none;
+        resize: none;
+        transition: .3s all;
+
+        padding: 10px;
+        width: 100%;
+
+        font-size: 1rem;
+        font-weight: 300;
+
+        border: none;
+        border-bottom: 1px solid $textMuted;
+
+        background: transparent;
+
+        &[disabled] + .input__label, &:valid + .input__label, &:focus + .input__label{
+            top: -15px;
+            font-size: .8rem;
+        }
+
+        &:disabled, &:disabled:hover{
+            box-shadow: inset 0 0 1000px 0 #eee !important;
+        }
+    }
+
+    &_line{
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 1px;
+
+        background: $blue;
+
+        transition: .3s;
+    }
+
+    &_elem:focus ~ &_line{
+        left: 0;
+        width: 100%;
+    }
+
+    &_elem:disabled + &_label, &_elem:valid ~ &_label, &_elem:focus ~ &_label{
+        top: -15px;
+        left: 5px;
+    }
+
+    &_label{
+        position: absolute;
+        left: 10px;
+        top: 10px;
+
+        color: $textMuted;
+        font-size: .9rem;
+
+        transition: .3s;
+    }
+}

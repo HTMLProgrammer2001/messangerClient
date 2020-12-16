@@ -7,7 +7,7 @@ import {selectChatState} from '../../../../redux/chat/selectors';
 
 import Message from './Message';
 import RelativeDate from '../../../Common/RelativeDate';
-import dateToString from '../../../../helpers/dateToString';
+import dateToString from '../../../../utils/helpers/dateToString';
 
 
 const mapStateToProps = (state: RootState) => ({

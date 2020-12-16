@@ -7,6 +7,7 @@ import {reducer as formReducer} from 'redux-form';
 import rootSaga from './rootSaga';
 
 //import reducers
+import app from './app/reducer';
 import signIn from './signIn/reducer';
 import logIn from './logIn/reducer';
 import dialogs from './dialogs/reducer';
@@ -18,6 +19,7 @@ import newGroup from './newGroup/reducer';
 
 //create reducer
 let reducer = combineReducers({
+	app,
 	me,
 	signIn,
 	logIn,

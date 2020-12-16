@@ -1,12 +1,13 @@
 import React from 'react';
-import {InjectedFormProps, reduxForm, Field} from 'redux-form';
+import {Form, Field, FormikProps, withFormik} from 'formik';
+import * as Yup from 'yup';
 
 import styles from '../SingInPage/styles.module.scss';
 import Logo from '../Logo';
 
-import InputElement from '../FormElements/Input/';
-import phoneValidator from '../../validators/phone';
-import CodeInput from './CodeInput';
+import CodeInput from '../Common/CodeInput/';
+import FormikInput from '../FormElements/FormikInput';
+import connectFormToRedux from '../../utils/HOC/ConnectFormToRedux';
 
 
 export type ILogInFormData = {
@@ -14,44 +15,63 @@ export type ILogInFormData = {
 	code?: string
 };
 
-type IOwnProps = {verifing: boolean};
-type ILogInFormProps = InjectedFormProps<ILogInFormData, IOwnProps> & IOwnProps;
+type IOwnProps = {
+	verifing: boolean,
+	isLoading: boolean,
+	err: any,
+	cancel: () => void,
+	resend: () => void,
+	onSubmit: (vals: ILogInFormData) => any
+};
 
-const LogInForm: React.FC<ILogInFormProps> = (props) => (
-		<form onSubmit={props.handleSubmit} className={styles.form}>
-			<div className={styles.form_header}>
-				<Logo/>
-				
-				<button 
-					className={styles.form_next} 
-					disabled={props.pristine || props.submitting}
-				>Next</button>
-			</div>
+type ILogInFormProps = FormikProps<ILogInFormData> & IOwnProps;
 
-			<div className={styles.form_content}>
-				<h6 className={styles.form_name}>Log In</h6>
+const LogInForm: React.FC<ILogInFormProps> = ({resend, cancel, verifing, errors, ...formik}) => (
+	<Form noValidate className={styles.form} onSubmit={formik.handleSubmit}>
+		<div className={styles.form_header}>
+			<Logo/>
 
-				<p className={styles.form_desc}>
-					Please enter data in this field
-				</p>
+			<button
+				className={styles.form_next}
+				disabled={!formik.isValid || !formik.dirty || formik.isSubmitting}
+				type="submit"
+			>Next
+			</button>
+		</div>
 
-				{
-					props.error && <div className="red">{props.error}</div>
-				}
+		<div className={styles.form_content}>
+			<h6 className={styles.form_name}>Log In</h6>
 
-				<Field 
-					name="phone" 
-					component={InputElement} 
-					type="text" 
-					placeholder="Phone" 
-					validate={phoneValidator}
-				/>
+			<p className={styles.form_desc}>
+				Please enter data in this field
+			</p>
 
-				<CodeInput verifing={props.verifing}/>
-			</div>
-		</form>
+			{
+				errors && <div className="red">{(errors as any)._error}</div>
+			}
+
+			<Field
+				name="phone"
+				component={FormikInput}
+				type="text"
+				placeholder="Phone"
+				disabled={verifing}
+			/>
+
+			<CodeInput
+				verifing={verifing}
+				cancel={cancel}
+				resend={resend}
+			/>
+		</div>
+	</Form>
 );
 
-export default reduxForm<ILogInFormData, IOwnProps>({
-	form: 'logIn'
-})(LogInForm);
+export default withFormik<IOwnProps, ILogInFormData>({
+	mapPropsToValues: () => ({phone: '', code: ''}),
+	handleSubmit: (values, formikBag) => formikBag.props.onSubmit(values),
+	validationSchema: Yup.object().shape({
+		phone: Yup.string().required().matches(/\+?\d{7,}/, 'Incorrect format of phone number'),
+		code: Yup.string().length(8).matches(/^\d+$/, 'Incorrect code')
+	})
+})(connectFormToRedux<any>(LogInForm));

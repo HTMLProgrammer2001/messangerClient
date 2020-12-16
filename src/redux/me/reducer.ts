@@ -6,19 +6,20 @@ import {IUser} from '../../interfaces/IUser';
 type IMeActions = InferActionTypes<typeof actionCreators>;
 
 
-type IMeState = IUser;
+type IMeState = {
+	isLoading: boolean,
+	user: IUser
+};
 
 const initialState: IMeState = {
-	id: 1,
-	avatar: '',
-	name: 'Yuri Prisyazhny',
-	nick: 'test'
+	isLoading: false,
+	user: null
 };
 
 const meReducer = (state: IMeState = initialState, action: IMeActions): IMeState => {
 	switch (action.type) {
 		case ME_SET:
-			return action.payload;
+			return {isLoading: false, user: action.payload};
 
 		case ME_RESET:
 			return {...initialState};

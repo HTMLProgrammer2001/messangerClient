@@ -4,7 +4,7 @@ import {mount} from 'enzyme';
 import PopUpElement from './';
 import Content from './Content';
 
-import PopUpContext from '../../context/PopUpContext';
+import PopUpContext from '../../utils/context/PopUpContext';
 import styles from './styles.module.scss';
 
 

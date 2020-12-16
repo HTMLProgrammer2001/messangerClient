@@ -3,7 +3,7 @@ import {getFormValues} from 'redux-form';
 
 import {usersAdd, usersStart, usersError, usersLoad} from './actions';
 import {INewGroupData} from '../../components/NewGroupPopup/Elements/SearchForm';
-import searchAPI from '../../api/searchAPI';
+import searchAPI from '../../utils/api/searchAPI';
 import {USERS_LOAD} from './types';
 import {IGetUsersResponse} from '../../interfaces/Responses/IGetUsersResponse';
 

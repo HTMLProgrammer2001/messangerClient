@@ -1,6 +1,9 @@
 export type IUser = {
 	avatar?: string,
 	name: string,
-	nick: string,
+	nickname: string,
+	phone?: string,
+	description?: string,
+	role: number,
 	id: number
 };

@@ -1,0 +1,26 @@
+@import '../../../styles/includes/main';
+
+.buttons{
+    @include flex(space-between, center);
+
+    margin-top: 5px;
+    width: 100%;
+
+    &_item{
+        @extend %button_text;
+
+        color: $blue;
+        font: {
+            size: .9rem;
+            weight: lighter;
+        };
+
+        &:hover{
+            border-bottom: 1px solid $blue;
+        }
+    }
+}
+
+.desc{
+    color: $textMuted;
+}

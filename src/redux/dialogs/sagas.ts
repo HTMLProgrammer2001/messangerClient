@@ -2,7 +2,7 @@ import {takeLatest, put} from 'redux-saga/effects';
 
 import {DIALOGS_GET} from './types';
 import {dialogsGet, dialogsLoadError, dialogsLoadStart, dialogsLoadSuccess} from './actions';
-import messageAPI from '../../api/messageAPI';
+import messageAPI from '../../utils/api/messageAPI';
 
 
 function* getDialogsSaga(action: ReturnType<typeof dialogsGet>){

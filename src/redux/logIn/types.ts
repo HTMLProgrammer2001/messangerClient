@@ -1,5 +1,6 @@
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_RESET = 'LOGIN_RESET';
+export const LOGIN_SUCCESS = 'login/success';
+export const LOGIN_RESET = 'login/reset';
+export const LOGIN_ERROR = 'login/error';
 
-export const LOGIN_CODE_VERIFY = 'LOGIN_CODE_VERIFY';
-export const LOGIN_VERIFY = 'LOGIN_VERIFY';
+export const LOGIN_CODE_VERIFY = 'login/code_verify';
+export const LOGIN_VERIFY = 'login/verify';

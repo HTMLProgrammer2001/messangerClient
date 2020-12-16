@@ -1,5 +1,6 @@
 import {all} from 'redux-saga/effects';
 
+import appSaga from './app/sagas';
 import userSaga from './me/sagas';
 import dialogsSaga from './dialogs/sagas';
 import signInSaga from './signIn/sagas';
@@ -11,6 +12,7 @@ import newGroup from './newGroup/sagas';
 //create root saga that we can run
 function* rootSaga(){
 	yield all([
+		appSaga(),
 		userSaga(),
 		dialogsSaga(),
 		signInSaga(),

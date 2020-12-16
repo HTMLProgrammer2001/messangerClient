@@ -1,6 +1,6 @@
 import React from 'react';
 
-import getInitials from '../../../helpers/getInitials';
+import getInitials from '../../../utils/helpers/getInitials';
 import styles from './styles.module.scss';
 
 

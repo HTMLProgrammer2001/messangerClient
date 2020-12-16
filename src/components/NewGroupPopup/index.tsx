@@ -7,7 +7,7 @@ import UsersList from './Elements/UsersList';
 import Buttons from '../Common/Buttons/';
 
 import {usersStart} from '../../redux/users/actions';
-import PopUpContext from '../../context/PopUpContext';
+import PopUpContext from '../../utils/context/PopUpContext';
 import NewGroupNamePopup from '../NewGroupNamePopup';
 import {RootState} from '../../redux';
 import {selectNewGroupStateUsers} from '../../redux/newGroup/selectors';

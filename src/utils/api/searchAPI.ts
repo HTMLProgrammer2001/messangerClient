@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import {IGetUsersResponse} from '../interfaces/Responses/IGetUsersResponse';
+import {IGetUsersResponse} from '../../interfaces/Responses/IGetUsersResponse';
 
 
 const client = axios.create({

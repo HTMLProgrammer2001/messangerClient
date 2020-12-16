@@ -1,4 +1,4 @@
-import {LOGIN_SUCCESS, LOGIN_RESET} from './types';
+import {LOGIN_SUCCESS, LOGIN_RESET, LOGIN_ERROR, LOGIN_VERIFY, LOGIN_CODE_VERIFY} from './types';
 import * as actionCreators from './actions';
 import {InferActionTypes} from '../';
 
@@ -8,20 +8,31 @@ type ILogInActions = InferActionTypes<typeof actionCreators>;
 
 //reducer state type
 type ILogInState = {
-	verifing: boolean
+	verifing: boolean,
+	errors: Object,
+	isLoading: boolean
 };
 
 const initialState: ILogInState = {
-	verifing: false
+	verifing: false,
+	errors: null,
+	isLoading: false
 };
 
 const logInReducer = (state: ILogInState = initialState, action: ILogInActions) => {
 	switch (action.type) {
 		case LOGIN_SUCCESS:
-			return {verifing: true};
+			return {verifing: true, errors: null, isLoading: false};
+
+		case LOGIN_ERROR:
+			return {...state, errors: action.errors, isLoading: false};
 
 		case LOGIN_RESET:
-			return {verifing: false};
+			return {...initialState};
+
+		case LOGIN_VERIFY:
+		case LOGIN_CODE_VERIFY:
+			return {...state, isLoading: true};
 	}
 
 	return state;

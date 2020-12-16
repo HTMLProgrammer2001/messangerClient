@@ -5,9 +5,9 @@ import styles from './styles.module.scss';
 import Logo from '../Logo';
 
 import InputElement from '../FormElements/Input/';
-import phoneValidator from '../../validators/phone';
-import sizeBetween from '../../validators/sizeBetween';
-import CodeInput from '../LogInPage/CodeInput';
+import phoneValidator from '../../utils/validators/phone';
+import sizeBetween from '../../utils/validators/sizeBetween';
+import CodeInput from '../Common/CodeInput/';
 
 
 export type ISignInFormData = {

@@ -2,7 +2,7 @@ import React from 'react';
 import {Field, reduxForm, InjectedFormProps} from 'redux-form';
 
 import InputElement from '../FormElements/Input';
-import sizeBetween from '../../validators/sizeBetween';
+import sizeBetween from '../../utils/validators/sizeBetween';
 
 
 export type IGroupNameFormData = {

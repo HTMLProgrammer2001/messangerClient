@@ -5,7 +5,7 @@ import styles from '../styles.module.scss';
 import NewGroupPopup from '../../NewGroupPopup';
 import SettingsPopup from '../../SettingsPopup';
 import AboutPopup from '../../AboutPopup';
-import PopUpContext from '../../../context/PopUpContext';
+import PopUpContext from '../../../utils/context/PopUpContext';
 
 
 type IMenuListProps = {

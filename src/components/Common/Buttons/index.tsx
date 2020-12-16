@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 
 import styles from './styles.module.scss';
-import PopUpContext from '../../../context/PopUpContext';
+import PopUpContext from '../../../utils/context/PopUpContext';
 
 
 type IButtonsProps = {

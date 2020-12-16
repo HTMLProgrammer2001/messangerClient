@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {WrappedFieldProps} from 'redux-form';
 
-import styles from './styles.module.scss';
+import styles from '../FormikInput/styles.module.scss';
 
 
 type IElementProps = WrappedFieldProps & React.InputHTMLAttributes<HTMLInputElement>;

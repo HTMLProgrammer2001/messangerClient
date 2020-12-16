@@ -3,7 +3,7 @@ import {takeLatest, put, all} from 'redux-saga/effects';
 import {DIALOGS_CURRENT_CHANGE} from '../dialogs/types';
 import {CHAT_MORE} from './types';
 import {chatLoadError, chatLoadStart, chatLoadSuccess} from './actions';
-import messageAPI from '../../api/messageAPI';
+import messageAPI from '../../utils/api/messageAPI';
 
 
 function* getChatSaga(){

@@ -1,4 +1,5 @@
 import {RootState} from '../';
 
 
-export const selectMe = (state: RootState) => state.me;
+export const selectMeState = (state: RootState) => state.me;
+export const selectMe = (state: RootState) => selectMeState(state).user;

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import {IGetDialogsResponse} from '../interfaces/Responses/IGetDialogsResponse';
+import {IGetDialogsResponse} from '../../interfaces/Responses/IGetDialogsResponse';
 
 
 const client = axios.create({
