@@ -1,8 +1,8 @@
 import React from 'react';
 
-import {IUser} from '../../interfaces/IUser';
+import {IUser} from '../../../interfaces/IUser';
 import styles from './styles.module.scss';
-import UserAvatar from '../Common/UserAvatar';
+import UserAvatar from '../../Common/UserAvatar';
 
 
 type IUserInfo = {

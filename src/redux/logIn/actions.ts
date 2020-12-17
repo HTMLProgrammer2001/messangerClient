@@ -1,5 +1,6 @@
 import {LOGIN_SUCCESS, LOGIN_RESET, LOGIN_VERIFY, LOGIN_CODE_VERIFY, LOGIN_ERROR, LOGIN_RESEND} from './types';
 import {ILogInFormData} from '../../components/LogInPage/LogInForm';
+import {IErrors} from '../../interfaces/IErrors';
 
 
 export const logInSuccess = () => <const>({
@@ -10,7 +11,7 @@ export const logInReset = () => <const>({
 	type: LOGIN_RESET
 });
 
-export const loginError = (errors: Object) => <const>({
+export const loginError = (errors: IErrors<ILogInFormData>) => <const>({
 	type: LOGIN_ERROR,
 	errors
 });

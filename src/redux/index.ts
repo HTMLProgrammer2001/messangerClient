@@ -15,18 +15,14 @@ import me from './me/reducer';
 import chat from './chat/reducer';
 import users from './users/reducer';
 import newGroup from './newGroup/reducer';
+import editMe from './editMe/';
 
 
 //create reducer
 let reducer = combineReducers({
-	app,
-	me,
-	signIn,
-	logIn,
-	dialogs,
-	chat,
-	users,
-	newGroup,
+	app, me, signIn,
+	logIn, dialogs, chat,
+	users, newGroup, editMe,
 	form: formReducer
 });
 

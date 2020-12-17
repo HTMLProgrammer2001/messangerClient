@@ -1,4 +1,4 @@
-@import '../../styles/includes/main';
+@import '../../../styles/includes/main';
 
 .wrapper{
 	background: #fff;
@@ -26,7 +26,7 @@
 	}
 
 	&_status{
-		color: $textMuted;
+		color: $textLightGray;
 	}
 }
 
@@ -51,6 +51,14 @@
 
     &:hover{
         color: $blue;
+    }
+
+    &_error{
+        color: $textRed;
+
+        &:hover{
+            color: $textRed;
+        }
     }
 }
 

@@ -1,31 +1,25 @@
-import {takeEvery, put, all, call} from 'redux-saga/effects';
-import {AxiosResponse} from 'axios';
+import {takeEvery, put, all, race, take} from 'redux-saga/effects';
 
-import authAPI from '../../utils/api/authAPI';
-import expressErrorsToObject from '../../utils/helpers/expressErrorsToObject';
-import {IUser} from '../../interfaces/IUser';
-import {meSet} from '../me/actions';
 import {appInitializeError, appInitializeSuccess} from './actions';
 import {APP_INITIALIZE_START} from './types';
+import {meStart} from '../me/actions';
+import {ME_RESET, ME_SET} from '../me/types';
 
 
-function* appInitialize(){
+function* appInitialize(): any{
 	try{
-		const token = localStorage.getItem('token');
+		//start me loading
+		yield put(meStart());
 
-		if(!token)
-			return;
+		//wait end
+		yield race([take(ME_SET), take(ME_RESET)]);
 
-		//make api request
-		const resp: AxiosResponse<IUser> = yield call(authAPI.getMe, token);
-		yield put(meSet(resp.data));
+		//set initialized
+		yield put(appInitializeSuccess());
 	}
 	catch(e){
 		//update error
 		yield put(appInitializeError());
-	}
-	finally {
-		yield put(appInitializeSuccess());
 	}
 }
 

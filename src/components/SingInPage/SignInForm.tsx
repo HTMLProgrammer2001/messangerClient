@@ -8,6 +8,7 @@ import Logo from '../Logo';
 import CodeInput from '../Common/CodeInput/';
 import FormikInput from '../FormElements/FormikInput';
 import connectFormToRedux from '../../utils/HOC/ConnectFormToRedux';
+import {IErrors} from '../../interfaces/IErrors';
 
 
 export type ISignInFormData = {
@@ -19,7 +20,7 @@ export type ISignInFormData = {
 
 type IOwnProps = {
 	verifing: boolean,
-	err: Object,
+	err: IErrors<ISignInFormData>,
 	onSubmit: (vals: ISignInFormData) => void,
 	resend: (vals: ISignInFormData) => void,
 	isLoading: boolean,
@@ -47,7 +48,7 @@ const SignInForm: React.FC<ISignInFormProps> = ({verifing, err, cancel, resend, 
 				</p>
 
 				{
-					err && <div className="red">{(err as any)._error}</div>
+					err && <div className="red">{err._error}</div>
 				}
 
 				<Field 
@@ -82,10 +83,9 @@ const SignInForm: React.FC<ISignInFormProps> = ({verifing, err, cancel, resend, 
 export default withFormik<IOwnProps, ISignInFormData>({
 	mapPropsToValues: () => ({name: '', phone: '', nickname: ''}),
 	handleSubmit: (vals, formikBag) => formikBag.props.onSubmit(vals),
-	validateOnBlur: false,
 	validationSchema: Yup.object().shape({
 		name: Yup.string().min(4).max(32).required(),
 		phone: Yup.string().required().matches(/\+?\d{7,}/, 'Incorrect format of phone number'),
 		nickname: Yup.string().min(4).max(32).required()
 	})
-})(connectFormToRedux<any>(SignInForm));
+})(connectFormToRedux<ISignInFormProps>(SignInForm));

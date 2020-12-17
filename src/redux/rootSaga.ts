@@ -8,6 +8,8 @@ import logInSaga from './logIn/sagas';
 import logoutSaga from './logout';
 import chatSaga from './chat/sagas';
 import newGroup from './newGroup/sagas';
+import me from './me/sagas';
+import editMe from './editMe/editMeSaga';
 
 
 //create root saga that we can run
@@ -20,7 +22,9 @@ function* rootSaga(){
 		logInSaga(),
 		logoutSaga(),
 		chatSaga(),
-		newGroup()
+		newGroup(),
+		me(),
+		editMe()
 	]);
 }
 

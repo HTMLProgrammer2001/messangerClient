@@ -4,10 +4,10 @@ import {connect, ConnectedProps} from 'react-redux';
 import UserItem from './UserItem';
 import styles from '../styles.module.scss';
 
-import {RootState} from '../../../redux';
-import {selectUsers} from '../../../redux/users/selectors';
-import {selectNewGroupStateUsers} from '../../../redux/newGroup/selectors';
-import {groupToggle} from '../../../redux/newGroup/actions';
+import {RootState} from '../../../../redux';
+import {selectUsers} from '../../../../redux/users/selectors';
+import {selectNewGroupStateUsers} from '../../../../redux/newGroup/selectors';
+import {groupToggle} from '../../../../redux/newGroup/actions';
 
 
 const mapStateToProps = (state: RootState) => ({
@@ -24,9 +24,9 @@ const UsersList: React.FC<IUsersListProps> = ({users, selected, toggleUser}) => 
 		{
 			users.map((user) => (
 				<UserItem
-					key={user.userID}
-					user={user}
-					active={!!~selected.indexOf(user.userID)}
+					key={user.id}
+					user={user as any}
+					active={!!~selected.indexOf(user.id)}
 					toggle={toggleUser}
 				/>
 			))

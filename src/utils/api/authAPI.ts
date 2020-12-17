@@ -35,14 +35,19 @@ const authAPI = {
 		return client.post<{message: string}>('/resend', {phone: values.phone, type: 2});
 	},
 
-	getMe(token: string){
+	getMe(){
 		return client.get<IUser>('/me', {
-			headers: {Authorization: `Bearer ${token}`}
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
 		})
 	},
-	logout(token: string){
+	logout(){
 		return client.post<{message: string}>('/logout', null,{
-			headers: {Authorization: `Bearer ${token}`}
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+		})
+	},
+	editMe(vals: any){
+		return client.post<{message: string}>('/me', vals, {
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
 		})
 	}
 };

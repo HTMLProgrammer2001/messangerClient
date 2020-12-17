@@ -10,7 +10,7 @@ import LogInPage from './LogInPage/';
 import SingInPage from './SingInPage/';
 
 import PopUpContext from '../utils/context/PopUpContext';
-import PopUpElement from './PopUpElement/';
+import PopUpElement from './PopUps/PopUpElement/';
 
 
 const App: React.FC<{}> = () => {

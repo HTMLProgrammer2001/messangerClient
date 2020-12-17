@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from '../styles.module.scss';
-import Switch from '../../Common/Switch';
+import Switch from '../../../Common/Switch';
 
 
 const NotificationSettings: React.FC<{}> = () => (

@@ -1,7 +1,7 @@
 import React from 'react';
 import {CSSTransition} from 'react-transition-group';
 
-import PopUpContext from '../../utils/context/PopUpContext';
+import PopUpContext from '../../../utils/context/PopUpContext';
 import styles from './styles.module.scss';
 import Content from './Content';
 

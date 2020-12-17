@@ -2,7 +2,7 @@ import React from 'react';
 import {reduxForm, InjectedFormProps, Field, submit} from 'redux-form';
 import {Dispatch} from 'redux';
 
-import InputElement from '../../FormElements/Input';
+import InputElement from '../../../FormElements/Input';
 
 export type INewGroupData = {
 	text: string

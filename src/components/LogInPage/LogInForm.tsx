@@ -2,9 +2,10 @@ import React from 'react';
 import {Form, Field, FormikProps, withFormik} from 'formik';
 import * as Yup from 'yup';
 
+import {IErrors} from '../../interfaces/IErrors';
 import styles from '../SingInPage/styles.module.scss';
-import Logo from '../Logo';
 
+import Logo from '../Logo';
 import CodeInput from '../Common/CodeInput/';
 import FormikInput from '../FormElements/FormikInput';
 import connectFormToRedux from '../../utils/HOC/ConnectFormToRedux';
@@ -18,7 +19,7 @@ export type ILogInFormData = {
 type IOwnProps = {
 	verifing: boolean,
 	isLoading: boolean,
-	err: Object,
+	err: IErrors<ILogInFormData>,
 	cancel: () => void,
 	resend: (vals: ILogInFormData) => void,
 	onSubmit: (vals: ILogInFormData) => any
@@ -47,7 +48,7 @@ const LogInForm: React.FC<ILogInFormProps> = ({resend, cancel, verifing, err, ..
 			</p>
 
 			{
-				err && <div className="red">{(err as any)._error}</div>
+				err && <div className="red">{err._error}</div>
 			}
 
 			<Field
@@ -70,9 +71,8 @@ const LogInForm: React.FC<ILogInFormProps> = ({resend, cancel, verifing, err, ..
 export default withFormik<IOwnProps, ILogInFormData>({
 	mapPropsToValues: () => ({phone: '', code: ''}),
 	handleSubmit: (values, formikBag) => formikBag.props.onSubmit(values),
-	validateOnBlur: false,
 	validationSchema: Yup.object().shape({
 		phone: Yup.string().required().matches(/\+?\d{7,}/, 'Incorrect format of phone number'),
 		code: Yup.string().length(8).matches(/^\d+$/, 'Incorrect code')
 	})
-})(connectFormToRedux<any>(LogInForm));
+})(connectFormToRedux<ILogInFormProps>(LogInForm));

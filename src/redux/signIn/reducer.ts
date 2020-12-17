@@ -1,6 +1,8 @@
 import {SIGNIN_SUCCESS, SIGNIN_RESET, SIGNIN_ERROR, SIGNIN_CODE_VERIFY, SIGNIN_VERIFY} from './types';
 import * as actionCreators from './actions';
 import {InferActionTypes} from '../';
+import {IErrors} from '../../interfaces/IErrors';
+import {ISignInFormData} from '../../components/SingInPage/SignInForm';
 
 //get action type
 type ISignInActions = InferActionTypes<typeof actionCreators>;
@@ -10,7 +12,7 @@ type ISignInActions = InferActionTypes<typeof actionCreators>;
 type ISignInState = {
 	verifing: boolean,
 	isLoading: boolean,
-	errors: Object
+	errors: IErrors<ISignInFormData>
 };
 
 const initialState: ISignInState = {

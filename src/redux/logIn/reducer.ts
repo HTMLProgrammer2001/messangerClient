@@ -1,6 +1,8 @@
 import {LOGIN_SUCCESS, LOGIN_RESET, LOGIN_ERROR, LOGIN_VERIFY, LOGIN_CODE_VERIFY} from './types';
 import * as actionCreators from './actions';
 import {InferActionTypes} from '../';
+import {IErrors} from '../../interfaces/IErrors';
+import {ILogInFormData} from '../../components/LogInPage/LogInForm';
 
 //action types
 type ILogInActions = InferActionTypes<typeof actionCreators>;
@@ -9,7 +11,7 @@ type ILogInActions = InferActionTypes<typeof actionCreators>;
 //reducer state type
 type ILogInState = {
 	verifing: boolean,
-	errors: Object,
+	errors: IErrors<ILogInFormData>,
 	isLoading: boolean
 };
 

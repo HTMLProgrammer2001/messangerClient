@@ -2,7 +2,7 @@ import {takeEvery, put, select} from 'redux-saga/effects';
 import {getFormValues, startSubmit, stopSubmit} from 'redux-form';
 
 import {GROUP_CREATE} from './types';
-import {IGroupNameFormData} from '../../components/NewGroupNamePopup/NameForm';
+import {IGroupNameFormData} from '../../components/PopUps/NewGroupNamePopup/NameForm';
 import {selectNewGroupStateUsers} from './selectors';
 
 

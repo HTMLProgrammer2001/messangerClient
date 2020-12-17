@@ -4,7 +4,7 @@ import {clearFields} from 'redux-form';
 
 import styles from '../AboutPopup/styles.module.scss';
 import NameForm from './NameForm';
-import {groupCreate} from '../../redux/newGroup/actions';
+import {groupCreate} from '../../../redux/newGroup/actions';
 
 
 const connected = connect(null, {

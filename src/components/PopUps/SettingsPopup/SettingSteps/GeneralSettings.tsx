@@ -2,7 +2,7 @@ import React from 'react';
 import {useDispatch} from 'react-redux';
 
 import styles from '../styles.module.scss';
-import {logoutStart} from '../../../redux/logout';
+import {logoutStart} from '../../../../redux/logout';
 
 
 const GeneralSettings: React.FC<{}> = () => {

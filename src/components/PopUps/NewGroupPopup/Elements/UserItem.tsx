@@ -1,9 +1,9 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import {IUserShort} from '../../../interfaces/IUserShort';
+import {IUserShort} from '../../../../interfaces/IUserShort';
 import styles from '../styles.module.scss';
-import UserAvatar from '../../Common/UserAvatar';
+import UserAvatar from '../../../Common/UserAvatar';
 
 
 type IUserItemProps = {

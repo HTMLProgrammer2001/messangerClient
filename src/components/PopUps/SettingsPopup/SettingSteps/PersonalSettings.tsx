@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {IUser} from '../../../interfaces/IUser';
+import {IUser} from '../../../../interfaces/IUser';
 import styles from '../styles.module.scss';
 import ChangeNickForm, {IChangeNickFormData} from './ChangeNickForm';
 
@@ -30,7 +30,7 @@ const PersonalSettings: React.FC<IPersonalInfoProps> = ({user}) => {
 					{
 						nickMode ?
 							<div className="additional" onClick={() => changeNickMode(!nickMode)}>
-								{user.nick || 'Set username'}
+								{user.nickname || 'Set username'}
 							</div>
 							:
 							<ChangeNickForm onSubmit={onSubmit}/>

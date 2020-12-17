@@ -2,9 +2,9 @@ import React from 'react';
 import classnames from 'classnames';
 
 import styles from '../styles.module.scss';
-import NewGroupPopup from '../../NewGroupPopup';
-import SettingsPopup from '../../SettingsPopup';
-import AboutPopup from '../../AboutPopup';
+import NewGroupPopup from '../../PopUps/NewGroupPopup/';
+import SettingsPopup from '../../PopUps/SettingsPopup/';
+import AboutPopup from '../../PopUps/AboutPopup';
 import PopUpContext from '../../../utils/context/PopUpContext';
 
 

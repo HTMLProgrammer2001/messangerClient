@@ -4,14 +4,14 @@ import {connect, ConnectedProps} from 'react-redux';
 import styles from '../AboutPopup/styles.module.scss';
 import SearchForm from './Elements/SearchForm';
 import UsersList from './Elements/UsersList';
-import Buttons from '../Common/Buttons/';
+import Buttons from '../../Common/Buttons/';
 
-import {usersStart} from '../../redux/users/actions';
-import PopUpContext from '../../utils/context/PopUpContext';
-import NewGroupNamePopup from '../NewGroupNamePopup';
-import {RootState} from '../../redux';
-import {selectNewGroupStateUsers} from '../../redux/newGroup/selectors';
-import {groupSet} from '../../redux/newGroup/actions';
+import {usersStart} from '../../../redux/users/actions';
+import PopUpContext from '../../../utils/context/PopUpContext';
+import NewGroupNamePopup from '../../PopUps/NewGroupNamePopup';
+import {RootState} from '../../../redux';
+import {selectNewGroupStateUsers} from '../../../redux/newGroup/selectors';
+import {groupSet} from '../../../redux/newGroup/actions';
 
 
 const mapStateToProps = (state: RootState) => ({
