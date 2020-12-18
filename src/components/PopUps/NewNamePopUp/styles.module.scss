@@ -1,0 +1,10 @@
+@import "../../../styles/includes/main";
+
+.wrapper{
+
+}
+
+.saveBut{
+    @extend %button_text;
+    color: $blue;
+}

@@ -22,7 +22,7 @@ const PersonalSettings: React.FC<IPersonalInfoProps> = ({user}) => {
 
 			<div className={styles.content_item_data}>
 				<div>
-					<div>+380666876892</div>
+					<div>{user.phone}</div>
 					<div className="muted small">Phone</div>
 				</div>
 

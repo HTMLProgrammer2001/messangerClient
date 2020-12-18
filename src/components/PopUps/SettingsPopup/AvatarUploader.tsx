@@ -20,10 +20,12 @@ const AvatarUploader: React.FC<{}> = () => {
 	const saveAvatar = (avatar: Blob) => {
 		//create vals
 		let formData = new FormData();
-		formData.set('avatar', avatar);
+		formData.set('avatar', new File([avatar], 'avatar.png', {type: 'image/png'}));
 
 		//start loading
 		dispatch(editMeAvatarStart(formData));
+
+		//hide popup
 		setElement(null);
 	};
 
@@ -40,6 +42,8 @@ const AvatarUploader: React.FC<{}> = () => {
 			//show crop popup
 			setElement(() => <CropForm img={img} onChange={saveAvatar}/>);
 		};
+
+		e.target.value = null;
 	};
 
 	return (

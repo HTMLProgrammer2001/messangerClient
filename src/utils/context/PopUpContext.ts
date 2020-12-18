@@ -2,12 +2,12 @@ import {createContext} from 'react';
 
 
 type IPopUpContextData = {
-	renderElement: () => any,
+	renderElement: Array<() => any>,
 	setElement: (rElem: () => any) => void
 };
 
 const PopUpContext = createContext<IPopUpContextData>({
-	renderElement: null,
+	renderElement: [],
 	setElement: () => false
 });
 

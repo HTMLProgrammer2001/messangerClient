@@ -50,6 +50,11 @@ const userActionsAPI = {
 		return client.post<IEditMeResponse>('/me', vals, {
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
 		})
+	},
+	deleteAvatar(){
+		return client.delete<IEditMeResponse>('/avatar', {
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+		});
 	}
 };
 

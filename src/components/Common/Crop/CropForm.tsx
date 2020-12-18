@@ -28,8 +28,6 @@ const CropForm: React.FC<ICropFormProps> = ({onChange, img}) => {
 		if(!img || !elem.current)
 			return;
 
-		console.log(img);
-
 		const newHeight = elem.current.offsetWidth/img.width * img.height;
 
 		//change elem size

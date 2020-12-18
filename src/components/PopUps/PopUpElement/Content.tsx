@@ -5,10 +5,10 @@ import styles from './styles.module.scss';
 
 type IContentProps = {
 	handler: (e: React.MouseEvent) => void,
-	renderElement: any
+	RenderElement: any
 }
 
-const Content: React.FC<IContentProps> = ({handler, renderElement}) => (
+const Content: React.FC<IContentProps> = ({handler, RenderElement}) => (
 	<div className={styles.wrapper}>
 		<span onClick={handler} className={styles.popUp_close}>
 			&times;
@@ -16,7 +16,7 @@ const Content: React.FC<IContentProps> = ({handler, renderElement}) => (
 
 		<div className={styles.popUp}>
 			<div className={styles.popUp_content}>
-				{renderElement}
+				<RenderElement/>
 			</div>
 		</div>
 	</div>

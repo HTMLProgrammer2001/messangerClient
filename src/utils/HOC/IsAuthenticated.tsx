@@ -5,6 +5,7 @@ import {Redirect} from 'react-router';
 import {selectAppState} from '../../redux/app/selectors';
 import {selectMe} from '../../redux/me/selectors';
 import {appInitializeStart} from '../../redux/app/actions';
+import Loader from '../../components/Common/Loader';
 
 
 const IsAuthenticated = (isAuth: boolean = true) =>
@@ -23,7 +24,7 @@ const IsAuthenticated = (isAuth: boolean = true) =>
 			}, []);
 
 			if(app.isLoading || !app.initialized)
-				return <div>Loading...</div>;
+				return <Loader/>;
 
 			if (!user && isAuth)
 				return <Redirect to='/login'/>;

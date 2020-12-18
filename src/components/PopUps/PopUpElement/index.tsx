@@ -10,7 +10,7 @@ const PopUpElement: React.FC<{}> = () => (
 	<PopUpContext.Consumer> 
 		{
 			({renderElement, setElement}) => {
-				if(!renderElement)
+				if(!renderElement.length)
 					return;
 
 				const handler = (e: React.MouseEvent) => {
@@ -19,19 +19,11 @@ const PopUpElement: React.FC<{}> = () => (
 
 				return (
 					<div>
-					<CSSTransition
-						timeout={{enter: 200, exit: 700}}
-						in={!!renderElement}
-						classNames={{
-							enter: styles.wr_enter,
-							enterActive: styles.wr_enter_active,
-							exit: styles.wr_exit,
-							exitActive: styles.wr_exit_active
-						}}
-						onEntered={() => console.log('Test')}
-					>
-						<Content handler={handler} renderElement={renderElement}/>
-					</CSSTransition>
+						{
+							renderElement.map((elem, key) => (
+								<Content handler={handler} RenderElement={elem} key={key}/>
+							))
+						}
 					</div>
 				);
 			}
