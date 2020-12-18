@@ -1,6 +1,6 @@
 import {takeLeading, call, put} from 'redux-saga/effects';
 
-import authAPI from '../utils/api/authAPI';
+import userActionsAPI from '../utils/api/userActionsAPI';
 import {meSet} from './me/actions';
 import {toast} from 'react-toastify';
 
@@ -19,7 +19,7 @@ function* logoutSaga() {
 			return;
 
 		//login
-		yield call(authAPI.logout);
+		yield call(userActionsAPI.logout);
 		yield put(meSet(null));
 	}
 	catch(e){

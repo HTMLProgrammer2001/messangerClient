@@ -5,6 +5,7 @@ import {ILogInFormData} from '../../components/LogInPage/LogInForm';
 import {IUser} from '../../interfaces/IUser';
 import {ILoginResponse} from '../../interfaces/Responses/ILoginResponse';
 import {ISignInResponse} from '../../interfaces/Responses/ISignInResponse';
+import {IEditMeResponse} from '../../interfaces/Responses/IEditMeResponse';
 
 
 const client = axios.create({
@@ -14,7 +15,7 @@ const client = axios.create({
 	}
 });
 
-const authAPI = {
+const userActionsAPI = {
 	signIn(values: ISignInFormData){
 		return client.post<{}>('/sign', values);
 	},
@@ -46,10 +47,10 @@ const authAPI = {
 		})
 	},
 	editMe(vals: any){
-		return client.post<{message: string}>('/me', vals, {
+		return client.post<IEditMeResponse>('/me', vals, {
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
 		})
 	}
 };
 
-export default authAPI;
+export default userActionsAPI;

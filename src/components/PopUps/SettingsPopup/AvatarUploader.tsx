@@ -1,23 +1,45 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import cn from 'classnames';
 
 import styles from './styles.module.scss';
 import {selectEditMeAvatarState} from '../../../redux/editMe/avatar/selectors';
 import {editMeAvatarStart} from '../../../redux/editMe/avatar/actions';
+import PopUpContext from '../../../utils/context/PopUpContext';
+import CropForm from '../../Common/Crop/CropForm';
 
 
 const AvatarUploader: React.FC<{}> = () => {
+	//get avatar state
 	const avatarState = useSelector(selectEditMeAvatarState);
 	const dispatch = useDispatch();
 
-	const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-		//create form vals
-		let formData = new FormData();
-		formData.set('avatar', e.target.files[0]);
+	//get context
+	const {setElement} = useContext(PopUpContext);
 
-		//start uploading
+	const saveAvatar = (avatar: Blob) => {
+		//create vals
+		let formData = new FormData();
+		formData.set('avatar', avatar);
+
+		//start loading
 		dispatch(editMeAvatarStart(formData));
+		setElement(null);
+	};
+
+	const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+		let file = e.target.files[0];
+
+		if(!file)
+			return;
+
+		const img = new Image();
+		img.src = URL.createObjectURL(file);
+
+		img.onload = () => {
+			//show crop popup
+			setElement(() => <CropForm img={img} onChange={saveAvatar}/>);
+		};
 	};
 
 	return (

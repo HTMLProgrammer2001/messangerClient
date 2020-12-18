@@ -1,11 +1,10 @@
 import {AxiosResponse} from 'axios';
 import {call, put, takeEvery, all} from 'redux-saga/effects';
-import {toast} from 'react-toastify';
 
 import {IUser} from '../../interfaces/IUser';
 import {meReset, meSet} from './actions';
 import {ME_START} from './types';
-import authAPI from '../../utils/api/authAPI';
+import userActionsAPI from '../../utils/api/userActionsAPI';
 
 
 function* meSaga(){
@@ -16,12 +15,11 @@ function* meSaga(){
 			return;
 
 		//make api request
-		const resp: AxiosResponse<IUser> = yield call(authAPI.getMe);
+		const resp: AxiosResponse<IUser> = yield call(userActionsAPI.getMe);
 		yield put(meSet(resp.data));
 	}
 	catch(e){
 		//update error
-		toast.error(e.response?.data.message || e.message);
 		yield put(meReset());
 	}
 }

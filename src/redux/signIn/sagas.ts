@@ -5,7 +5,7 @@ import {AxiosResponse} from 'axios';
 import {ISignInResponse} from '../../interfaces/Responses/ISignInResponse';
 import {SIGNIN_VERIFY, SIGNIN_CODE_VERIFY, SIGNIN_RESEND} from './types';
 import {signInCodeVerify, signInError, signInResend, signInSuccess} from './actions';
-import authAPI from '../../utils/api/authAPI';
+import userActionsAPI from '../../utils/api/userActionsAPI';
 import expressErrorsToObject from '../../utils/helpers/expressErrorsToObject';
 import {meSet} from '../me/actions';
 
@@ -13,7 +13,7 @@ import {meSet} from '../me/actions';
 function* signInSaga({payload}: ReturnType<typeof signInCodeVerify>){
 	try{
 		//make API request
-		yield call(authAPI.signIn, payload);
+		yield call(userActionsAPI.signIn, payload);
 		yield put(signInSuccess());
 	}
 	catch(e){
@@ -28,7 +28,7 @@ function* signInSaga({payload}: ReturnType<typeof signInCodeVerify>){
 function* signInCodeSaga({payload}: ReturnType<typeof signInCodeVerify>){
 	try{
 		//make api request
-		const resp: AxiosResponse<ISignInResponse> = yield call(authAPI.confirmSignIn, payload);
+		const resp: AxiosResponse<ISignInResponse> = yield call(userActionsAPI.confirmSignIn, payload);
 
 		//log in user
 		yield put(meSet(resp.data.user));
@@ -45,7 +45,7 @@ function* signInCodeSaga({payload}: ReturnType<typeof signInCodeVerify>){
 function* signInResendSaga({payload}: ReturnType<typeof signInResend>) {
 	try{
 		//make API call
-		yield call(authAPI.resendSignIn, payload);
+		yield call(userActionsAPI.resendSignIn, payload);
 		toast.success('New code was sent on your phone');
 	}
 	catch (e) {

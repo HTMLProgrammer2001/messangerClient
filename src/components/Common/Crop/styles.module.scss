@@ -1,0 +1,16 @@
+@import "../../../styles/includes/main";
+
+.wrapper{
+    @include flex(center, center, column);
+}
+
+.header{
+    @extend %header;
+
+    width: 100%;
+    @include flex(flex-end);
+}
+
+.saveBut{
+    @extend %button_text;
+}
