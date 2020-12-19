@@ -1,7 +1,11 @@
 @import "../../../styles/includes/main";
 
 .wrapper{
+    background: $bgElem;
+}
 
+.header{
+    @extend %header;
 }
 
 .saveBut{

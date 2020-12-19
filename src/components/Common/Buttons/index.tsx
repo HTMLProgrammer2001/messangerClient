@@ -15,12 +15,14 @@ const Buttons: React.FC<IButtonsProps> = ({isValid, onNext}) => {
 	return (
 		<div className={styles.buttonsRow}>
 			<button
+				type="button"
 				className={styles.button}
 				onClick={() => setElement(null)}
 			>Cancel
 			</button>
 
 			<button
+				type="button"
 				className={styles.button}
 				disabled={!isValid}
 				onClick={onNext}

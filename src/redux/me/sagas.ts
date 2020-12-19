@@ -5,6 +5,7 @@ import {IUser} from '../../interfaces/IUser';
 import {meReset, meSet} from './actions';
 import {ME_START} from './types';
 import userActionsAPI from '../../utils/api/userActionsAPI';
+import DB from '../../utils/helpers/DB';
 
 
 function* meSaga(){
@@ -17,6 +18,9 @@ function* meSaga(){
 		//make api request
 		const resp: AxiosResponse<IUser> = yield call(userActionsAPI.getMe);
 		yield put(meSet(resp.data));
+
+		//set options to DB
+		//yield call(DB.setData, 'settings', resp.data.opts);
 	}
 	catch(e){
 		//update error

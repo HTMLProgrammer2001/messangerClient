@@ -5,5 +5,6 @@ export type IUser = {
 	phone?: string,
 	description?: string,
 	role: number,
-	id: number
+	id: number,
+	opts: {[key: string]: any}
 };

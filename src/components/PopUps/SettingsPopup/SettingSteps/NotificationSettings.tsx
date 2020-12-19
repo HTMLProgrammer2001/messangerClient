@@ -1,35 +1,62 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import styles from '../styles.module.scss';
+import {IObject} from '../../../../interfaces/IObject';
 import Switch from '../../../Common/Switch';
+import DB from '../../../../utils/helpers/DB';
 
 
-const NotificationSettings: React.FC<{}> = () => (
-	<div className={styles.content_item}>
-		<i className={`fas fa-bell ${styles.content_item_icon}`}/>
+type INotificationSettingsProps = {
+	settings: IObject
+}
 
-		<div className={styles.content_item_data}>
-			<div className={styles.switcher}>
-				<div>Push notification</div>
-				<Switch onChange={(e:boolean) => {}}/>
-			</div>
+const NotificationSettings: React.FC<INotificationSettingsProps> = ({settings}) => {
+	const [curSettings, setCurSettings] = useState(settings);
 
-			<div className={styles.switcher}>
-				<div>Sound</div>
-				<Switch onChange={(e:boolean) => {}}/>
-			</div>
+	const onChange = (field: string, val: boolean) => {
+		setCurSettings((curSettings) => {
+			const newData = {...curSettings, [field]: val};
 
-			<div className={styles.switcher}>
-				<div>Message preview</div>
-				<Switch onChange={(e:boolean) => {}}/>
-			</div>
+			//change data
+			DB.setData('settings', newData);
+			return newData;
+		});
+	};
 
-			<div className={styles.switcher}>
-				<div>Desktop notification</div>
-				<Switch onChange={(e:boolean) => {}}/>
+	return (
+		<div className={styles.content_item}>
+			<i className={`fas fa-bell ${styles.content_item_icon}`}/>
+
+			<div className={styles.content_item_data}>
+				<div className={styles.switcher}>
+					<div>Push notification</div>
+
+					<Switch
+						onChange={onChange.bind(null, 'push')}
+						curState={!!curSettings['push']}
+					/>
+				</div>
+
+				<div className={styles.switcher}>
+					<div>Sound</div>
+
+					<Switch
+						onChange={onChange.bind(null, 'sound')}
+						curState={!!curSettings['sound']}
+					/>
+				</div>
+
+				<div className={styles.switcher}>
+					<div>Message preview</div>
+
+					<Switch
+						onChange={onChange.bind(null, 'preview')}
+						curState={!!curSettings['preview']}
+					/>
+				</div>
 			</div>
 		</div>
-	</div>
-);
+	);
+};
 
 export default NotificationSettings;

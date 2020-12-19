@@ -108,3 +108,25 @@ body{
         text-decoration: none;
     }
 }
+
+@for $i from 1 through 4{
+    .w-#{$i * 25}{
+        width: $i * 25%;
+    }
+}
+
+@for $i from 1 through 5{
+    .px-#{$i}{
+        padding-left: $i *  1rem;
+        padding-right: $i * 1rem;
+    }
+
+    .py-#{$i}{
+        padding-top: $i *  1rem;
+        padding-bottom: $i * 1rem;
+    }
+
+    .p-#{$i}{
+        padding: $i * 1rem;
+    }
+}

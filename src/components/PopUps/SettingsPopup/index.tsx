@@ -2,8 +2,10 @@ import React, {useContext} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 
 import styles from './styles.module.scss';
+import {IObject} from '../../../interfaces/IObject';
 import {RootState} from '../../../redux/';
 import {selectMe} from '../../../redux/me/selectors';
+import DB from '../../../utils/helpers/DB';
 
 import UserInfo from './UserInfo';
 import PersonalSettings from './SettingSteps/PersonalSettings';
@@ -40,7 +42,7 @@ const SettingsPopup: React.FC<ISettingsPopupProps> = ({user}) => {
 
 			<div className={styles.content}>
 				<PersonalSettings user={user}/>
-				<NotificationSettings/>
+				<NotificationSettings settings={DB.getData<IObject>('settings') || {}}/>
 				<GeneralSettings/>
 			</div>
 		</div>
