@@ -10,6 +10,7 @@ import chatSaga from './chat/sagas';
 import newGroup from './newGroup/sagas';
 import me from './me/sagas';
 import editMe from './editMe/editMeSaga';
+import change from './change/sagas';
 
 
 //create root saga that we can run
@@ -24,7 +25,8 @@ function* rootSaga(){
 		chatSaga(),
 		newGroup(),
 		me(),
-		editMe()
+		editMe(),
+		change()
 	]);
 }
 

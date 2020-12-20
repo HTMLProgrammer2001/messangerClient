@@ -6,6 +6,7 @@ import {IUser} from '../../interfaces/IUser';
 import {ILoginResponse} from '../../interfaces/Responses/ILoginResponse';
 import {ISignInResponse} from '../../interfaces/Responses/ISignInResponse';
 import {IEditMeResponse} from '../../interfaces/Responses/IEditMeResponse';
+import {IChangeFormData} from '../../components/ChangePhonePage/ChangeForm';
 
 
 const client = axios.create({
@@ -46,6 +47,7 @@ const userActionsAPI = {
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
 		})
 	},
+
 	editMe(vals: any){
 		return client.post<IEditMeResponse>('/me', vals, {
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
@@ -55,6 +57,16 @@ const userActionsAPI = {
 		return client.delete<IEditMeResponse>('/avatar', {
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
 		});
+	},
+
+	changePhone(vals: IChangeFormData){
+		return client.post<{}>('/changePhone', vals);
+	},
+	confirmChangePhone(vals: IChangeFormData){
+		return client.post<{}>('/confirm/changePhone', vals);
+	},
+	resendChange({phone}: {phone: string}){
+		return client.post<{message: string}>('/resend', {phone, type: 3});
 	}
 };
 

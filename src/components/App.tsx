@@ -12,6 +12,7 @@ import Loader from './Common/Loader';
 const MainPage = lazy(() => import('./MainPage/'));
 const LogInPage = lazy(() => import('./LogInPage/'));
 const SingInPage = lazy(() => import('./SingInPage/'));
+const ChangePage = lazy(() => import('./ChangePhonePage/'));
 
 
 const App: React.FC<{}> = () => {
@@ -33,6 +34,7 @@ const App: React.FC<{}> = () => {
 							<Route path='/' exact component={MainPage}/>
 							<Route path='/login' exact component={LogInPage}/>
 							<Route path='/signin' exact component={SingInPage}/>
+							<Route path='/change' exact component={ChangePage}/>
 
 							<Route path='/' render={() => <Redirect to='/'/>}/>
 						</Switch>
