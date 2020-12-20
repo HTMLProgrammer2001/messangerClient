@@ -30,7 +30,7 @@ type IOwnProps = {
 type ISignInFormProps = FormikProps<ISignInFormData> & IOwnProps;
 
 const SignInForm: React.FC<ISignInFormProps> = ({verifing, err, cancel, resend, ...formik}) => (
-		<Form onSubmit={formik.handleSubmit} className={styles.form}>
+		<Form onSubmit={formik.handleSubmit} className={styles.form} autoComplete="off">
 			<div className={styles.form_header}>
 				<Logo/>
 				<button 

@@ -1,7 +1,9 @@
-import React, {useState} from 'react';
-import {IUser} from '../../../../interfaces/IUser';
+import React, {useContext} from 'react';
+
 import styles from '../styles.module.scss';
-import ChangeNickForm, {IChangeNickFormData} from './ChangeNickForm';
+import {IUser} from '../../../../interfaces/IUser';
+import PopUpContext from '../../../../utils/context/PopUpContext';
+import NewNickPopUp from '../../NewNickPopup';
 
 
 type IPersonalInfoProps = {
@@ -9,11 +11,10 @@ type IPersonalInfoProps = {
 };
 
 const PersonalSettings: React.FC<IPersonalInfoProps> = ({user}) => {
-	const [nickMode, changeNickMode] = useState(true);
+	const {setElement} = useContext(PopUpContext);
 
-	const onSubmit = (vals: IChangeNickFormData) => {
-		changeNickMode(!nickMode);
-		console.log(vals);
+	const showChangeName = () => {
+		setElement(() => <NewNickPopUp/>);
 	};
 
 	return (
@@ -27,16 +28,11 @@ const PersonalSettings: React.FC<IPersonalInfoProps> = ({user}) => {
 				</div>
 
 				<div>
-					{
-						nickMode ?
-							<div className="additional" onClick={() => changeNickMode(!nickMode)}>
-								{user.nickname || 'Set username'}
-							</div>
-							:
-							<ChangeNickForm onSubmit={onSubmit}/>
-					}
+					<div className="additional" onClick={showChangeName}>
+						{user.nickname || 'Set nick'}
+					</div>
 
-					<div className="muted small">Username</div>
+					<div className="muted small">Nick</div>
 				</div>
 			</div>
 		</div>

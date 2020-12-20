@@ -28,7 +28,7 @@ type IOwnProps = {
 type ILogInFormProps = FormikProps<ILogInFormData> & IOwnProps;
 
 const LogInForm: React.FC<ILogInFormProps> = ({resend, cancel, verifing, err, ...formik}) => (
-	<Form noValidate className={styles.form} onSubmit={formik.handleSubmit}>
+	<Form noValidate className={styles.form} onSubmit={formik.handleSubmit} autoComplete="off">
 		<div className={styles.form_header}>
 			<Logo/>
 

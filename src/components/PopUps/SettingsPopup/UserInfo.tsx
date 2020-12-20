@@ -4,7 +4,7 @@ import {IUser} from '../../../interfaces/IUser';
 import styles from './styles.module.scss';
 import UserAvatar from '../../Common/UserAvatar';
 import PopUpContext from '../../../utils/context/PopUpContext';
-import NewNamePopUp from '../NewNamePopUp';
+import NewNamePopUp from '../NewNamePopup';
 
 
 type IUserInfo = {

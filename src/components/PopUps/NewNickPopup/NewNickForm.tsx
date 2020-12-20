@@ -9,29 +9,29 @@ import connectFormToRedux from '../../../utils/HOC/ConnectFormToRedux';
 import Buttons from '../../Common/Buttons';
 
 
-export type INewNameFormData = {
-	name: string
+export type INewNickFormData = {
+	nickname: string
 }
 
 type IOwnProps = {
 	defaultValue?: string,
-	handleSubmit: (vals: INewNameFormData) => void,
+	handleSubmit: (vals: INewNickFormData) => void,
 	isLoading: boolean,
-	err: IErrors<INewNameFormData>
+	err: IErrors<INewNickFormData>
 };
 
-type INewNameFormProps = FormikProps<INewNameFormData> & IOwnProps;
-const NewNameForm: React.FC<INewNameFormProps> = ({isLoading, err, submitForm, isValid, dirty, handleSubmit}) => (
-	<Form className={styles.form} noValidate onSubmit={handleSubmit}>
+type INewNickFormProps = FormikProps<INewNickFormData> & IOwnProps;
+const NewNickForm: React.FC<INewNickFormProps> = ({isLoading, err, submitForm, isValid, dirty, handleSubmit}) => (
+	<Form className={styles.form} noValidate onSubmit={handleSubmit} autoComplete="off">
 		{
 			err && <div className="red">{err._error}</div>
 		}
 
 		<Field
 			component={FormikInput}
-			name="name"
+			name="nickname"
 			type="text"
-			placeholder="Enter name"
+			placeholder="Enter nick"
 		/>
 
 		{
@@ -44,13 +44,13 @@ const NewNameForm: React.FC<INewNameFormProps> = ({isLoading, err, submitForm, i
 	</Form>
 );
 
-export default withFormik<IOwnProps, INewNameFormData>({
-	mapPropsToValues: (props) => ({name: props.defaultValue || ''}),
+export default withFormik<IOwnProps, INewNickFormData>({
+	mapPropsToValues: (props) => ({nickname: props.defaultValue || ''}),
 	validationSchema: Yup.object().shape({
-		name: Yup.string().min(4).max(32)
-			.matches(/^\p{Alpha}+[\s\p{Alpha}]+\p{Alpha}+$/u,
-				'Name must contains only letters and start/end without spaces')
+		nickname: Yup.string().min(4).max(32)
+			.matches(/^\w+$/,
+				'Nick must contains only letters and numbers')
 			.required()
 	}),
 	handleSubmit: (vals, formikBag) => formikBag.props.handleSubmit(vals)
-})(connectFormToRedux<INewNameFormProps>(NewNameForm));
+})(connectFormToRedux<INewNickFormProps>(NewNickForm));

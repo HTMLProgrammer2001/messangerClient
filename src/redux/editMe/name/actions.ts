@@ -1,6 +1,6 @@
 import {EDIT_ME_NAME_START, EDIT_ME_NAME_ERROR, EDIT_ME_NAME_SUCCESS} from './types';
 import {IErrors} from '../../../interfaces/IErrors';
-import {INewNameFormData} from '../../../components/PopUps/NewNamePopUp/NewNameForm';
+import {INewNameFormData} from '../../../components/PopUps/NewNamePopup/NewNameForm';
 
 
 export const editMeNameStart = (vals: INewNameFormData) => <const>({

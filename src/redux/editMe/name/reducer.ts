@@ -3,7 +3,7 @@ import * as actionCreators from './actions';
 
 import {InferActionTypes} from '../../';
 import {IErrors} from '../../../interfaces/IErrors';
-import {INewNameFormData} from '../../../components/PopUps/NewNamePopUp/NewNameForm';
+import {INewNameFormData} from '../../../components/PopUps/NewNamePopup/NewNameForm';
 
 //get action types
 type IEditMeNameActions = InferActionTypes<typeof actionCreators>;
