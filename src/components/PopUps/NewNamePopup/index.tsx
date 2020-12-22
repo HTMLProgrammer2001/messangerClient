@@ -3,14 +3,13 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import styles from './styles.module.scss';
 import NewNameForm, {INewNameFormData} from './NewNameForm';
-import {selectEditMeNameState} from '../../../redux/editMe/name/selectors';
-import {editMeNameStart} from '../../../redux/editMe/name/actions';
-import {selectMe} from '../../../redux/me/selectors';
+import {selectEditMeNameState, editMeNameStart} from '../../../redux/editMe/name/slice';
+import {selectMeInfo} from '../../../redux/me/slice';
 
 
 const NewNamePopUp: React.FC<{}> = () => {
 	const {isLoading, errors} = useSelector(selectEditMeNameState),
-		{name} = useSelector(selectMe);
+		{name} = useSelector(selectMeInfo);
 
 	const dispatch = useDispatch();
 

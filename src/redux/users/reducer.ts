@@ -16,9 +16,9 @@ const initialState: IUsersState = {
 	isLoading: false,
 	error: null,
 	users: [
-		{name: 'Yura', avatar: null, nick: 'somenick', userID: 1},
-		{name: 'Ira', avatar: null, nick: 'nick2', userID: 2},
-		{name: 'Angelina', avatar: null, nick: 'nick3', userID: 3}
+		{name: 'Yura', avatar: null, nickname: 'somenick', id: 1, role: 1, opts: {}},
+		{name: 'Ira', avatar: null, nickname: 'nick2', id: 2, role: 1, opts: {}},
+		{name: 'Angelina', avatar: null, nickname: 'nick3', id: 3, role: 1, opts: {}}
 	]
 };
 

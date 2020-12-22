@@ -1,32 +1,30 @@
 import {takeEvery, put, all, race, take} from 'redux-saga/effects';
 
-import {appInitializeError, appInitializeSuccess} from './actions';
-import {APP_INITIALIZE_START} from './types';
-import {meStart} from '../me/actions';
-import {ME_RESET, ME_SET} from '../me/types';
+import {appStart, appSuccess, appError} from './slice';
+import {meStart, meReset, meSet} from '../me/slice';
 
 
-function* appInitialize(): any{
+function* initializeSaga(): any{
 	try{
 		//start me loading
 		yield put(meStart());
 
 		//wait end
-		yield race([take(ME_SET), take(ME_RESET)]);
+		yield race([take(meSet.type), take(meReset.type)]);
 
 		//set initialized
-		yield put(appInitializeSuccess());
+		yield put(appSuccess());
 	}
 	catch(e){
 		//update error
-		yield put(appInitializeError());
+		yield put(appError(e.message));
 	}
 }
 
 function* watchAppSaga(){
 	//watch
 	yield all([
-		takeEvery(APP_INITIALIZE_START, appInitialize)
+		takeEvery(appStart.type, initializeSaga)
 	]);
 }
 

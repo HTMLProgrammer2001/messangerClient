@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 import styles from '../SingInPage/styles.module.scss';
-import {changeCodeVerify, changeResend, changeReset, changeVerify} from '../../redux/change/actions';
-import {selectChangeState} from '../../redux/change/selectors';
+import {changeCodeVerify, changeResend, changeReset, changeVerify, selectChangeState} from '../../redux/change/slice';
 import ChangeForm, {IChangeFormData} from './ChangeForm';
 
 
@@ -16,30 +16,24 @@ const ChangePage: React.FC<{}> = () => {
 		dispatch(changeReset());
 	}, []);
 
-	const onSubmit = (vals: IChangeFormData) => {
-		dispatch(!verifing ? changeVerify(vals) : changeCodeVerify(vals));
-	};
-
-	const onResend = (vals: IChangeFormData, type: string) => {
-		if(type == 'old')
-			dispatch(changeResend({phone: vals.oldPhone}));
-		else
-			dispatch(changeResend({phone: vals.newPhone}));
-	};
-
-	const onCancel = () => {
-		dispatch(changeReset());
-	};
+	const {resend, cancel, change} = bindActionCreators({
+		resend(vals: IChangeFormData, type: string){
+			let phone = type == 'old' ? vals.oldPhone : vals.newPhone;
+			return changeResend({phone});
+		},
+		cancel: changeReset,
+		change: (vals: IChangeFormData) => verifing ? changeCodeVerify(vals) : changeVerify(vals)
+	}, dispatch);
 
 	return (
 		<div className={styles.wrapper}>
 			<ChangeForm
 				verifing={verifing}
-				cancel={onCancel}
-				resend={onResend}
+				cancel={cancel}
+				resend={resend}
 				err={errors}
 				isLoading={isLoading}
-				onSubmit={onSubmit}
+				onSubmit={change}
 			/>
 		</div>
 	);

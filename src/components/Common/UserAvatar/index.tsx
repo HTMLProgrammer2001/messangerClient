@@ -4,7 +4,7 @@ import {useDispatch} from 'react-redux';
 import getInitials from '../../../utils/helpers/getInitials';
 import styles from './styles.module.scss';
 import userActionsAPI from '../../../utils/api/userActionsAPI';
-import {meSet} from '../../../redux/me/actions';
+import {meSet} from '../../../redux/me/slice';
 
 
 type IUserAvatarProps = {

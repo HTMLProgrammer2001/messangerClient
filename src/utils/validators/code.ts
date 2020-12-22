@@ -1,8 +1,8 @@
-const code = (value: string) => {
-	if(value == undefined)
-		return undefined;
+import * as Yup from 'yup';
 
-	return new RegExp('^\\d{8}$').test(value) ? undefined : 'Code must be numeric string with length of 8';
+
+const code = (msg = 'Incorrect code') => {
+	return Yup.string().length(8).matches(/^\d+$/, msg);
 };
 
 export default code;

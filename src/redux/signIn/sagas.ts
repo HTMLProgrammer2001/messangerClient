@@ -3,11 +3,10 @@ import {toast} from 'react-toastify';
 import {AxiosResponse} from 'axios';
 
 import {ISignInResponse} from '../../interfaces/Responses/ISignInResponse';
-import {SIGNIN_VERIFY, SIGNIN_CODE_VERIFY, SIGNIN_RESEND} from './types';
-import {signInCodeVerify, signInError, signInResend, signInSuccess} from './actions';
+import {signInCodeVerify, signInError, signInResend, signInSuccess, signInVerify} from './slice';
+import {meSet} from '../me/slice';
 import userActionsAPI from '../../utils/api/userActionsAPI';
 import expressErrorsToObject from '../../utils/helpers/expressErrorsToObject';
-import {meSet} from '../me/actions';
 
 
 function* signInSaga({payload}: ReturnType<typeof signInCodeVerify>){
@@ -57,9 +56,9 @@ function* signInResendSaga({payload}: ReturnType<typeof signInResend>) {
 function* watchSignInSaga(){
 	//setup watch
 	yield all([
-		takeEvery(SIGNIN_VERIFY, signInSaga),
-		takeEvery(SIGNIN_CODE_VERIFY, signInCodeSaga),
-		takeLeading(SIGNIN_RESEND, signInResendSaga)
+		takeEvery(signInVerify.type, signInSaga),
+		takeEvery(signInCodeVerify.type, signInCodeSaga),
+		takeLeading(signInResend.type, signInResendSaga)
 	]);
 }
 

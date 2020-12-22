@@ -1,8 +1,8 @@
-export default (value: string) => {
-	if(value == undefined)
-		return undefined;
+import * as Yup from 'yup';
 
-	return new RegExp('^\\+?\\d{5,}$', 'i').test(value) ?
-		undefined :
-		'Enter valid phone number';
+
+const phone = (msg = 'Incorrect phone format') => {
+	return Yup.string().matches(/\+?\d{7,}/, msg);
 };
+
+export default phone;

@@ -2,10 +2,9 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Redirect} from 'react-router';
 
-import {selectAppState} from '../../redux/app/selectors';
-import {selectMe} from '../../redux/me/selectors';
-import {appInitializeStart} from '../../redux/app/actions';
 import Loader from '../../components/Common/Loader';
+import {selectMeInfo} from '../../redux/me/slice';
+import {selectAppState, appStart} from '../../redux/app/slice';
 
 
 const IsAuthenticated = (isAuth: boolean = true) =>
@@ -13,14 +12,14 @@ const IsAuthenticated = (isAuth: boolean = true) =>
 		const AuthenticatedElement: React.FC<T> = (props) => {
 			//get data from store
 			const app = useSelector(selectAppState),
-				user = useSelector(selectMe);
+				user = useSelector(selectMeInfo);
 
 			const dispatch = useDispatch();
 
 			useEffect(() => {
 				//start initializing
 				if(!app.initialized)
-					dispatch(appInitializeStart());
+					dispatch(appStart());
 			}, []);
 
 			if(app.isLoading || !app.initialized)

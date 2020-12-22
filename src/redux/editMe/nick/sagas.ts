@@ -3,9 +3,8 @@ import {toast} from 'react-toastify';
 import {AxiosResponse} from 'axios';
 
 import {IEditMeResponse} from '../../../interfaces/Responses/IEditMeResponse';
-import {editMeNickError, editMeNickStart, editMeNickSuccess} from './actions';
-import {meSet} from '../../me/actions';
-import {EDIT_ME_NICK_START} from './types';
+import {editMeNickError, editMeNickStart, editMeNickSuccess} from './slice';
+import {meSet} from '../../me/slice';
 import userActionsAPI from '../../../utils/api/userActionsAPI';
 import expressErrorsToObject from '../../../utils/helpers/expressErrorsToObject';
 
@@ -33,7 +32,7 @@ function* editNickSaga({payload}: ReturnType<typeof editMeNickStart>){
 
 function* watchNickSaga() {
 	yield all([
-		takeLeading(EDIT_ME_NICK_START, editNickSaga)
+		takeLeading(editMeNickStart.type, editNickSaga)
 	]);
 }
 

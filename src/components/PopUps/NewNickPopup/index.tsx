@@ -3,14 +3,13 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import styles from './styles.module.scss';
 import NewNickForm, {INewNickFormData} from './NewNickForm';
-import {selectMe} from '../../../redux/me/selectors';
-import {selectEditMeNickState} from '../../../redux/editMe/nick/selectors';
-import {editMeNickStart} from '../../../redux/editMe/nick/actions';
+import {selectMeInfo} from '../../../redux/me/slice';
+import {selectEditMeNickState, editMeNickStart} from '../../../redux/editMe/nick/slice';
 
 
 const NewNickPopUp: React.FC<{}> = () => {
 	const {isLoading, errors} = useSelector(selectEditMeNickState),
-		{nickname} = useSelector(selectMe);
+		{nickname} = useSelector(selectMeInfo);
 
 	const dispatch = useDispatch();
 

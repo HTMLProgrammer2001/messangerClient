@@ -3,8 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import cn from 'classnames';
 
 import styles from './styles.module.scss';
-import {selectEditMeAvatarState} from '../../../redux/editMe/avatar/selectors';
-import {editMeAvatarStart} from '../../../redux/editMe/avatar/actions';
+import {selectEditMeAvatarState, editMeAvatarStart} from '../../../redux/editMe/avatar/slice';
 import PopUpContext from '../../../utils/context/PopUpContext';
 import CropForm from '../../Common/Crop/CropForm';
 

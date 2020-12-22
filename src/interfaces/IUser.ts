@@ -4,7 +4,7 @@ export type IUser = {
 	nickname: string,
 	phone?: string,
 	description?: string,
-	role: number,
+	role?: number,
 	id: number,
-	opts: {[key: string]: any}
+	opts: Record<string, any>
 };

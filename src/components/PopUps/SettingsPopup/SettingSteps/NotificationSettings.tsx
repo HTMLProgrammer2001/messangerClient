@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
 
 import styles from '../styles.module.scss';
-import {IObject} from '../../../../interfaces/IObject';
 import Switch from '../../../Common/Switch';
 import DB from '../../../../utils/helpers/DB';
 
 
 type INotificationSettingsProps = {
-	settings: IObject
+	settings: Record<string, any>
 }
 
 const NotificationSettings: React.FC<INotificationSettingsProps> = ({settings}) => {

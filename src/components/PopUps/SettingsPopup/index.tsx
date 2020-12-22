@@ -1,10 +1,8 @@
 import React, {useContext} from 'react';
-import {connect, ConnectedProps} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 import styles from './styles.module.scss';
-import {IObject} from '../../../interfaces/IObject';
-import {RootState} from '../../../redux/';
-import {selectMe} from '../../../redux/me/selectors';
+import {selectMeInfo} from '../../../redux/me/slice';
 import DB from '../../../utils/helpers/DB';
 
 import UserInfo from './UserInfo';
@@ -15,21 +13,17 @@ import PopUpContext from '../../../utils/context/PopUpContext';
 import AvatarUploader from './AvatarUploader';
 
 
-const mapStateToProps = (state: RootState) => ({
-	user: selectMe(state)
-});
-
-const connected = connect(mapStateToProps);
-
-type ISettingsPopupProps = ConnectedProps<typeof connected>;
-
-const SettingsPopup: React.FC<ISettingsPopupProps> = ({user}) => {
+const SettingsPopup: React.FC<{}> = () => {
+	const user = useSelector(selectMeInfo);
 	const {setElement} = useContext(PopUpContext);
 
 	if(!user) {
 		setElement(null);
 		return null;
 	}
+
+	//get settings from db
+	const settings = DB.getData<Record<string, any>>('settings') || {};
 
 	return (
 		<div className={styles.wrapper}>
@@ -42,11 +36,11 @@ const SettingsPopup: React.FC<ISettingsPopupProps> = ({user}) => {
 
 			<div className={styles.content}>
 				<PersonalSettings user={user}/>
-				<NotificationSettings settings={DB.getData<IObject>('settings') || {}}/>
+				<NotificationSettings settings={settings}/>
 				<GeneralSettings/>
 			</div>
 		</div>
 	);
 };
 
-export default connected(SettingsPopup);
+export default SettingsPopup;

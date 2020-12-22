@@ -3,9 +3,8 @@ import {toast} from 'react-toastify';
 import {AxiosResponse} from 'axios';
 
 import {IEditMeResponse} from '../../../interfaces/Responses/IEditMeResponse';
-import {editMeAvatarError, editMeAvatarStart, editMeAvatarSuccess} from './actions';
-import {meSet} from '../../me/actions';
-import {EDIT_ME_AVATAR_START} from './types';
+import {editMeAvatarError, editMeAvatarStart, editMeAvatarSuccess} from './slice';
+import {meSet} from '../../me/slice';
 import userActionsAPI from '../../../utils/api/userActionsAPI';
 
 
@@ -30,7 +29,7 @@ function* uploadAvatarSaga({payload}: ReturnType<typeof editMeAvatarStart>){
 
 function* watchAvatarSaga() {
 	yield all([
-		takeLeading(EDIT_ME_AVATAR_START, uploadAvatarSaga)
+		takeLeading(editMeAvatarStart.type, uploadAvatarSaga)
 	]);
 }
 

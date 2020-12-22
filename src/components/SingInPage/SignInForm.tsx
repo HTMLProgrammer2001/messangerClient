@@ -3,12 +3,15 @@ import {FormikProps, Form, Field, withFormik} from 'formik';
 import * as Yup from 'yup';
 
 import styles from './styles.module.scss';
-import Logo from '../Logo';
+import {IErrors} from '../../interfaces/IErrors';
+import phone from '../../utils/validators/phone';
+import nick from '../../utils/validators/nick';
+import name from '../../utils/validators/name';
 
+import Logo from '../Logo';
 import CodeInput from '../Common/CodeInput/';
 import FormikInput from '../FormElements/FormikInput';
 import connectFormToRedux from '../../utils/HOC/ConnectFormToRedux';
-import {IErrors} from '../../interfaces/IErrors';
 
 
 export type ISignInFormData = {
@@ -84,8 +87,8 @@ export default withFormik<IOwnProps, ISignInFormData>({
 	mapPropsToValues: () => ({name: '', phone: '', nickname: ''}),
 	handleSubmit: (vals, formikBag) => formikBag.props.onSubmit(vals),
 	validationSchema: Yup.object().shape({
-		name: Yup.string().min(4).max(32).required(),
-		phone: Yup.string().required().matches(/\+?\d{7,}/, 'Incorrect format of phone number'),
-		nickname: Yup.string().min(4).max(32).required()
+		name: name().required(),
+		phone: phone().required(),
+		nickname: nick().required()
 	})
 })(connectFormToRedux<ISignInFormProps>(SignInForm));

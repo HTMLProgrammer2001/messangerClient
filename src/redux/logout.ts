@@ -1,15 +1,12 @@
 import {takeLeading, call, put} from 'redux-saga/effects';
+import {toast} from 'react-toastify';
+import {createAction} from '@reduxjs/toolkit';
 
 import userActionsAPI from '../utils/api/userActionsAPI';
-import {meSet} from './me/actions';
-import {toast} from 'react-toastify';
+import {meSet} from './me/slice';
 
 
-const LOGOUT_START = 'logout/start';
-
-export const logoutStart = () => <const>({
-	type: LOGOUT_START
-});
+export const logoutStart = createAction<null>('logout/start');
 
 function* logoutSaga() {
 	try{
@@ -28,5 +25,5 @@ function* logoutSaga() {
 }
 
 export default function* watchLogoutSaga() {
-	yield takeLeading(LOGOUT_START, logoutSaga);
+	yield takeLeading(logoutStart.type, logoutSaga);
 }

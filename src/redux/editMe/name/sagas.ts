@@ -3,9 +3,8 @@ import {toast} from 'react-toastify';
 import {AxiosResponse} from 'axios';
 
 import {IEditMeResponse} from '../../../interfaces/Responses/IEditMeResponse';
-import {editMeNameError, editMeNameStart, editMeNameSuccess} from './actions';
-import {meSet} from '../../me/actions';
-import {EDIT_ME_NAME_START} from './types';
+import {editMeNameError, editMeNameStart, editMeNameSuccess} from './slice';
+import {meSet} from '../../me/slice';
 import userActionsAPI from '../../../utils/api/userActionsAPI';
 import expressErrorsToObject from '../../../utils/helpers/expressErrorsToObject';
 
@@ -33,7 +32,7 @@ function* editNameSaga({payload}: ReturnType<typeof editMeNameStart>){
 
 function* watchNameSaga() {
 	yield all([
-		takeLeading(EDIT_ME_NAME_START, editNameSaga)
+		takeLeading(editMeNameStart.type, editNameSaga)
 	]);
 }
 

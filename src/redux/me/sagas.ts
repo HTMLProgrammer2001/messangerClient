@@ -2,10 +2,8 @@ import {AxiosResponse} from 'axios';
 import {call, put, takeEvery, all} from 'redux-saga/effects';
 
 import {IUser} from '../../interfaces/IUser';
-import {meReset, meSet} from './actions';
-import {ME_START} from './types';
+import {meSet, meReset, meStart} from './slice';
 import userActionsAPI from '../../utils/api/userActionsAPI';
-import DB from '../../utils/helpers/DB';
 
 
 function* meSaga(){
@@ -30,7 +28,7 @@ function* meSaga(){
 
 function* meWatchSaga() {
 	yield all([
-		takeEvery(ME_START, meSaga)
+		takeEvery(meStart.type, meSaga)
 	]);
 }
 

@@ -1,47 +1,34 @@
 import React, {useEffect} from 'react';
-import {connect, ConnectedProps} from 'react-redux';
-
-
-import {RootState} from '../../redux/';
-import {selectSignInState} from '../../redux/signIn/selectors';
-import {signInVerify, signInCodeVerify, signInReset} from '../../redux/signIn/actions';
+import {useDispatch, useSelector} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 import styles from './styles.module.scss';
+import {signInVerify, signInCodeVerify, signInReset, signInResend, selectSignInState} from '../../redux/signIn/slice';
 import SignInForm, {ISignInFormData} from './SignInForm';
 import IsAuthenticated from '../../utils/HOC/IsAuthenticated';
 
 
-//connect component to redux store
-const mapStateToProps = (state: RootState) => selectSignInState(state);
+export const SignInPage: React.FC<{}> = () => {
+	const {verifing, errors, isLoading} = useSelector(selectSignInState),
+		dispatch = useDispatch();
 
-const mapDispatchToProps = (dispatch: any) => ({
-	signIn(verifing: boolean, vals: ISignInFormData){
-		dispatch(verifing ? signInCodeVerify(vals) : signInVerify(vals));
-	},
-	resetSignIn(){
-		dispatch(signInReset());
-	}
-});
+	const {resetSignIn, signIn} = bindActionCreators({
+		signIn: (vals: ISignInFormData) => verifing ? signInCodeVerify(vals) : signInVerify(vals),
+		resetSignIn: signInReset,
+		resendSignIn: signInResend
+	}, dispatch);
 
-const connected = connect(mapStateToProps, mapDispatchToProps);
-
-type ISignInPageProps = ConnectedProps<typeof connected>;
-export const SignInPage: React.FC<ISignInPageProps> = ({verifing, isLoading, errors, signIn, resetSignIn}) => {
 	useEffect(() => {
 		//change page title
 		document.title = 'Messanger | Sign in';
 		resetSignIn();
 	}, []);
 
-	const onSubmit = (vals: ISignInFormData) => {
-		signIn(verifing, vals);
-	};
-
 	return (
 		<div className={styles.wrapper}>
 			<SignInForm
-				onSubmit={onSubmit}
-				resend={() => {}}
+				onSubmit={signIn}
+				resend={signInResend}
 				cancel={resetSignIn}
 				verifing={verifing}
 				err={errors}
@@ -51,4 +38,4 @@ export const SignInPage: React.FC<ISignInPageProps> = ({verifing, isLoading, err
 	);
 };
 
-export default IsAuthenticated(false)(connected(SignInPage));
+export default IsAuthenticated(false)(SignInPage);

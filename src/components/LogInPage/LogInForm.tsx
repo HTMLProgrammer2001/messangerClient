@@ -4,6 +4,8 @@ import * as Yup from 'yup';
 
 import {IErrors} from '../../interfaces/IErrors';
 import styles from '../SingInPage/styles.module.scss';
+import phone from '../../utils/validators/phone';
+import code from '../../utils/validators/code';
 
 import Logo from '../Logo';
 import CodeInput from '../Common/CodeInput/';
@@ -72,7 +74,7 @@ export default withFormik<IOwnProps, ILogInFormData>({
 	mapPropsToValues: () => ({phone: '', code: ''}),
 	handleSubmit: (values, formikBag) => formikBag.props.onSubmit(values),
 	validationSchema: Yup.object().shape({
-		phone: Yup.string().required().matches(/\+?\d{7,}/, 'Incorrect format of phone number'),
-		code: Yup.string().length(8).matches(/^\d+$/, 'Incorrect code')
+		phone: phone().required(),
+		code: code()
 	})
 })(connectFormToRedux<ILogInFormProps>(LogInForm));

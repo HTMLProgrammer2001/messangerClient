@@ -7,6 +7,7 @@ import FormikInput from '../../FormElements/FormikInput';
 import {IErrors} from '../../../interfaces/IErrors';
 import connectFormToRedux from '../../../utils/HOC/ConnectFormToRedux';
 import Buttons from '../../Common/Buttons';
+import nick from '../../../utils/validators/nick';
 
 
 export type INewNickFormData = {
@@ -47,10 +48,7 @@ const NewNickForm: React.FC<INewNickFormProps> = ({isLoading, err, submitForm, i
 export default withFormik<IOwnProps, INewNickFormData>({
 	mapPropsToValues: (props) => ({nickname: props.defaultValue || ''}),
 	validationSchema: Yup.object().shape({
-		nickname: Yup.string().min(4).max(32)
-			.matches(/^\w+$/,
-				'Nick must contains only letters and numbers')
-			.required()
+		nickname: nick().required()
 	}),
 	handleSubmit: (vals, formikBag) => formikBag.props.handleSubmit(vals)
 })(connectFormToRedux<INewNickFormProps>(NewNickForm));

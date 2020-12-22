@@ -1,16 +1,15 @@
 import {takeEvery, put, all, call, takeLeading} from 'redux-saga/effects';
 import {AxiosResponse} from 'axios';
-
-import {ILoginResponse} from '../../interfaces/Responses/ILoginResponse';
-import {LOGIN_VERIFY, LOGIN_CODE_VERIFY, LOGIN_RESEND} from './types';
-import {logInCodeVerify, loginError, loginResend, logInSuccess, logInVerify} from './actions';
-import userActionsAPI from '../../utils/api/userActionsAPI';
-import expressErrorsToObject from '../../utils/helpers/expressErrorsToObject';
-import {meSet} from '../me/actions';
 import {toast} from 'react-toastify';
 
+import {ILoginResponse} from '../../interfaces/Responses/ILoginResponse';
+import {logInCodeVerify, logInError, logInResend, logInSuccess, logInVerify} from './slice';
+import {meSet} from '../me/slice';
+import userActionsAPI from '../../utils/api/userActionsAPI';
+import expressErrorsToObject from '../../utils/helpers/expressErrorsToObject';
 
-function* logIn({payload}: ReturnType<typeof logInVerify>){
+
+function* logInSaga({payload}: ReturnType<typeof logInVerify>){
 	try{
 		//make api request
 		yield call(userActionsAPI.logIn, payload);
@@ -18,14 +17,14 @@ function* logIn({payload}: ReturnType<typeof logInVerify>){
 	}
 	catch(e){
 		//update error
-		yield put(loginError({
+		yield put(logInError({
 			_error: e.response?.data.message || e.message,
 			...expressErrorsToObject(e.response?.data.errors)
 		}));
 	}
 }
 
-function* logInCode({payload}: ReturnType<typeof logInCodeVerify>){
+function* logInCodeSaga({payload}: ReturnType<typeof logInCodeVerify>){
 	try{
 		//make api request
 		const resp: AxiosResponse<ILoginResponse> = yield call(userActionsAPI.confirmLogin, payload);
@@ -36,14 +35,14 @@ function* logInCode({payload}: ReturnType<typeof logInCodeVerify>){
 	}
 	catch(e){
 		//update error
-		yield put(loginError({
+		yield put(logInError({
 			_error: e.response?.data.message || e.message,
 			...expressErrorsToObject(e.response?.data.errors)
 		}))
 	}
 }
 
-function* loginResendSaga({payload}: ReturnType<typeof loginResend>){
+function* loginResendSaga({payload}: ReturnType<typeof logInResend>){
 	try{
 		//make API call
 		yield call(userActionsAPI.resendLogin, payload);
@@ -58,9 +57,9 @@ function* loginResendSaga({payload}: ReturnType<typeof loginResend>){
 function* watchLogInSaga(){
 	//watch 
 	yield all([
-		takeEvery(LOGIN_VERIFY, logIn),
-		takeEvery(LOGIN_CODE_VERIFY, logInCode),
-		takeLeading(LOGIN_RESEND, loginResendSaga)
+		takeEvery(logInVerify.type, logInSaga),
+		takeEvery(logInCodeVerify.type, logInCodeSaga),
+		takeLeading(logInResend.type, loginResendSaga)
 	]);
 }
 

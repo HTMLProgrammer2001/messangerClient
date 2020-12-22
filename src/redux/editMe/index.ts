@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
 
-import avatar from './avatar/reducer';
-import name from './name/reducer';
-import nick from './nick/reducer';
+import avatar from './avatar/slice';
+import name from './name/slice';
+import nick from './nick/slice';
 
 
 const editMeReducers = combineReducers({

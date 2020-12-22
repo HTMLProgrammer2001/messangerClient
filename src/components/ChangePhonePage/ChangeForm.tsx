@@ -4,11 +4,12 @@ import * as Yup from 'yup';
 
 import {IErrors} from '../../interfaces/IErrors';
 import styles from '../SingInPage/styles.module.scss';
+import phone from '../../utils/validators/phone';
+import code from '../../utils/validators/code';
 
 import Logo from '../Logo';
 import FormikInput from '../FormElements/FormikInput';
 import connectFormToRedux from '../../utils/HOC/ConnectFormToRedux';
-import CodeInput from '../Common/CodeInput';
 import ChangeCodeInputs from './ChangeCodeInputs';
 
 
@@ -83,9 +84,9 @@ export default withFormik<IOwnProps, IChangeFormData>({
 	mapPropsToValues: () => ({oldPhone: '', newPhone: ''}),
 	handleSubmit: (values, formikBag) => formikBag.props.onSubmit(values),
 	validationSchema: Yup.object().shape({
-		oldPhone: Yup.string().required().matches(/\+?\d{7,}/, 'Incorrect format of phone number'),
-		newPhone: Yup.string().required().matches(/\+?\d{7,}/, 'Incorrect format of phone number'),
-		oldCode: Yup.string().length(8).matches(/^\d+$/, 'Incorrect code'),
-		newCode: Yup.string().length(8).matches(/^\d+$/, 'Incorrect code')
+		oldPhone: phone().required(),
+		newPhone: phone().required(),
+		oldCode: code(),
+		newCode: code()
 	})
 })(connectFormToRedux<IChangeFormProps>(ChangeForm));

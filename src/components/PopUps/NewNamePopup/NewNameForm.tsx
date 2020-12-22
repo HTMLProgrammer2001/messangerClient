@@ -3,8 +3,10 @@ import {Field, Form, FormikProps, withFormik} from 'formik';
 import * as Yup from 'yup';
 
 import styles from './styles.module.scss';
-import FormikInput from '../../FormElements/FormikInput';
 import {IErrors} from '../../../interfaces/IErrors';
+import name from '../../../utils/validators/name';
+
+import FormikInput from '../../FormElements/FormikInput';
 import connectFormToRedux from '../../../utils/HOC/ConnectFormToRedux';
 import Buttons from '../../Common/Buttons';
 
@@ -21,7 +23,7 @@ type IOwnProps = {
 };
 
 type INewNameFormProps = FormikProps<INewNameFormData> & IOwnProps;
-const NewNameForm: React.FC<INewNameFormProps> = ({isLoading, err, submitForm, isValid, dirty, handleSubmit}) => (
+const NewNameForm: React.FC<INewNameFormProps> = ({isLoading, err, submitForm, isValid, dirty, handleSubmit, isSubmitting}) => (
 	<Form className={styles.form} noValidate onSubmit={handleSubmit} autoComplete="off">
 		{
 			err && <div className="red">{err._error}</div>
@@ -35,7 +37,7 @@ const NewNameForm: React.FC<INewNameFormProps> = ({isLoading, err, submitForm, i
 		/>
 
 		{
-			isLoading ?
+			isLoading || isSubmitting ?
 				<i className="spinner spin"/> :
 				<div className="py-1">
 					<Buttons isValid={isValid || !dirty} onNext={submitForm}/>
@@ -47,10 +49,7 @@ const NewNameForm: React.FC<INewNameFormProps> = ({isLoading, err, submitForm, i
 export default withFormik<IOwnProps, INewNameFormData>({
 	mapPropsToValues: (props) => ({name: props.defaultValue || ''}),
 	validationSchema: Yup.object().shape({
-		name: Yup.string().min(4).max(32)
-			.matches(/^\p{Alpha}+[\s\p{Alpha}]+\p{Alpha}+$/u,
-				'Name must contains only letters and start/end without spaces')
-			.required()
+		name: name().required()
 	}),
 	handleSubmit: (vals, formikBag) => formikBag.props.handleSubmit(vals)
 })(connectFormToRedux<INewNameFormProps>(NewNameForm));

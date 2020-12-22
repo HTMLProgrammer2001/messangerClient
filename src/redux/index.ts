@@ -7,16 +7,16 @@ import {reducer as formReducer} from 'redux-form';
 import rootSaga from './rootSaga';
 
 //import reducers
-import app from './app/reducer';
-import signIn from './signIn/reducer';
-import logIn from './logIn/reducer';
-import dialogs from './dialogs/reducer';
-import me from './me/reducer';
-import chat from './chat/reducer';
-import users from './users/reducer';
-import newGroup from './newGroup/reducer';
-import change from './change/reducer';
+import app from './app/slice';
+import signIn from './signIn/slice';
+import logIn from './logIn/slice';
+import change from './change/slice';
 import editMe from './editMe/';
+import me from './me/slice';
+import dialogs from './dialogs/reducer';
+import users from './users/reducer';
+import chat from './chat/reducer';
+import newGroup from './newGroup/reducer';
 
 
 //create reducer
@@ -24,8 +24,7 @@ let reducer = combineReducers({
 	app, me, signIn,
 	logIn, dialogs, chat,
 	users, newGroup, editMe,
-	change,
-	form: formReducer
+	change, form: formReducer
 });
 
 let saga = createSagaMiddleware(),

@@ -1,31 +1,26 @@
 import React from 'react';
-import {connect, ConnectedProps} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 import UserAvatar from '../../../Common/UserAvatar/';
-import MessageInput, {IMessageInputData} from './MessageInput';
+import MessageInput from './MessageInput';
 
 import styles from './styles.module.scss';
-import {RootState} from '../../../../redux/';
-import {selectMe} from '../../../../redux/me/selectors';
+import {selectMeInfo} from '../../../../redux/me/slice';
 
 
-const mapStateToProps = (state: RootState) => ({
-	user: selectMe(state)
-});
+export const MessagePart: React.FC<{}> = () => {
+	const user = useSelector(selectMeInfo);
 
-const connected = connect(mapStateToProps);
+	return (
+		<div className={styles.message_row}>
+			<UserAvatar
+				avatar={user.avatar}
+				name={user.name}
+			/>
 
-type IMessageForm = ConnectedProps<typeof connected>;
+			<MessageInput onSubmit={console.log}/>
+		</div>
+	);
+};
 
-export const MessagePart: React.FC<IMessageForm> = ({user}) => (
-	<div className={styles.message_row}>
-		<UserAvatar
-			avatar={user.avatar}
-			name={user.name}
-		/>
-
-		<MessageInput onSubmit={console.log}/>
-	</div>
-);
-
-export default connected(MessagePart);
+export default MessagePart;

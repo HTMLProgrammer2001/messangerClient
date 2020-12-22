@@ -1,14 +1,13 @@
 import {takeEvery, put, all, call, takeLeading} from 'redux-saga/effects';
 import {toast} from 'react-toastify';
 
-import {CHANGE_VERIFY, CHANGE_CODE_VERIFY, CHANGE_RESEND} from './types';
-import {changeCodeVerify, changeError, changeResend, changeReset, changeSuccess, changeVerify} from './actions';
+import {changeCodeVerify, changeError, changeResend, changeReset, changeSuccess, changeVerify} from './slice';
+import {meSet} from '../me/slice';
 import userActionsAPI from '../../utils/api/userActionsAPI';
 import expressErrorsToObject from '../../utils/helpers/expressErrorsToObject';
-import {meSet} from '../me/actions';
 
 
-function* change({payload}: ReturnType<typeof changeVerify>){
+function* changeSaga({payload}: ReturnType<typeof changeVerify>){
 	try{
 		//make api request
 		yield call(userActionsAPI.changePhone, payload);
@@ -23,7 +22,7 @@ function* change({payload}: ReturnType<typeof changeVerify>){
 	}
 }
 
-function* changeCode({payload}: ReturnType<typeof changeCodeVerify>){
+function* changeCodeSaga({payload}: ReturnType<typeof changeCodeVerify>){
 	try{
 		//make api request
 		yield call(userActionsAPI.confirmChangePhone, payload);
@@ -58,9 +57,9 @@ function* changeResendSaga({payload}: ReturnType<typeof changeResend>){
 function* watchChangeSaga(){
 	//watch 
 	yield all([
-		takeEvery(CHANGE_VERIFY, change),
-		takeEvery(CHANGE_CODE_VERIFY, changeCode),
-		takeLeading(CHANGE_RESEND, changeResendSaga)
+		takeEvery(changeVerify.type, changeSaga),
+		takeEvery(changeCodeVerify.type, changeCodeSaga),
+		takeLeading(changeResend.type, changeResendSaga)
 	]);
 }
 
