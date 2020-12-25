@@ -1,4 +1,4 @@
-import {takeLatest, put} from 'redux-saga/effects';
+import {takeLatest, put, call} from 'redux-saga/effects';
 
 import {DIALOGS_GET} from './types';
 import {dialogsGet, dialogsLoadError, dialogsLoadStart, dialogsLoadSuccess} from './actions';
@@ -10,7 +10,7 @@ function* getDialogsSaga(action: ReturnType<typeof dialogsGet>){
 	yield put(dialogsLoadStart());
 
 	try{
-		const dialogs = yield messageAPI.getDialogs(action.offset);
+		const dialogs: any = yield call(messageAPI.getDialogs, action.offset);
 		yield put(dialogsLoadSuccess(dialogs));
 	}
 	catch(e){

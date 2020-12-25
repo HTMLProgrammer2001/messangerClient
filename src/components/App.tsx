@@ -16,17 +16,17 @@ const ChangePage = lazy(() => import('./ChangePhonePage/'));
 
 
 const App: React.FC<{}> = () => {
-	const [renderElement, setElement] = useState<any[]>([]);
+	const [renderElements, setElement] = useState<any[]>([]);
 
 	const addElement = (elem: any) => {
 		if (elem)
-			setElement([...renderElement, elem]);
+			setElement([...renderElements, elem]);
 		else
-			setElement(renderElement.slice(0, -1));
+			setElement(renderElements.slice(0, -1));
 	};
 
 	return (
-		<PopUpContext.Provider value={{renderElement, setElement: addElement}}>
+		<PopUpContext.Provider value={{renderElements, setElement: addElement}}>
 			<Provider store={store}>
 				<Suspense fallback={<Loader/>}>
 					<HashRouter>
