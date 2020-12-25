@@ -41,7 +41,8 @@ const dateToString = (time: number): string => {
 	}
 
 	else{
-		result = new Date(time).toLocaleDateString();
+		const date = new Date(time);
+		result = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 	}
 
 	return result;
