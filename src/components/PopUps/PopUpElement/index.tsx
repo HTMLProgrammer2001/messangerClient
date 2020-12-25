@@ -7,8 +7,8 @@ import Content from './Content';
 const PopUpElement: React.FC<{}> = () => (
 	<PopUpContext.Consumer> 
 		{
-			({renderElement, setElement}) => {
-				if(!renderElement.length)
+			({renderElements, setElement}) => {
+				if(!renderElements.length)
 					return;
 
 				const handler = (e: React.MouseEvent) => {
@@ -18,7 +18,7 @@ const PopUpElement: React.FC<{}> = () => (
 				return (
 					<div>
 						{
-							renderElement.map((elem, key) => (
+							renderElements.map((elem, key) => (
 								<Content handler={handler} RenderElement={elem} key={key}/>
 							))
 						}

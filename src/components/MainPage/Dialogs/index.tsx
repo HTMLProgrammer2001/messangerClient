@@ -3,30 +3,34 @@ import {connect, ConnectedProps} from 'react-redux';
 
 import styles from './styles.module.scss';
 import {RootState} from '../../../redux/';
-import {selectDialogs} from '../../../redux/dialogs/selectors';
+import {selectCurrentDialog, selectDialogs} from '../../../redux/dialogs/selectors';
 
 import Dialog from './Dialog/';
 import SearchForm, {ISearchDialogFormData} from './SearchForm';
+import {dialogsChangeCurrent} from '../../../redux/dialogs/actions';
 
 
 const mapStateToProps = (state: RootState) => ({
-	dialogs: selectDialogs(state)
+	dialogs: selectDialogs(state),
+	current: selectCurrentDialog(state)
 });
 
-const connected = connect(mapStateToProps, null);
+const connected = connect(mapStateToProps, {changeCurrent: dialogsChangeCurrent});
 
 type IDialogsProps = ConnectedProps<typeof connected>;
-
-export const Dialogs: React.FC<IDialogsProps> = ({dialogs}) => (
+export const Dialogs: React.FC<IDialogsProps> = ({dialogs, current, changeCurrent}) => (
 	<div className={styles.wrapper}>
-		<SearchForm onSubmit={
-			(vals: ISearchDialogFormData) => console.log(vals)
-		}/>
+		<SearchForm/>
 
 		<div className={styles.dialog_wrap}>
 			{
 				dialogs.map((dialog) => (
-					<Dialog {...dialog} key={dialog.id}/>
+					<Dialog
+						key={dialog.id}
+						dialog={dialog}
+						current={current}
+						changeCurrent={changeCurrent}
+					/>
 				))
 			}
 		</div>

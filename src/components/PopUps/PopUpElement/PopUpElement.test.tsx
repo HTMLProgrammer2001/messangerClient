@@ -12,12 +12,13 @@ describe('PopUpElement test: ', () => {
 	it('Mounted', () => {
 		const pop = mount(
 			<PopUpContext.Provider value={{
-				renderElement: () => <div className="test">Test</div>,
+				renderElements: [() => <div className="test">Test</div>],
 				setElement: () => {}
 			}}>
 				<PopUpElement/>
 			</PopUpContext.Provider>
 		);
+
 		expect(pop.html()).toMatchSnapshot();
 	});
 
@@ -31,7 +32,7 @@ describe('PopUpElement test: ', () => {
 
 		const pop = mount(
 			<PopUpContext.Provider value={{
-				renderElement: () => <div className="test">Test</div>,
+				renderElements: [() => <div className="test">Test</div>],
 				setElement: spy
 			}}>
 				<PopUpElement/>

@@ -15,7 +15,7 @@ describe('Unconnected dialog item test: ', () => {
 
 	beforeEach(() => {
 		fn = jest.fn(),
-		dialog = shallow(<Dialog {...mockDialog} changeCurrent={fn} current={mockDialog.id}/>);
+		dialog = shallow(<Dialog dialog={mockDialog} changeCurrent={fn} current={mockDialog.id}/>);
 	});
 
 	it('Mounted and snapshot', () => {
@@ -27,7 +27,7 @@ describe('Unconnected dialog item test: ', () => {
 	});
 
 	it('Check unactive state', () => {
-		dialog = shallow(<Dialog {...mockDialog} changeCurrent={fn} current={mockDialog.id + 1}/>);
+		dialog = shallow(<Dialog dialog={mockDialog} changeCurrent={fn} current={mockDialog.id + 1}/>);
 		expect(dialog.find(`.${styles.active}`).exists()).toBeFalsy();
 	});
 
@@ -37,7 +37,7 @@ describe('Unconnected dialog item test: ', () => {
 
 	it('Check unreaded show', () => {
 		dialog = shallow(<Dialog
-			{...{...mockDialog, unreaded: 3}}
+			dialog={{...mockDialog, unreaded: 3}}
 			changeCurrent={fn}
 			current={mockDialog.id + 1}
 		/>);
@@ -49,8 +49,4 @@ describe('Unconnected dialog item test: ', () => {
 		dialog.simulate('click');
 		expect(fn.mock.calls.length).toBe(1);
 	});
-});
-
-describe('Connected dialog item test', () => {
-
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import {InjectedFormProps, Field, reduxForm} from 'redux-form';
+import {FormikProps, withFormik, Field} from 'formik';
 
 import styles from './styles.module.scss';
 
@@ -8,10 +8,9 @@ export type ISearchDialogFormData = {
 	search: string
 };
 
-type ISearchDialogFormProps = InjectedFormProps<ISearchDialogFormData>;
-
-const SearchDialogForm: React.FC<ISearchDialogFormProps> = (props) => (
-	<form onSubmit={props.handleSubmit} className={styles.form}>
+type ISearchDialogFormProps = FormikProps<ISearchDialogFormData>;
+const SearchDialogForm: React.FC<ISearchDialogFormProps> = ({handleSubmit}) => (
+	<form onSubmit={handleSubmit} className={styles.form}>
 		<Field 
 			name="search" 
 			component="input" 
@@ -23,6 +22,6 @@ const SearchDialogForm: React.FC<ISearchDialogFormProps> = (props) => (
 	</form>
 );
 
-export default reduxForm<ISearchDialogFormData>({
-	form: 'searchDialog'
+export default withFormik<{}, ISearchDialogFormData>({
+	handleSubmit: (values, formikBag) => null
 })(SearchDialogForm);

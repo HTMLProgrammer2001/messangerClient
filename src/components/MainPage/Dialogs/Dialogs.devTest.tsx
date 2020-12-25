@@ -1,12 +1,9 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import {Provider} from 'react-redux';
-
-import {Dialogs} from './';
-import styles from './styles.module.scss';
-import store from '../../../redux/';
 
 import {IDialog} from '../../../interfaces/IDialog';
+import {Dialogs} from './';
+import styles from './styles.module.scss';
 
 
 describe('Dialogs unconnected test: ', () => {
@@ -16,24 +13,12 @@ describe('Dialogs unconnected test: ', () => {
 	];
 
 	it('Mounted', () => {
-		const dialogs = shallow(
-			<Provider store={store}>
-				<Dialogs dialogs={mockDialogs}/>
-			</Provider>
-		);
-
+		const dialogs = shallow(<Dialogs dialogs={mockDialogs} current={1} changeCurrent={jest.fn()}/>);
 		expect(dialogs.html()).toMatchSnapshot();
 	});
 
 	it('Should render same count of dialogs as mock', () => {
-		const dialogs = shallow(
-			<Provider store={store}>
-				<Dialogs dialogs={mockDialogs}/>
-			</Provider>
-		);
-
-		const dial = dialogs.find(`.${styles.dialog_wrap}`);
-
-		expect(dialogs.find(`.${styles.dialog}`).length).toBe(mockDialogs.length);
+		const dialogs = shallow(<Dialogs dialogs={mockDialogs} current={1} changeCurrent={jest.fn()}/>);
+		expect(dialogs.find(`.${styles.dialog}`)).toHaveLength(mockDialogs.length);
 	});
 });

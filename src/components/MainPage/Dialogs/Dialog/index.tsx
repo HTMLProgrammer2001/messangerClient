@@ -1,66 +1,60 @@
 import React, {useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
-import {connect, ConnectedProps} from 'react-redux';
 
 import styles from '../styles.module.scss';
 import {IDialog} from '../../../../interfaces/IDialog';
-import {RootState} from '../../../../redux';
-import {selectCurrentDialog} from '../../../../redux/dialogs/selectors';
-import {dialogsChangeCurrent as changeCurrent} from '../../../../redux/dialogs/actions';
 import UserAvatar from '../../../Common/UserAvatar';
 
 
-const mapStateToProps = (state: RootState) => ({
-	current: selectCurrentDialog(state)
-});
+type IDialogProps = {
+	dialog: IDialog,
+	current: number,
+	changeCurrent: (val: number) => void
+};
 
-const connected = connect(mapStateToProps, {changeCurrent});
-
-type IDialogProps = IDialog & ConnectedProps<typeof connected>;
-
-export const Dialog: React.FC<IDialogProps> = (props) => {
+export const Dialog: React.FC<IDialogProps> = ({dialog, changeCurrent, current}) => {
 	const history = useHistory();
 
 	const handler = () => {
-		if(props.current == props.id)
+		if(current == dialog.id)
 			history?.push('/');
 		else
-			history?.push(`/?dlg=${props.nick}`);
+			history?.push(`/?dlg=${dialog.nick}`);
 
-		props.changeCurrent(props.id);
+		changeCurrent(dialog.id);
 	};
 
 	useEffect(() => {
 		const params = new URLSearchParams(window.location.search);
 
-		if(params.get('dlg') == props.nick)
-			props.changeCurrent(props.id);
+		if(params.get('dlg') == dialog.nick)
+			changeCurrent(dialog.id);
 	}, []);
 
 	return (
 		<div 
-			className={`${styles.dialog} ${props.current == props.id ? styles.active : ''}`} 
+			className={`${styles.dialog} ${current == dialog.id ? styles.active : ''}`}
 			onClick={handler}>
 
-			<UserAvatar name={props.name} avatar={props.avatar} size={50}/>
+			<UserAvatar name={dialog.name} avatar={dialog.avatar} size={50}/>
 
 			<div className={styles.dialog_content}>
 				<div className={styles.dialog_header}>
 					<div className={styles.dialog_name}>
-						{props.name}
+						{dialog.name}
 
 						<p className={styles.dialog_last}>
-							{props.lastMessage.text}
+							{dialog.lastMessage.text}
 						</p>
 					</div>
 
 					<div className={styles.dialog_time}>
-						{props.lastMessage.time}
+						{dialog.lastMessage.time}
 
 						{
-							props.unreaded &&
+							dialog.unreaded &&
 								<div className={styles.dialog_unreaded}>
-									{props.unreaded}
+									{dialog.unreaded}
 								</div>
 						}
 					</div>
@@ -70,4 +64,4 @@ export const Dialog: React.FC<IDialogProps> = (props) => {
 	);
 };
 
-export default connected(Dialog);
+export default Dialog;

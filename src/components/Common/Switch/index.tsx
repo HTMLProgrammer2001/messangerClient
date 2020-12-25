@@ -14,8 +14,8 @@ const Switch: React.FC<ISwitchProps> = ({defaultState = false, onChange, curStat
 	const [state, changeState] = useState(defaultState);
 
 	const handler = () => {
-		changeState(curState != null ? !curState : state);
-		onChange(curState != null ? !curState : state);
+		changeState(curState != null ? !curState : !state);
+		onChange(curState != null ? !curState : !state);
 	};
 
 	return (
