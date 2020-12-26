@@ -11,6 +11,7 @@ import Logo from '../Logo';
 import CodeInput from '../Common/CodeInput/';
 import FormikInput from '../FormElements/FormikInput';
 import connectFormToRedux from '../../utils/HOC/ConnectFormToRedux';
+import {Link} from 'react-router-dom';
 
 
 export type ILogInFormData = {
@@ -66,6 +67,11 @@ const LogInForm: React.FC<ILogInFormProps> = ({resend, cancel, verifing, err, ..
 				cancel={cancel}
 				resend={() => resend(formik.values)}
 			/>
+		</div>
+
+		<div className={styles.links}>
+			<Link to="/sign">Sign in</Link>
+			<Link to="/change">Change phone</Link>
 		</div>
 	</Form>
 );

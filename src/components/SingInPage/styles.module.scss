@@ -43,3 +43,31 @@
 		color: $textMuted;
 	}
 }
+
+.formWrap{
+    @include flex(center, center, column);
+}
+
+.links{
+    width: 100%;
+    padding: .5rem;
+
+    display: flex;
+    justify-content: space-between;
+
+    &>a{
+        color: $blue;
+        font: {
+            weight: bold;
+            size: 1rem;
+        }
+
+        text-decoration: none;
+        transition: .3s all;
+
+        &:hover{
+            color: darken($blue, 20%);
+            text-decoration: none;
+        }
+    }
+}

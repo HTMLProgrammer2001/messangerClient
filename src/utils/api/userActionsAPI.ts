@@ -10,10 +10,8 @@ import {IChangeFormData} from '../../components/ChangePhonePage/ChangeForm';
 
 
 const client = axios.create({
-	baseURL: 'http://localhost:5000/',
-	headers: {
-		'Access-Controll-Allow-Origin': '*'
-	}
+	baseURL: process.env.API_URL || 'http://localhost:5000/',
+	headers: {'Access-Controll-Allow-Origin': '*'}
 });
 
 const userActionsAPI = {

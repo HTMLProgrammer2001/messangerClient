@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 
 import styles from './styles.module.scss';
 
-import Dialogs from './Dialogs/';
+import Dialogs from './SearchBar/';
 import DialogField from './DialogField/';
 import Header from '../Header/';
 import IsAuthenticated from '../../utils/HOC/IsAuthenticated';

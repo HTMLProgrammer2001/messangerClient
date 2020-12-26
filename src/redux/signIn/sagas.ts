@@ -30,6 +30,7 @@ function* signInCodeSaga({payload}: ReturnType<typeof signInCodeVerify>){
 		const resp: AxiosResponse<ISignInResponse> = yield call(userActionsAPI.confirmSignIn, payload);
 
 		//log in user
+		localStorage.setItem('token', resp.data.token);
 		yield put(meSet(resp.data.user));
 	}
 	catch(e){

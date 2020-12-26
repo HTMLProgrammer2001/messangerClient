@@ -26,7 +26,7 @@ const LogInPage: React.FC<{}> = () => {
 
 	return (
 		<div className={styles.wrapper}>
-			<div>
+			<div className={styles.formWrap}>
 				<LogInForm
 					verifing={verifing}
 					cancel={resetLogin}
@@ -35,10 +35,6 @@ const LogInPage: React.FC<{}> = () => {
 					isLoading={isLoading}
 					onSubmit={logIn}
 				/>
-
-				<Link to="/change">
-					Change phone
-				</Link>
 			</div>
 		</div>
 	);

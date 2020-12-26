@@ -1,5 +1,5 @@
 export type IUserShort = {
-	id: number,
+	_id: number,
 	nick: string,
 	name: string,
 	avatar?: string,

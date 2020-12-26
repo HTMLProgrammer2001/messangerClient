@@ -12,6 +12,7 @@ import Logo from '../Logo';
 import CodeInput from '../Common/CodeInput/';
 import FormikInput from '../FormElements/FormikInput';
 import connectFormToRedux from '../../utils/HOC/ConnectFormToRedux';
+import {Link} from 'react-router-dom';
 
 
 export type ISignInFormData = {
@@ -33,54 +34,59 @@ type IOwnProps = {
 type ISignInFormProps = FormikProps<ISignInFormData> & IOwnProps;
 
 const SignInForm: React.FC<ISignInFormProps> = ({verifing, err, cancel, resend, ...formik}) => (
-		<Form onSubmit={formik.handleSubmit} className={styles.form} autoComplete="off">
-			<div className={styles.form_header}>
-				<Logo/>
-				<button 
-					className={styles.form_next} 
-					disabled={!formik.isValid || formik.isSubmitting || !formik.dirty}
-					type="submit"
-				>Next</button>
-			</div>
+	<Form onSubmit={formik.handleSubmit} className={styles.form} autoComplete="off">
+		<div className={styles.form_header}>
+			<Logo/>
+			<button
+				className={styles.form_next}
+				disabled={!formik.isValid || formik.isSubmitting || !formik.dirty}
+				type="submit"
+			>Next
+			</button>
+		</div>
 
-			<div className={styles.form_content}>
-				<h6 className={styles.form_name}>Sign In</h6>
+		<div className={styles.form_content}>
+			<h6 className={styles.form_name}>Sign In</h6>
 
-				<p className={styles.form_desc}>
-					Please enter data in this field
-				</p>
+			<p className={styles.form_desc}>
+				Please enter data in this field
+			</p>
 
-				{
-					err && <div className="red">{err._error}</div>
-				}
+			{
+				err && <div className="red">{err._error}</div>
+			}
 
-				<Field 
-					name="name" 
-					component={FormikInput}
-					type="text" 
-					placeholder="Name"
-					disabled={verifing}
-				/>
+			<Field
+				name="name"
+				component={FormikInput}
+				type="text"
+				placeholder="Name"
+				disabled={verifing}
+			/>
 
-				<Field 
-					name="phone" 
-					component={FormikInput}
-					type="text" 
-					placeholder="Phone"
-					disabled={verifing}
-				/>
+			<Field
+				name="phone"
+				component={FormikInput}
+				type="text"
+				placeholder="Phone"
+				disabled={verifing}
+			/>
 
-				<Field 
-					name="nickname"
-					component={FormikInput}
-					type="text" 
-					placeholder="NickName"
-					disabled={verifing}
-				/>
+			<Field
+				name="nickname"
+				component={FormikInput}
+				type="text"
+				placeholder="NickName"
+				disabled={verifing}
+			/>
 
-				<CodeInput verifing={verifing} resend={() => resend(formik.values)} cancel={cancel}/>
-			</div>
-		</Form>
+			<CodeInput verifing={verifing} resend={() => resend(formik.values)} cancel={cancel}/>
+		</div>
+
+		<div className={styles.links}>
+			<Link to="/">Back</Link>
+		</div>
+	</Form>
 );
 
 export default withFormik<IOwnProps, ISignInFormData>({

@@ -2,7 +2,7 @@ import {IUserShort} from './IUserShort';
 
 
 export type IMessage = {
-	id: number,
+	_id: number,
 	type: string,
 	time: number,
 	text: string,

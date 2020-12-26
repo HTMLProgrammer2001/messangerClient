@@ -1,20 +1,39 @@
 import axios from 'axios';
 
-import {IGetUsersResponse} from '../../interfaces/Responses/IGetUsersResponse';
+import {IPaginateResponse} from '../../interfaces/Responses/IPaginateResponse';
+import {IDialog} from '../../interfaces/IDialog';
+import {IGetUserResponse} from '../../interfaces/Responses/IGetUserResponse';
 
+
+type IDialogsResponse = IPaginateResponse<IDialog>
 
 const client = axios.create({
-	baseURL: 'localhost:3000/api'
+	baseURL: process.env.API_URL || 'http://localhost:5000/'
 });
 
 
 const searchAPI = {
-	search(name: string, offset: number){
-		return axios.get<IGetUsersResponse>('/search', {
+	getDialogsByName(name: string, offset: number = 1){
+		return client.get<IDialogsResponse>('/dialogs/name', {
 			params: {name, page: offset},
-			headers: {
-				Authorization: `Bearer ${localStorage.getItem('token')}`
-			}
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+		});
+	},
+	getDialogsByNick(nick: string, offset: number = 1){
+		return client.get<IDialogsResponse>('/dialogs/nickname', {
+			params: {nickname: nick, page: offset},
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+		});
+	},
+	getUser(nick: string){
+		return client.get<IGetUserResponse>(`/users/${nick}`, {
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+		});
+	},
+	getMessagesByText(text: string, offset: number = 1){
+		return client.get<any>('/messages/text', {
+			params: {text, page: offset},
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
 		});
 	}
 };

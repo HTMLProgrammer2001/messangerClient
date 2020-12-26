@@ -4,7 +4,7 @@ import {IGetDialogsResponse} from '../../interfaces/Responses/IGetDialogsRespons
 
 
 const client = axios.create({
-	baseURL: 'localhost:3000/api'
+	baseURL: process.env.API_URL || 'http://localhost:5000/'
 });
 
 

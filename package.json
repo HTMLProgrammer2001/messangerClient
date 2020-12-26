@@ -25,8 +25,8 @@
     "yup": "^0.32.8"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "cross-env API_URL=http://localhost:5000 react-scripts start",
+    "build": "cross-env API_URL=https://messangerkx.herokuapp.com/ react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "ci": "cross-env CI=true react-scripts test -u"

@@ -130,3 +130,8 @@ body{
         padding: $i * 1rem;
     }
 }
+
+.between{
+    display: flex;
+    justify-content: space-between;
+}

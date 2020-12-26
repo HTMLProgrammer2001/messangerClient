@@ -1,5 +1,5 @@
 export type IDialog = {
-	id: number,
+	_id: string,
 	nick: string,
 	avatar?: string,
 	name: string,

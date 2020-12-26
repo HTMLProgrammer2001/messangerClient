@@ -11,6 +11,7 @@ import Logo from '../Logo';
 import FormikInput from '../FormElements/FormikInput';
 import connectFormToRedux from '../../utils/HOC/ConnectFormToRedux';
 import ChangeCodeInputs from './ChangeCodeInputs';
+import {Link} from 'react-router-dom';
 
 
 export type IChangeFormData = {
@@ -76,6 +77,10 @@ const ChangeForm: React.FC<IChangeFormProps> = ({resend, cancel, verifing, err, 
 				cancel={cancel}
 				resend={(type) => resend(formik.values, type)}
 			/>
+		</div>
+
+		<div className={styles.links}>
+			<Link to="/">Back</Link>
 		</div>
 	</Form>
 );

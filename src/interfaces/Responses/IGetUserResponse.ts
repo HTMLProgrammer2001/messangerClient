@@ -1,8 +1,7 @@
 import {IUser} from '../IUser';
 
 
-export type ISignInResponse = {
+export type IGetUserResponse = {
 	message: string,
-	token: string,
 	user: IUser
 }

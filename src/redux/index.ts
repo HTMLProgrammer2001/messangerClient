@@ -13,10 +13,11 @@ import logIn from './logIn/slice';
 import change from './change/slice';
 import editMe from './editMe/';
 import me from './me/slice';
-import dialogs from './dialogs/reducer';
-import users from './users/reducer';
+import search from './search/slice';
 import chat from './chat/reducer';
 import newGroup from './newGroup/reducer';
+import dialogs from './dialogs';
+import users from './users';
 
 
 //create reducer
@@ -24,7 +25,7 @@ let reducer = combineReducers({
 	app, me, signIn,
 	logIn, dialogs, chat,
 	users, newGroup, editMe,
-	change, form: formReducer
+	search, change, form: formReducer
 });
 
 let saga = createSagaMiddleware(),
@@ -41,5 +42,3 @@ export default store;
 type ActionCreators = {[key: string]: (...args: any) => any};
 type PropertiesTypes<T> = T extends {[key: string]: infer U} ? U : never;
 export type InferActionTypes<T extends ActionCreators> = ReturnType<PropertiesTypes<T>>;
-
-export type PropType<T, K extends keyof T> = T[K];

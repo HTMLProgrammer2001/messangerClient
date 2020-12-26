@@ -33,7 +33,7 @@ const App: React.FC<{}> = () => {
 						<Switch>
 							<Route path='/' exact component={MainPage}/>
 							<Route path='/login' exact component={LogInPage}/>
-							<Route path='/signin' exact component={SingInPage}/>
+							<Route path='/sign' exact component={SingInPage}/>
 							<Route path='/change' exact component={ChangePage}/>
 
 							<Route path='/' render={() => <Redirect to='/'/>}/>
