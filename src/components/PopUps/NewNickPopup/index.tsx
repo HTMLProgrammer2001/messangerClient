@@ -1,6 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
+import {IUser} from '../../../interfaces/IUser';
 import styles from './styles.module.scss';
 import NewNickForm, {INewNickFormData} from './NewNickForm';
 import {selectMeInfo} from '../../../redux/me/slice';
@@ -9,7 +10,7 @@ import {selectEditMeNickState, editMeNickStart} from '../../../redux/editMe/nick
 
 const NewNickPopUp: React.FC<{}> = () => {
 	const {isLoading, errors} = useSelector(selectEditMeNickState),
-		{nickname} = useSelector(selectMeInfo);
+		{nickname} = useSelector(selectMeInfo) as IUser;
 
 	const dispatch = useDispatch();
 

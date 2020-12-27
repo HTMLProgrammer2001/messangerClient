@@ -1,9 +1,8 @@
 import {takeLatest, put, all} from 'redux-saga/effects';
 
-import {DIALOGS_CURRENT_CHANGE} from '../dialogs/types';
+import {searchSetCurrent} from '../search/slice';
 import {CHAT_MORE} from './types';
 import {chatLoadError, chatLoadStart, chatLoadSuccess} from './actions';
-import messageAPI from '../../utils/api/messageAPI';
 
 
 function* getChatSaga(){
@@ -23,7 +22,7 @@ function* getChatSaga(){
 function* watchChatSaga(){
 	//setup watchers
 	yield all([
-		takeLatest(DIALOGS_CURRENT_CHANGE, getChatSaga),
+		takeLatest(searchSetCurrent.type, getChatSaga),
 		takeLatest(CHAT_MORE, getChatSaga)
 	]);
 }

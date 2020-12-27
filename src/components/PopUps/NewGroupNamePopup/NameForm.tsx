@@ -1,39 +1,29 @@
 import React from 'react';
-import {Field, reduxForm, InjectedFormProps} from 'redux-form';
+import {FormikProps, Field, withFormik} from 'formik';
 
-import InputElement from '../../FormElements/Input';
-import sizeBetween from '../../../utils/validators/sizeBetween';
+import FormikInput from '../../FormElements/FormikInput';
 
 
 export type IGroupNameFormData = {
 	name: string
 };
 
-type INameFormProps = InjectedFormProps<IGroupNameFormData>;
-
-const nameSize = sizeBetween(4);
-
-const NameForm: React.FC<INameFormProps> = ({handleSubmit, error, submitting}) => (
+type INameFormProps = FormikProps<IGroupNameFormData>;
+const NameForm: React.FC<INameFormProps> = ({handleSubmit, isSubmitting, errors}) => (
 	<form onSubmit={handleSubmit}>
 		<Field
 			name="text"
 			type="text"
 			placeholder="Enter group name"
-			component={InputElement}
+			component={FormikInput}
 			style={{marginTop: 0}}
-			validate={[nameSize]}
 		/>
 
-		{
-			error && <div className="red">{error}</div>
-		}
-
-		{
-			submitting && <div>Loading</div>
-		}
+		{errors && <div className="red">{errors}</div>}
+		{isSubmitting && <div>Loading</div>}
 	</form>
 );
 
-export default reduxForm<IGroupNameFormData>({
-	form: 'groupName'
+export default withFormik<{}, IGroupNameFormData>({
+	handleSubmit: (vals) => console.log(vals)
 })(NameForm);

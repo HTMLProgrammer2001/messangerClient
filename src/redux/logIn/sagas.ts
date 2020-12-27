@@ -5,6 +5,7 @@ import {toast} from 'react-toastify';
 import {ILoginResponse} from '../../interfaces/Responses/ILoginResponse';
 import {logInCodeVerify, logInError, logInResend, logInSuccess, logInVerify} from './slice';
 import {meSet} from '../me/slice';
+import {usersAdd} from '../users';
 import userActionsAPI from '../../utils/api/userActionsAPI';
 import expressErrorsToObject from '../../utils/helpers/expressErrorsToObject';
 
@@ -30,7 +31,8 @@ function* logInCodeSaga({payload}: ReturnType<typeof logInCodeVerify>){
 		const resp: AxiosResponse<ILoginResponse> = yield call(userActionsAPI.confirmLogin, payload);
 
 		//set data in store
-		yield put(meSet(resp.data.user));
+		yield put(usersAdd(resp.data.user));
+		yield put(meSet(resp.data.user._id));
 		localStorage.setItem('token', resp.data.token);
 	}
 	catch(e){

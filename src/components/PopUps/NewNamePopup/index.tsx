@@ -1,6 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
+import {IUser} from '../../../interfaces/IUser';
 import styles from './styles.module.scss';
 import NewNameForm, {INewNameFormData} from './NewNameForm';
 import {selectEditMeNameState, editMeNameStart} from '../../../redux/editMe/name/slice';
@@ -9,7 +10,7 @@ import {selectMeInfo} from '../../../redux/me/slice';
 
 const NewNamePopUp: React.FC<{}> = () => {
 	const {isLoading, errors} = useSelector(selectEditMeNameState),
-		{name} = useSelector(selectMeInfo);
+		{name} = useSelector(selectMeInfo) as IUser;
 
 	const dispatch = useDispatch();
 

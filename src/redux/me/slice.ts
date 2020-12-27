@@ -1,12 +1,14 @@
 import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit';
 
+import {RootState} from '../';
 import {IUser} from '../../interfaces/IUser';
-import {RootState} from '../index';
+import mapIdWith from '../../utils/helpers/mapIdWith';
+import {selectUsers} from '../users';
 
 
 type IMeState = {
 	isLoading: boolean,
-	user: IUser
+	user: string
 };
 
 const initialState: IMeState = {
@@ -22,7 +24,7 @@ const meSlice = createSlice({
 			state.isLoading = true;
 			state.user = null;
 		},
-		set(state, action: PayloadAction<IUser>){
+		set(state, action: PayloadAction<string>){
 			state.isLoading = false;
 			state.user = action.payload;
 		},
@@ -34,7 +36,7 @@ const meSlice = createSlice({
 });
 
 export const selectMeState = (state: RootState) => state.me;
-export const selectMeInfo = createSelector([selectMeState], (meState) => meState.user);
+export const selectMeInfo = (state: RootState) => mapIdWith<IUser>(selectMeState(state).user, selectUsers(state));
 
 export const {set: meSet, reset: meReset, start: meStart} = meSlice.actions;
 export default meSlice.reducer;

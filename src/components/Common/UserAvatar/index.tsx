@@ -19,7 +19,7 @@ const UserAvatar: React.FC<IUserAvatarProps> = ({avatar, name, size = 60, profil
 
 	const deleteAvatar = async () => {
 		const resp = await userActionsAPI.deleteAvatar();
-		dispatch(meSet(resp.data.newUser));
+		dispatch(meSet(resp.data.newUser._id));
 	};
 
 	return (

@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 import {IDialog} from '../interfaces/IDialog';
-import {RootState} from './index';
+import {RootState} from './';
 
 
 //state
@@ -20,6 +20,9 @@ const dialogsSlice = createSlice({
 			state[id] = {...cur, ...action.payload};
 		},
 		dialogsAddMany(state, action: PayloadAction<IDialog[]>){
+			if(!action.payload)
+				return;
+
 			action.payload.forEach(dialog => {
 				const id = dialog._id,
 					cur = state[id] || {};

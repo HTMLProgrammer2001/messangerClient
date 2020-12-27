@@ -54,7 +54,7 @@ const Chat: React.FC<IChatProps> = ({messages, error, loading, offset}) => {
 									<RelativeDate time={message.time}/>
 							}
 
-							<Message {...message} key={message.id}/>
+							<Message {...message} key={message._id}/>
 						</>
 					)
 				})

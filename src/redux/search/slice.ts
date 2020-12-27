@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction, createSelector} from '@reduxjs/toolkit';
 
 import {RootState} from '../';
 import {SearchTypes} from '../../constants/SearchTypes';
@@ -39,6 +39,10 @@ const searchSlice = createSlice({
 		start(state, action: PayloadAction<string>){
 			state.isLoading = true;
 			state.wasError = false;
+
+			state.user = null;
+			state.messages = [];
+			state.dialogs = [];
 		},
 		error(state, action: PayloadAction<null>){
 			state.wasError = true;
@@ -59,10 +63,16 @@ const searchSlice = createSlice({
 			state.user = action.payload;
 		},
 		addDialogs(state, action: PayloadAction<string[]>){
-			state.dialogs.concat(action.payload);
+			state.dialogs = state.dialogs.concat(action.payload);
+		},
+		clearDialogs(state, action: PayloadAction<null>){
+			state.dialogs = [];
 		},
 		addMessages(state, action: PayloadAction<string[]>){
-			state.messages.concat(action.payload);
+			state.messages = state.messages.concat(action.payload);
+		},
+		clearMessages(state, action: PayloadAction<null>){
+			state.messages = [];
 		},
 		setCurrent(state, action: PayloadAction<string>){
 			state.current = action.payload;
@@ -88,12 +98,16 @@ export const selectSearchMessages = (state: RootState) => {
 	return mapIdWith(selectSearchState(state).messages, {});
 };
 
+export const selectSearchHasData = createSelector(selectSearchState, (search) => {
+	return search.user || search.dialogs.length || search.messages.length;
+});
+
 //exports
 export const {
 	clear: searchClear, setText: searchSetText, setUser: searchSetUser,
 	addDialogs: searchAddDialogs, addMessages: searchAddMessages,
 	start: searchStart, success: searchSuccess, error: searchError,
-	setCurrent: searchSetCurrent
+	setCurrent: searchSetCurrent, clearDialogs: searchClearDialogs, clearMessages: searchClearMessages
 } = searchSlice.actions;
 
 export default searchSlice.reducer;

@@ -1,14 +1,14 @@
 import React from 'react';
 
-import DialogSection from './Sections/DialogSection';
-import MessageSection from './Sections/MessageSection';
+import DialogsSection from './Sections/DialogsSection';
+import MessagesSection from './Sections/MessagesSection';
 
 
 const TextBar: React.FC<{}> = () => {
 	return (
 		<div>
-			<DialogSection/>
-			<MessageSection/>
+			<DialogsSection/>
+			<MessagesSection/>
 		</div>
 	);
 };

@@ -5,7 +5,7 @@ import UserItem from './UserItem';
 import styles from '../styles.module.scss';
 
 import {RootState} from '../../../../redux';
-import {selectUsers} from '../../../../redux/users/selectors';
+import {selectUsers} from '../../../../redux/users';
 import {selectNewGroupStateUsers} from '../../../../redux/newGroup/selectors';
 import {groupToggle} from '../../../../redux/newGroup/actions';
 
@@ -22,11 +22,11 @@ type IUsersListProps = ConnectedProps<typeof connected>;
 const UsersList: React.FC<IUsersListProps> = ({users, selected, toggleUser}) => (
 	<div className={styles.list}>
 		{
-			users.map((user) => (
+			Object.values(users).map((user) => (
 				<UserItem
-					key={user.id}
+					key={user._id}
 					user={user as any}
-					active={!!~selected.indexOf(user.id)}
+					active={!!~selected.indexOf(user._id)}
 					toggle={toggleUser}
 				/>
 			))

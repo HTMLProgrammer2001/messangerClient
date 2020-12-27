@@ -14,6 +14,9 @@ const userSlice = createSlice({
 	initialState,
 	reducers: {
 		usersAdd(state, action: PayloadAction<IUser>){
+			if(!action.payload)
+				return;
+
 			const id = action.payload._id,
 				cur = state[id] || {};
 

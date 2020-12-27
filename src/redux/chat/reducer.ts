@@ -22,117 +22,51 @@ export type IChatState = {
 const initialState: IChatState = {
 	chatID: 1,
 	with: {
-		id: 1,
+		_id: '1',
 		nick: 'dlg1',
 		name: 'Some name',
 		lastSeen: 'online'
 	},
 	messages: [{
-		id: 1,
+		_id: '1',
 		type: 'text',
 		time: +(new Date()) - 3600 * 1455 * 1000,
 		text: 'Test text',
 		from: {
-			id: 1,
+			_id: '1',
 			name: 'Some name',
 			nick: 'nick',
 			lastSeen: 'online'
 		}
 	}, {
-		id: 1,
+		_id: '1',
 		type: 'text',
 		time: +(new Date()) - 3600 * 21 * 1000,
 		text: 'Test text',
 		from: {
-			id: 1,
+			_id: '1',
 			name: 'Some name',
 			nick: 'nick',
 			lastSeen: 'online'
 		}
 	}, {
-		id: 1,
+		_id: '1',
 		type: 'text',
 		time: +(new Date()),
 		text: 'Test text',
 		from: {
-			id: 1,
+			_id: '1',
 			name: 'Some name',
 			nick: 'nick',
 			lastSeen: 'online'
 		}
 	}, {
-		id: 1,
+		_id: '1',
 		type: 'text',
 		time: +(new Date()),
 		text: 'Test text',
 		from: {
-			id: 1,
-			name: 'Some name',
-			nick: 'nick',
-			lastSeen: 'online'
-		}
-	}, {
-		id: 1,
-		type: 'text',
-		time: +(new Date()),
-		text: 'Test text',
-		from: {
-			id: 1,
-			name: 'Some name',
-			nick: 'nick',
-			lastSeen: 'online'
-		}
-	}, {
-		id: 1,
-		type: 'text',
-		time: +(new Date()),
-		text: 'Test text',
-		from: {
-			id: 1,
-			name: 'Some name',
-			nick: 'nick',
-			lastSeen: 'online'
-		}
-	}, {
-		id: 1,
-		type: 'text',
-		time: +(new Date()),
-		text: 'Test text',
-		from: {
-			id: 1,
-			name: 'Some name',
-			nick: 'nick',
-			lastSeen: 'online'
-		}
-	}, {
-		id: 1,
-		type: 'text',
-		time: +(new Date()),
-		text: 'Test text',
-		from: {
-			id: 1,
-			name: 'Some name',
-			nick: 'nick',
-			lastSeen: 'online'
-		}
-	}, {
-		id: 1,
-		type: 'text',
-		time: +(new Date()),
-		text: 'Test text',
-		from: {
-			id: 1,
-			name: 'Some name',
-			nick: 'nick',
-			lastSeen: 'online'
-		}
-	}, {
-		id: 1,
-		type: 'text',
-		time: +(new Date()),
-		text: 'Test text',
-		from: {
-			id: 1,
+			_id: '1',
 			name: 'Some name',
 			nick: 'nick',
 			lastSeen: 'online'

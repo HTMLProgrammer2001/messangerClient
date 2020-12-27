@@ -1,6 +1,6 @@
 export type IDialog = {
 	_id: string,
-	nick: string,
+	nick?: string,
 	avatar?: string,
 	name: string,
 	lastMessage?: {

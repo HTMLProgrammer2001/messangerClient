@@ -4,7 +4,7 @@ import {InferActionTypes} from '../';
 
 
 type INewGroupActions = InferActionTypes<typeof actionCreators>;
-type INewGroupState = Array<number>;
+type INewGroupState = Array<string>;
 
 const initialState: INewGroupState = [];
 

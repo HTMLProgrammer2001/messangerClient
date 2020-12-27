@@ -5,22 +5,22 @@ export const groupCreate = () => <const>({
 	type: GROUP_CREATE
 });
 
-export const groupAdd = (id: number) => <const>({
+export const groupAdd = (id: string) => <const>({
 	type: GROUP_ADD_USER,
 	payload: id
 });
 
-export const groupDelete = (id: number) => <const>({
+export const groupDelete = (id: string) => <const>({
 	type: GROUP_DELETE_USER,
 	payload: id
 });
 
-export const groupSet = (users: Array<number>) => <const>({
+export const groupSet = (users: Array<string>) => <const>({
 	type: GROUP_SET_USERS,
 	payload: users
 });
 
-export const groupToggle = (id: number) => <const>({
+export const groupToggle = (id: string) => <const>({
 	type: GROUP_TOGGLE_USER,
 	payload: id
 });

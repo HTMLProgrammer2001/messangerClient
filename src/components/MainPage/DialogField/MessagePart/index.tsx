@@ -5,11 +5,12 @@ import UserAvatar from '../../../Common/UserAvatar/';
 import MessageInput from './MessageInput';
 
 import styles from './styles.module.scss';
+import {IUser} from '../../../../interfaces/IUser';
 import {selectMeInfo} from '../../../../redux/me/slice';
 
 
 export const MessagePart: React.FC<{}> = () => {
-	const user = useSelector(selectMeInfo);
+	const user = useSelector(selectMeInfo) as IUser;
 
 	return (
 		<div className={styles.message_row}>

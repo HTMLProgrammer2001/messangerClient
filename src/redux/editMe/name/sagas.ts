@@ -5,6 +5,7 @@ import {AxiosResponse} from 'axios';
 import {IEditMeResponse} from '../../../interfaces/Responses/IEditMeResponse';
 import {editMeNameError, editMeNameStart, editMeNameSuccess} from './slice';
 import {meSet} from '../../me/slice';
+import {usersAdd} from '../../users';
 import userActionsAPI from '../../../utils/api/userActionsAPI';
 import expressErrorsToObject from '../../../utils/helpers/expressErrorsToObject';
 
@@ -15,7 +16,8 @@ function* editNameSaga({payload}: ReturnType<typeof editMeNameStart>){
 		const resp: AxiosResponse<IEditMeResponse> = yield call(userActionsAPI.editMe, payload);
 
 		//change store
-		yield put(meSet(resp.data.newUser));
+		yield put(usersAdd(resp.data.newUser));
+		yield put(meSet(resp.data.newUser._id));
 		yield put(editMeNameSuccess());
 
 		//show message

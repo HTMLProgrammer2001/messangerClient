@@ -6,7 +6,6 @@ import SearchForm from './Elements/SearchForm';
 import UsersList from './Elements/UsersList';
 import Buttons from '../../Common/Buttons/';
 
-import {usersStart} from '../../../redux/users/actions';
 import PopUpContext from '../../../utils/context/PopUpContext';
 import NewGroupNamePopup from '../../PopUps/NewGroupNamePopup';
 import {RootState} from '../../../redux';
@@ -18,7 +17,7 @@ const mapStateToProps = (state: RootState) => ({
 	isValid: selectNewGroupStateUsers(state).length >= 2
 });
 
-const connected = connect(mapStateToProps, {usersStart, groupSet});
+const connected = connect(mapStateToProps, {usersStart: () => null, groupSet});
 
 type INewGroupProps = ConnectedProps<typeof connected>;
 const NewGroupPopup: React.FC<INewGroupProps> = ({isValid, usersStart, groupSet}) => {

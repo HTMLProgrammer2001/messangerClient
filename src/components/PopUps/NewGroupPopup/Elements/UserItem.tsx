@@ -9,13 +9,13 @@ import UserAvatar from '../../../Common/UserAvatar';
 type IUserItemProps = {
 	user: IUserShort,
 	active: boolean,
-	toggle: (id: number) => void
+	toggle: (id: string) => void
 };
 
 const UserItem: React.FC<IUserItemProps> = ({user, toggle, active}) => (
 	<div
 		className={classnames(styles.user, {[styles.active]: active})}
-		onClick={() => toggle(user.id)}
+		onClick={() => toggle(user._id)}
 	>
 		<UserAvatar name={user.name} avatar={user.avatar} size={40}/>
 

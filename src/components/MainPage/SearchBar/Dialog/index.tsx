@@ -8,32 +8,32 @@ import UserAvatar from '../../../Common/UserAvatar';
 
 type IDialogProps = {
 	dialog: IDialog,
-	current: number,
-	changeCurrent: (val: number) => void
+	current: string,
+	changeCurrent: (val: string) => void
 };
 
 export const Dialog: React.FC<IDialogProps> = ({dialog, changeCurrent, current}) => {
 	const history = useHistory();
 
 	const handler = () => {
-		if(current == dialog.id)
+		if(current == dialog._id)
 			history?.push('/');
 		else
 			history?.push(`/?dlg=${dialog.nick}`);
 
-		changeCurrent(dialog.id);
+		changeCurrent(dialog._id);
 	};
 
 	useEffect(() => {
 		const params = new URLSearchParams(window.location.search);
 
 		if(params.get('dlg') == dialog.nick)
-			changeCurrent(dialog.id);
+			changeCurrent(dialog._id);
 	}, []);
 
 	return (
 		<div 
-			className={`${styles.dialog} ${current == dialog.id ? styles.active : ''}`}
+			className={`${styles.dialog} ${current == dialog._id ? styles.active : ''}`}
 			onClick={handler}>
 
 			<UserAvatar name={dialog.name} avatar={dialog.avatar} size={50}/>

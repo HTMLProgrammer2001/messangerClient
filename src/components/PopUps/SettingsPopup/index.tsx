@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import {useSelector} from 'react-redux';
 
+import {IUser} from '../../../interfaces/IUser';
 import styles from './styles.module.scss';
 import {selectMeInfo} from '../../../redux/me/slice';
 import DB from '../../../utils/helpers/DB';
@@ -14,7 +15,7 @@ import AvatarUploader from './AvatarUploader';
 
 
 const SettingsPopup: React.FC<{}> = () => {
-	const user = useSelector(selectMeInfo);
+	const user = useSelector(selectMeInfo) as IUser;
 	const {setElement} = useContext(PopUpContext);
 
 	if(!user) {
