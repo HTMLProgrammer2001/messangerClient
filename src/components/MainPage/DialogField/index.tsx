@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 
 import styles from './styles.module.scss';
-import {selectSearchCurrent} from '../../../redux/search/slice';
+import {selectSearchCurrent} from '../../../redux/search/state/slice';
 import WithChat from './WithChat';
 import NoChat from './NoChat';
 

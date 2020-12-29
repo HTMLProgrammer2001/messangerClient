@@ -1,6 +1,6 @@
 import {takeLatest, put, all} from 'redux-saga/effects';
 
-import {searchSetCurrent} from '../search/slice';
+import {searchSetCurrent} from '../search/state/slice';
 import {CHAT_MORE} from './types';
 import {chatLoadError, chatLoadStart, chatLoadSuccess} from './actions';
 

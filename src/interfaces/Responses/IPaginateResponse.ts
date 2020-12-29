@@ -4,5 +4,5 @@ export type IPaginateResponse<T> = {
 	totalPages: number,
 	total: number,
 	pageSize: number,
-	offset: number
+	page: number
 }

@@ -8,9 +8,9 @@ import logoutSaga from './logout';
 import chatSaga from './chat/sagas';
 import newGroup from './newGroup/sagas';
 import me from './me/sagas';
-import editMe from './editMe/editMeSaga';
 import change from './change/sagas';
-import search from './search/sagas';
+import editMe from './editMe/editMeSaga';
+import search from './search/searchSaga';
 
 
 //create root saga that we can run

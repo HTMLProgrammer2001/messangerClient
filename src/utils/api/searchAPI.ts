@@ -15,13 +15,13 @@ const client = axios.create({
 const searchAPI = {
 	getDialogsByName(name: string, offset: number = 1){
 		return client.get<IDialogsResponse>('/dialogs/name', {
-			params: {name, page: offset},
+			params: {name, page: offset, pageSize: 1},
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
 		});
 	},
 	getDialogsByNick(nick: string, offset: number = 1){
 		return client.get<IDialogsResponse>('/dialogs/nickname', {
-			params: {nickname: nick, page: offset},
+			params: {nickname: nick, page: offset, pageSize: 1},
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
 		});
 	},
@@ -32,7 +32,7 @@ const searchAPI = {
 	},
 	getMessagesByText(text: string, offset: number = 1){
 		return client.get<any>('/messages/text', {
-			params: {text, page: offset},
+			params: {text, page: offset, pageSize: 1},
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
 		});
 	}

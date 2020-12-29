@@ -3,16 +3,19 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router';
 
 import styles from './styles.module.scss';
-import {IMessage} from '../../../../../interfaces/IMessage';
-import {selectSearchCurrent, selectSearchMessages, searchSetCurrent} from '../../../../../redux/search/slice';
+import {selectSearchCurrent, searchSetCurrent, selectSearchText} from '../../../../../redux/search/state/slice';
+import {selectSearchMessagesState, selectSearchMessagesStateData, searchMessagesStart} from '../../../../../redux/search/messages/slice';
 
 import SearchItem from '../SearchItem';
+import Loader from '../../../../Common/Loader';
 
 
 const MessagesSection: React.FC<{}> = () => {
 	//get data from store
-	const messages = useSelector(selectSearchMessages) as IMessage[],
-		current = useSelector(selectSearchCurrent);
+	const messages = useSelector(selectSearchMessagesStateData),
+		{isLoading, totalPages, total, offset} = useSelector(selectSearchMessagesState),
+		current = useSelector(selectSearchCurrent),
+		text = useSelector(selectSearchText);
 
 	//hooks
 	const dispatch = useDispatch(),
@@ -33,12 +36,17 @@ const MessagesSection: React.FC<{}> = () => {
 		}
 	};
 
+	//load more handler
+	const loadMore = () => {
+		dispatch(searchMessagesStart({text, offset: offset + 1}));
+	};
+
 	if (!messages.length)
 		return null;
 
 	return (
 		<div>
-			<b className={styles.header}>Messages</b>
+			<b className={styles.header}>Messages({total})</b>
 
 			{
 				messages.map(message => (
@@ -47,7 +55,6 @@ const MessagesSection: React.FC<{}> = () => {
 							name: 'Dialog',
 							time: new Date(message.time).toLocaleTimeString(),
 							text: message.message,
-							unreaded: 0,
 							nick: message.dialog.nick,
 							avatar: message.dialog.avatar
 						}}
@@ -56,6 +63,9 @@ const MessagesSection: React.FC<{}> = () => {
 					/>
 				))
 			}
+
+			{isLoading && <Loader/>}
+			{offset < totalPages && <div onClick={loadMore}>More...</div>}
 		</div>
 	);
 };

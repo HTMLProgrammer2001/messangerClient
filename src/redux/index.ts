@@ -13,7 +13,7 @@ import logIn from './logIn/slice';
 import change from './change/slice';
 import editMe from './editMe/';
 import me from './me/slice';
-import search from './search/slice';
+import search from './search/';
 import chat from './chat/reducer';
 import newGroup from './newGroup/reducer';
 import dialogs from './dialogs';

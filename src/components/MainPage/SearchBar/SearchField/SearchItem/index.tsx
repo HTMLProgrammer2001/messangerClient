@@ -7,12 +7,12 @@ import UserAvatar from '../../../../Common/UserAvatar';
 
 type ISearchItemProps = {
 	dlgProps: {
-		nick: string,
+		nick?: string,
 		name: string,
-		unreaded: number,
-		text: string,
+		unreaded?: number,
+		text?: string,
 		avatar?: string,
-		time: string
+		time?: string
 	},
 	isCurrent: boolean,
 	handler: () => void

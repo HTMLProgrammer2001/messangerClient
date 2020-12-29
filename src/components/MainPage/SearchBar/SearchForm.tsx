@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
 
 import styles from './styles.module.scss';
-import {searchStart} from '../../../redux/search/slice';
+import {searchStart} from '../../../redux/search/state/slice';
 
 
 const SearchDialogForm: React.FC<{}> = () => {
@@ -15,7 +15,7 @@ const SearchDialogForm: React.FC<{}> = () => {
 	};
 
 	return (
-		<form onSubmit={onSubmit} className={styles.form}>
+		<form onSubmit={onSubmit} className={styles.form} autoComplete="off">
 			<input
 				name="search"
 				type="text"
