@@ -18,6 +18,7 @@ import chat from './chat/reducer';
 import newGroup from './newGroup/reducer';
 import dialogs from './dialogs';
 import users from './users';
+import messages from './messages';
 
 
 //create reducer
@@ -25,7 +26,8 @@ let reducer = combineReducers({
 	app, me, signIn,
 	logIn, dialogs, chat,
 	users, newGroup, editMe,
-	search, change, form: formReducer
+	search, change, messages,
+	form: formReducer
 });
 
 let saga = createSagaMiddleware(),

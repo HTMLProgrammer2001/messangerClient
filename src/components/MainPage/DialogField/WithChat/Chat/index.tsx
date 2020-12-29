@@ -2,12 +2,12 @@ import React from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 
 import styles from './styles.module.scss';
-import {RootState} from '../../../../redux';
-import {selectChatState} from '../../../../redux/chat/selectors';
+import {RootState} from '../../../../../redux';
+import {selectChatState} from '../../../../../redux/chat/selectors';
 
 import Message from './Message';
-import RelativeDate from '../../../Common/RelativeDate';
-import dateToString from '../../../../utils/helpers/dateToString';
+import RelativeDate from '../../../../Common/RelativeDate';
+import dateToString from '../../../../../utils/helpers/dateToString';
 
 
 const mapStateToProps = (state: RootState) => ({

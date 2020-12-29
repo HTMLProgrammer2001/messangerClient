@@ -1,11 +1,11 @@
+import {IMessage} from './IMessage';
+
+
 export type IDialog = {
 	_id: string,
-	nick?: string,
+	nick: string,
 	avatar?: string,
 	name: string,
-	lastMessage?: {
-		text: string,
-		time: string		
-	},
+	lastMessage?: IMessage,
 	unreaded: number
 };

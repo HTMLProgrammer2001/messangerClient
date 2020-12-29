@@ -1,14 +1,20 @@
 import React from 'react';
+import {useSelector} from 'react-redux';
 
 import styles from './styles.module.scss';
-import Chat from './Chat/';
-import MessagePart from './MessagePart/';
+import {selectSearchCurrent} from '../../../redux/search/slice';
+import WithChat from './WithChat';
+import NoChat from './NoChat';
 
-const DialogField: React.FC<{}> = () => (
-	<div className={styles.wrapper}>
-		<Chat/>
-		<MessagePart/>
-	</div>
-);
+
+const DialogField: React.FC<{}> = () => {
+	const current = useSelector(selectSearchCurrent);
+
+	return (
+		<div className={styles.wrapper}>
+			{current ? <WithChat/> : <NoChat/>}
+		</div>
+	);
+};
 
 export default DialogField;

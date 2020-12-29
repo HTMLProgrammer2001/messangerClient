@@ -31,8 +31,6 @@ const searchAPI = {
 		});
 	},
 	getMessagesByText(text: string, offset: number = 1){
-		return {data: []} as any;
-
 		return client.get<any>('/messages/text', {
 			params: {text, page: offset},
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}

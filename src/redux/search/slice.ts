@@ -5,6 +5,7 @@ import {SearchTypes} from '../../constants/SearchTypes';
 import mapIdWith from '../../utils/helpers/mapIdWith';
 import {selectUsers} from '../users';
 import {selectDialogs} from '../dialogs';
+import {selectMessages} from '../messages';
 
 
 //create initial state
@@ -95,7 +96,7 @@ export const selectSearchDialogs = (state: RootState) => {
 };
 
 export const selectSearchMessages = (state: RootState) => {
-	return mapIdWith(selectSearchState(state).messages, {});
+	return mapIdWith(selectSearchState(state).messages, selectMessages(state));
 };
 
 export const selectSearchHasData = createSelector(selectSearchState, (search) => {

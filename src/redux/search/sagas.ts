@@ -15,6 +15,7 @@ import {
 } from './slice';
 import {usersAdd} from '../users';
 import {dialogsAddMany} from '../dialogs';
+import {messagesAddMany} from '../messages';
 import searchAPI from '../../utils/api/searchAPI';
 
 
@@ -69,7 +70,7 @@ function *searchText() {
 		call(searchAPI.getDialogsByName, text), call(searchAPI.getMessagesByText, text)
 	]);
 
-	messagesResp = messagesResp as AxiosResponse<IGetUserResponse>;
+	messagesResp = messagesResp as AxiosResponse<IMessagesResponse>;
 	dialogsResp = dialogsResp as AxiosResponse<IDialogsResponse>;
 
 	//set dialogs
@@ -77,8 +78,8 @@ function *searchText() {
 	yield put(dialogsAddMany(dialogsResp.data.data));
 
 	//set messages
-	yield put(searchAddMessages(messagesResp.data.map(message => message._id)));
-	//yield put(usersAdd(userResp.data.user));
+	yield put(searchAddMessages(messagesResp.data.data.map(message => message._id)));
+	yield put(messagesAddMany(messagesResp.data.data));
 
 	//set success
 	yield put(searchSuccess());

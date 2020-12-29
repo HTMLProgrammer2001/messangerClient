@@ -1,4 +1,17 @@
+@import "../../../styles/includes/main";
+
 .wrapper{
 	width: 75%;
 	padding: 1rem;
+}
+
+.gray{
+    color: $textLightGray;
+}
+
+.noChat{
+    @include flex(center, center);
+
+    width: 100%;
+    height: 100%;
 }

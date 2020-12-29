@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Redirect} from 'react-router';
 
-import Loader from '../../components/Common/Loader';
+import Loader from '../../components/Common/PageLoader';
 import {selectMeInfo} from '../../redux/me/slice';
 import {selectAppState, appStart} from '../../redux/app/slice';
 

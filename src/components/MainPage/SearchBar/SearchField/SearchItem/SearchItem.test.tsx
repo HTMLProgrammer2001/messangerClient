@@ -1,13 +1,13 @@
 import React from 'react';
 import {shallow, ShallowWrapper} from 'enzyme';
 
-import {Dialog} from './';
-import styles from '../styles.module.scss';
-import {IDialog} from '../../../../interfaces/IDialog';
+import {SearchItem} from './';
+import styles from '../../styles.module.scss';
+import {IDialog} from '../../../../../interfaces/IDialog';
 
 
 describe('Unconnected dialog item test: ', () => {
-	const mockDialog: IDialog = {id: 1, name: 'Test name', nick: 'dlg', lastMessage:
+	const mockDialog: IDialog = {_id: '1', name: 'Test name', nick: 'dlg', lastMessage:
 			{text: 'text', time: '19:02AM'}, unreaded: 0};
 
 	let dialog: ShallowWrapper = null,
@@ -15,7 +15,7 @@ describe('Unconnected dialog item test: ', () => {
 
 	beforeEach(() => {
 		fn = jest.fn(),
-		dialog = shallow(<Dialog dialog={mockDialog} changeCurrent={fn} current={mockDialog.id}/>);
+		dialog = shallow(<SearchItem dialog={mockDialog} changeCurrent={fn} current={mockDialog._id}/>);
 	});
 
 	it('Mounted and snapshot', () => {
@@ -27,7 +27,7 @@ describe('Unconnected dialog item test: ', () => {
 	});
 
 	it('Check unactive state', () => {
-		dialog = shallow(<Dialog dialog={mockDialog} changeCurrent={fn} current={mockDialog.id + 1}/>);
+		dialog = shallow(<SearchItem dialog={mockDialog} changeCurrent={fn} current={mockDialog._id + 1}/>);
 		expect(dialog.find(`.${styles.active}`).exists()).toBeFalsy();
 	});
 
@@ -36,10 +36,10 @@ describe('Unconnected dialog item test: ', () => {
 	});
 
 	it('Check unreaded show', () => {
-		dialog = shallow(<Dialog
+		dialog = shallow(<SearchItem
 			dialog={{...mockDialog, unreaded: 3}}
 			changeCurrent={fn}
-			current={mockDialog.id + 1}
+			current={mockDialog._id + 1}
 		/>);
 
 		expect(dialog.find(`.${styles.dialog_unreaded}`).text()).toBe('3');

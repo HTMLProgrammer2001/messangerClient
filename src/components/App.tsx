@@ -7,7 +7,7 @@ import store from '../redux';
 
 import PopUpContext from '../utils/context/PopUpContext';
 import PopUpElement from './PopUps/PopUpElement/';
-import Loader from './Common/Loader';
+import PageLoader from './Common/PageLoader';
 
 const MainPage = lazy(() => import('./MainPage/'));
 const LogInPage = lazy(() => import('./LogInPage/'));
@@ -28,7 +28,7 @@ const App: React.FC<{}> = () => {
 	return (
 		<PopUpContext.Provider value={{renderElements, setElement: addElement}}>
 			<Provider store={store}>
-				<Suspense fallback={<Loader/>}>
+				<Suspense fallback={<PageLoader/>}>
 					<HashRouter>
 						<Switch>
 							<Route path='/' exact component={MainPage}/>

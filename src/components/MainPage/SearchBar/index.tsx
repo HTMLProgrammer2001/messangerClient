@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
-import {RootState} from '../../../redux/';
 import styles from './styles.module.scss';
 import {selectSearchState, searchStart} from '../../../redux/search/slice';
 
 import SearchForm from './SearchForm';
-import Items from './Items';
+import Items from './SearchField';
+import Loader from '../../Common/Loader';
 
 
 export const Dialogs: React.FC<{}> = () => {
@@ -22,12 +22,12 @@ export const Dialogs: React.FC<{}> = () => {
 			<SearchForm/>
 
 			<div className={styles.dialog_wrap}>
-				{search.wasError && <div className="red">Some error occured</div>}
-				{!search.wasError && search.isLoading && <div>Loading...</div>}
+				{search.wasError && <div className="red center">Some error occured</div>}
+				{!search.wasError && search.isLoading && <Loader/>}
 				{!search.wasError && !search.isLoading && <Items/>}
 			</div>
 		</div>
 	);
-}
+};
 
 export default Dialogs;

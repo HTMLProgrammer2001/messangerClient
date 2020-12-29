@@ -1,8 +1,8 @@
 import React from 'react';
 
-import UserAvatar from '../../../Common/UserAvatar';
+import UserAvatar from '../../../../Common/UserAvatar';
 import styles from './styles.module.scss';
-import {IMessage} from '../../../../interfaces/IMessage';
+import {IMessage} from '../../../../../interfaces/IMessage';
 
 
 type IMessageProps = IMessage;
