@@ -11,18 +11,18 @@ const Message: React.FC<IMessageProps> = (props) => (
 	<div className={styles.message}>
 		<div className={styles.message_content}>
 			<UserAvatar
-				name={props.from.name}
+				name={props.author.name}
 				size={45}
-				avatar={props.from.avatar}
+				avatar={props.author.avatar}
 			/>
 
 			<div className={styles.message_data}>
 				<div className={styles.message_from}>
-					{props.from.name}
+					{props.author.name}
 				</div>
 
 				<div className={styles.message_text}>
-					{props.text}
+					{props.message}
 				</div>
 			</div>
 		</div>
