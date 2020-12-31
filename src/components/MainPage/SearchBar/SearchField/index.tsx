@@ -3,13 +3,7 @@ import {useSelector} from 'react-redux';
 
 import styles from './styles.module.scss';
 import {SearchTypes} from '../../../../constants/SearchTypes';
-
-import {
-	selectSearchType,
-	selectSearchHasData,
-	selectSearchHasError,
-	selectSearchIsLoading
-} from '../../../../redux/search/state/slice';
+import {selectSearchState, selectSearchHasData} from '../../../../redux/search/state/slice';
 
 import NickBar from './NickBar';
 import TextBar from './TextBar';
@@ -17,12 +11,10 @@ import Loader from '../../../Common/Loader';
 
 
 const SearchField: React.FC<{}> = () => {
-	const type = useSelector(selectSearchType),
-		hasData = useSelector(selectSearchHasData),
-		isLoading = useSelector(selectSearchIsLoading),
-		hasError = useSelector(selectSearchHasError);
+	const {type, isLoading, wasError} = useSelector(selectSearchState),
+		hasData = useSelector(selectSearchHasData);
 
-	if(hasError)
+	if(wasError)
 		return <div className="red">Some error occured</div>;
 
 	if(isLoading)

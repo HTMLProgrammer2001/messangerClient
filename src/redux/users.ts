@@ -23,15 +23,14 @@ const userSlice = createSlice({
 			//add user or change
 			state[id] = {...cur, ...action.payload};
 		},
-		usersAddMany(state, action: PayloadAction<IUser[]>){
+		usersAddMany(state, action: PayloadAction<Record<string, IUser>>){
 			//add all users from array
-			action.payload.forEach(user => {
-				const id = user._id,
-					cur = state[id] || {};
+			for(let id in action.payload){
+				let cur = state[id] || {};
 
 				//add user or change
-				state[id] = {...cur, ...user};
-			});
+				state[id] = {...cur, ...action.payload[id]};
+			}
 		},
 		usersDelete(state, action: PayloadAction<string>){
 			delete state[action.payload];

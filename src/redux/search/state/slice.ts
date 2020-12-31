@@ -12,22 +12,34 @@ import {selectSearchMessagesState} from '../messages/slice';
 type ISearchState = {
 	current: string | null,
 	type: SearchTypes,
-	text: string
+	text: string,
+	isLoading: boolean,
+	wasError: boolean
 }
 
 const initialState: ISearchState = {
 	current: null,
 	type: SearchTypes.NICK,
-	text: ''
+	text: '',
+	isLoading: false,
+	wasError: false
 };
 
 const searchSlice = createSlice({
 	name: 'search',
 	initialState,
 	reducers: {
-		start(state, action: PayloadAction<string>){},
-		error(state, action: PayloadAction<null>){},
-		success(state, action: PayloadAction<null>){},
+		start(state, action: PayloadAction<string>){
+			state.isLoading = true;
+			state.wasError = false;
+		},
+		error(state, action: PayloadAction<null>){
+			state.isLoading = false;
+			state.wasError = true;
+		},
+		success(state, action: PayloadAction<null>){
+			state.isLoading = false;
+		},
 		clear(state, action: PayloadAction<null>){
 			return {...initialState};
 		},
@@ -50,16 +62,6 @@ export const selectSearchCurrent = (state: RootState) => selectSearchState(state
 export const selectSearchHasData = createSelector(
 	selectSearchUsersState, selectSearchDialogsState, selectSearchMessagesState,
 	({user}, dialogs, messages) => user || dialogs.data.length || messages.data.length
-);
-
-export const selectSearchHasError = createSelector(
-	selectSearchUsersState, selectSearchDialogsState, selectSearchMessagesState,
-	(user, dialogs, messages) => user.wasError || dialogs.wasError || messages.wasError
-);
-
-export const selectSearchIsLoading = createSelector(
-	selectSearchUsersState, selectSearchDialogsState, selectSearchMessagesState,
-	(user, dialogs, messages) => user.isLoading || dialogs.isLoading || messages.isLoading
 );
 
 //exports

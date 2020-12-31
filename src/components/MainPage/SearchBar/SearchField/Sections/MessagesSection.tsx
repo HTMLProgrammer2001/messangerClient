@@ -3,19 +3,19 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router';
 
 import styles from './styles.module.scss';
-import {selectSearchCurrent, searchSetCurrent, selectSearchText} from '../../../../../redux/search/state/slice';
+import {searchSetCurrent, selectSearchState} from '../../../../../redux/search/state/slice';
 import {selectSearchMessagesState, selectSearchMessagesStateData, searchMessagesStart} from '../../../../../redux/search/messages/slice';
 
 import SearchItem from '../SearchItem';
 import Loader from '../../../../Common/Loader';
+import secondsToDate from '../../../../../utils/helpers/secondsToDate';
 
 
 const MessagesSection: React.FC<{}> = () => {
 	//get data from store
 	const messages = useSelector(selectSearchMessagesStateData),
 		{isLoading, totalPages, total, offset} = useSelector(selectSearchMessagesState),
-		current = useSelector(selectSearchCurrent),
-		text = useSelector(selectSearchText);
+		{current, text} = useSelector(selectSearchState);
 
 	//hooks
 	const dispatch = useDispatch(),
@@ -52,9 +52,9 @@ const MessagesSection: React.FC<{}> = () => {
 				messages.map(message => (
 					<SearchItem
 						dlgProps={{
-							name: 'Dialog',
-							time: new Date(message.time).toLocaleTimeString(),
-							text: message.message,
+							name: message.dialog.name,
+							time: secondsToDate(message.time),
+							text: `${message.author.name}: ${message.message}`,
 							nick: message.dialog.nick,
 							avatar: message.dialog.avatar
 						}}
@@ -65,7 +65,7 @@ const MessagesSection: React.FC<{}> = () => {
 			}
 
 			{isLoading && <Loader/>}
-			{offset < totalPages && <div onClick={loadMore}>More...</div>}
+			{!isLoading && offset < totalPages && <div onClick={loadMore} className={styles.more}>More...</div>}
 		</div>
 	);
 };

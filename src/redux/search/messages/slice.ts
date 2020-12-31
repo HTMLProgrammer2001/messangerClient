@@ -2,8 +2,12 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 import {IMessage} from '../../../interfaces/IMessage';
 import {RootState} from '../../index';
-import mapIdWith from '../../../utils/helpers/mapIdWith';
 import {selectMessages} from '../../messages';
+import {IUser} from '../../../interfaces/IUser';
+import {IDialog} from '../../../interfaces/IDialog';
+import {denormalize, schema} from 'normalizr';
+import {selectDialogs} from '../../dialogs';
+import {selectUsers} from '../../users';
 
 
 //create state
@@ -60,8 +64,27 @@ const searchMessagesSlice = createSlice({
 
 //selectors
 export const selectSearchMessagesState = (state: RootState) => state.search.messages;
+
+const denormalizeMessages = (messagesIds: string[], entities: {
+	messages: Record<string, IMessage>,
+	users: Record<string, IUser>,
+	dialogs: Record<string, IDialog>
+}) => {
+	const users = new schema.Entity('users', {}, {idAttribute: '_id'}),
+		dialogs = new schema.Entity('dialogs', {}, {idAttribute: '_id'}),
+		messages = new schema.Entity('messages', {author: users, dialog: dialogs}, {idAttribute: '_id'});
+
+	console.log(denormalize(messagesIds, [messages], entities));
+
+	return denormalize(messagesIds, [messages], entities);
+};
+
 export const selectSearchMessagesStateData = (state: RootState) => (
-	mapIdWith<IMessage>(selectSearchMessagesState(state).data, selectMessages(state)) as IMessage[]
+	denormalizeMessages(selectSearchMessagesState(state).data, {
+		messages: selectMessages(state),
+		dialogs: selectDialogs(state),
+		users: selectUsers(state)
+	})
 );
 
 //exports

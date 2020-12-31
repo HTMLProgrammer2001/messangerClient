@@ -5,9 +5,9 @@ import {InferActionTypes} from '../';
 import {IMessage} from '../../interfaces/IMessage';
 import {IUserShort} from '../../interfaces/IUserShort';
 
+
 //get action types
 type IChatActions = InferActionTypes<typeof actionCreators>;
-
 
 //reducer state type
 export type IChatState = {
@@ -27,51 +27,7 @@ const initialState: IChatState = {
 		name: 'Some name',
 		lastSeen: 'online'
 	},
-	messages: [{
-		_id: '1',
-		type: 'text',
-		time: +(new Date()) - 3600 * 1455 * 1000,
-		text: 'Test text',
-		from: {
-			_id: '1',
-			name: 'Some name',
-			nick: 'nick',
-			lastSeen: 'online'
-		}
-	}, {
-		_id: '1',
-		type: 'text',
-		time: +(new Date()) - 3600 * 21 * 1000,
-		text: 'Test text',
-		from: {
-			_id: '1',
-			name: 'Some name',
-			nick: 'nick',
-			lastSeen: 'online'
-		}
-	}, {
-		_id: '1',
-		type: 'text',
-		time: +(new Date()),
-		text: 'Test text',
-		from: {
-			_id: '1',
-			name: 'Some name',
-			nick: 'nick',
-			lastSeen: 'online'
-		}
-	}, {
-		_id: '1',
-		type: 'text',
-		time: +(new Date()),
-		text: 'Test text',
-		from: {
-			_id: '1',
-			name: 'Some name',
-			nick: 'nick',
-			lastSeen: 'online'
-		}
-	}],
+	messages: [],
 	offset: 1,
 	loading: false,
 	error: null

@@ -7,6 +7,6 @@ export type IMessage = {
 	type: string,
 	time: number,
 	message: string,
-	from: IUserShort,
+	author: IUserShort,
 	dialog?: IDialog
 };

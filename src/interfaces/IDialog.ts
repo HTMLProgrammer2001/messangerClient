@@ -7,5 +7,5 @@ export type IDialog = {
 	avatar?: string,
 	name: string,
 	lastMessage?: IMessage,
-	unreaded: number
+	unread: number
 };

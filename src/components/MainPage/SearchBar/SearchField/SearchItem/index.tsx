@@ -1,5 +1,4 @@
-import React, {useEffect} from 'react';
-import {useHistory} from 'react-router-dom';
+import React from 'react';
 
 import styles from '../../styles.module.scss';
 import UserAvatar from '../../../../Common/UserAvatar';
@@ -9,7 +8,7 @@ type ISearchItemProps = {
 	dlgProps: {
 		nick?: string,
 		name: string,
-		unreaded?: number,
+		unread?: number,
 		text?: string,
 		avatar?: string,
 		time?: string
@@ -39,9 +38,9 @@ export const SearchItem: React.FC<ISearchItemProps> = ({handler, isCurrent, dlgP
 					{dlgProps.time}
 
 					{
-						!!dlgProps.unreaded &&
+						!!dlgProps.unread &&
 						<div className={styles.dialog_unreaded}>
-							{dlgProps.unreaded}
+							{dlgProps.unread}
 						</div>
 					}
 				</div>

@@ -6,3 +6,17 @@
     display: block;
     margin: .5rem 1rem;
 }
+
+.more{
+    width: 100%;
+
+    text-align: center;
+    color: $blue;
+
+    cursor: pointer;
+    text-decoration: underline;
+
+    &:hover{
+        text-decoration: none;
+    }
+}

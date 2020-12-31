@@ -19,16 +19,16 @@ const dialogsSlice = createSlice({
 
 			state[id] = {...cur, ...action.payload};
 		},
-		dialogsAddMany(state, action: PayloadAction<IDialog[]>){
+		dialogsAddMany(state, action: PayloadAction<Record<string, IDialog>>){
 			if(!action.payload)
 				return;
 
-			action.payload.forEach(dialog => {
-				const id = dialog._id,
-					cur = state[id] || {};
+			for(let id in action.payload){
+				let cur = state[id] || {};
 
-				state[id] = {...cur, ...dialog};
-			});
+				//set dialog or change
+				state[id] = {...cur, ...action.payload[id]};
+			}
 		},
 		dialogsDelete(state, action: PayloadAction<string>){
 			delete state[action.payload];

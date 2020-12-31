@@ -19,16 +19,16 @@ const messageSlice = createSlice({
 
 			state[id] = {...cur, ...action.payload};
 		},
-		addMany(state, action: PayloadAction<IMessage[]>){
+		addMany(state, action: PayloadAction<Record<string, IMessage>>){
 			if(!action.payload)
 				return;
 
-			action.payload.forEach(dialog => {
-				const id = dialog._id,
-					cur = state[id] || {};
+			for(let id in action.payload){
+				let cur = state[id] || {};
 
-				state[id] = {...cur, ...dialog};
-			});
+				//set or change message
+				state[id] = {...cur, ...action.payload[id]};
+			}
 		},
 		clear(state, action: PayloadAction<null>){
 			return {};

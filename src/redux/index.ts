@@ -14,7 +14,7 @@ import change from './change/slice';
 import editMe from './editMe/';
 import me from './me/slice';
 import search from './search/';
-import chat from './chat/reducer';
+import chat from './chat/slice';
 import newGroup from './newGroup/reducer';
 import dialogs from './dialogs';
 import users from './users';
