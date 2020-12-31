@@ -1,24 +1,33 @@
 import React from 'react';
-import {connect, ConnectedProps} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 import styles from './styles.module.scss';
-import {RootState} from '../../../../../redux';
-import {selectChatState} from '../../../../../redux/chat/selectors';
+import {selectChatDialogState} from '../../../../../redux/chat/dialog/slice';
+import dateToString from '../../../../../utils/helpers/dateToString';
 
 import Message from './Message';
 import RelativeDate from '../../../../Common/RelativeDate';
-import dateToString from '../../../../../utils/helpers/dateToString';
+import Loader from '../../../../Common/Loader';
 
 
-const mapStateToProps = (state: RootState) => ({
-	...selectChatState(state)
-});
+const Chat: React.FC<{}> = () => {
+	const messages = [],
+		{isLoading, error, id} = useSelector(selectChatDialogState);
 
-const connected = connect(mapStateToProps);
+	if(isLoading)
+		return (
+			<div className={styles.chat}>
+				<Loader/>
+			</div>
+		);
 
-type IChatProps = ConnectedProps<typeof connected>;
+	if(error)
+		return (
+			<div className={styles.chat}>
+				<div className="red">{error}</div>
+			</div>
+		);
 
-const Chat: React.FC<IChatProps> = ({messages, error, loading, offset}) => {
 	if(!messages.length)
 		return (
 			<div className={styles.chat}>
@@ -30,16 +39,6 @@ const Chat: React.FC<IChatProps> = ({messages, error, loading, offset}) => {
 
 	return (
 		<div className={styles.chat}>
-			{
-				error &&
-				<div className="red">{error}</div>
-			}
-
-			{
-				loading &&
-				<div>Loading...</div>
-			}
-
 			<RelativeDate time={messages[0].time}/>
 
 			{
@@ -63,4 +62,4 @@ const Chat: React.FC<IChatProps> = ({messages, error, loading, offset}) => {
 	);
 };
 
-export default connected(Chat);
+export default Chat;

@@ -5,7 +5,7 @@ import MessagePart from './MessagePart';
 
 
 const WithChat: React.FC<{}> = () => (
-	<div>
+	<div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
 		<Chat/>
 		<MessagePart/>
 	</div>

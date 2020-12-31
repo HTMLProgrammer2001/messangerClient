@@ -1,4 +1,5 @@
 import {IMessage} from './IMessage';
+import {IUser} from './IUser';
 
 
 export type IDialog = {
@@ -7,5 +8,6 @@ export type IDialog = {
 	avatar?: string,
 	name: string,
 	lastMessage?: IMessage,
-	unread: number
+	unread: number,
+	user?: IUser
 };

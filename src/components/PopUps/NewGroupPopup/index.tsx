@@ -8,19 +8,13 @@ import Buttons from '../../Common/Buttons/';
 
 import PopUpContext from '../../../utils/context/PopUpContext';
 import NewGroupNamePopup from '../../PopUps/NewGroupNamePopup';
-import {RootState} from '../../../redux';
-import {selectNewGroupStateUsers} from '../../../redux/newGroup/selectors';
-import {groupSet} from '../../../redux/newGroup/actions';
 
 
-const mapStateToProps = (state: RootState) => ({
-	isValid: selectNewGroupStateUsers(state).length >= 2
-});
+const NewGroupPopup: React.FC<{}> = () => {
+	const groupSet = (...any) => null,
+		isValid = false,
+		usersStart = (...any) => null;
 
-const connected = connect(mapStateToProps, {usersStart: () => null, groupSet});
-
-type INewGroupProps = ConnectedProps<typeof connected>;
-const NewGroupPopup: React.FC<INewGroupProps> = ({isValid, usersStart, groupSet}) => {
 	useEffect(() => {
 		groupSet([]);
 	}, []);
@@ -44,4 +38,4 @@ const NewGroupPopup: React.FC<INewGroupProps> = ({isValid, usersStart, groupSet}
 	);
 };
 
-export default connected(NewGroupPopup);
+export default NewGroupPopup;

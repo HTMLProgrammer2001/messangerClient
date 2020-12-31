@@ -19,7 +19,7 @@ export const MessagePart: React.FC<{}> = () => {
 				name={user.name}
 			/>
 
-			<MessageInput onSubmit={console.log}/>
+			<MessageInput/>
 		</div>
 	);
 };

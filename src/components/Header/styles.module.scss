@@ -4,14 +4,33 @@
 	@include flex(space-between, center);
 
 	width: 100%;
-	padding: 1rem;
 
 	background: $bgBlue;
 	color: $textLight;
 }
 
+.name{
+    width: 30%;
+    padding: 1rem;
+}
+
+.menuElem{
+    width: 70%;
+    height: 48px;
+
+    &.active{
+        transition: .3s all;
+        cursor: pointer;
+
+        &:hover{
+            background: darken($bgBlue, 10%);
+        }
+    }
+}
+
 .menu{
 	position: relative;
+    padding: 1rem;
     
 	&_list{
 		list-style: none;

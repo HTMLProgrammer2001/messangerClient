@@ -6,16 +6,14 @@ import styles from '../styles.module.scss';
 
 import {RootState} from '../../../../redux';
 import {selectUsers} from '../../../../redux/users';
-import {selectNewGroupStateUsers} from '../../../../redux/newGroup/selectors';
-import {groupToggle} from '../../../../redux/newGroup/actions';
 
 
 const mapStateToProps = (state: RootState) => ({
 	users: selectUsers(state),
-	selected: selectNewGroupStateUsers(state)
+	selected: []
 });
 
-const connected = connect(mapStateToProps, {toggleUser: groupToggle});
+const connected = connect(mapStateToProps, {toggleUser: () => null});
 
 type IUsersListProps = ConnectedProps<typeof connected>;
 

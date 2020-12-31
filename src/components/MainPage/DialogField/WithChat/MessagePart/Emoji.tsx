@@ -10,6 +10,7 @@ type IEmojiProps = {
 
 const Emoji: React.FC<IEmojiProps> = ({onChange}) => {
 	const [isOpen, changeOpen] = useState(false);
+
 	const handler = (e: any, emoji: IEmojiData) => {
 		onChange(emoji);
 	};

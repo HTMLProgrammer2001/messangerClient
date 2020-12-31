@@ -5,7 +5,7 @@ import userSaga from './me/sagas';
 import signInSaga from './signIn/sagas';
 import logInSaga from './logIn/sagas';
 import logoutSaga from './logout';
-import chatSaga from './chat/sagas';
+import chatSaga from './chat/chatSaga';
 import newGroup from './newGroup/sagas';
 import me from './me/sagas';
 import change from './change/sagas';

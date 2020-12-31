@@ -1,7 +1,5 @@
-import React, {useEffect} from 'react';
-import {reduxForm, InjectedFormProps, Field, submit, reset, formValues, getFormValues} from 'redux-form';
-import {useDispatch, useSelector} from 'react-redux';
-import {Dispatch} from 'redux';
+import React from 'react';
+import {withFormik, Field, FormikProps} from 'formik';
 
 import styles from './styles.module.scss';
 import Emoji from './Emoji';
@@ -12,20 +10,18 @@ export type IMessageInputData = {
 	message: string
 };
 
-type IMessageInputProps = InjectedFormProps<IMessageInputData>;
+type IMessageInputProps = FormikProps<IMessageInputData>;
 
-const MessageInput: React.FC<IMessageInputProps> = ({handleSubmit, change}) => {
-	const dispatch = useDispatch();
-	let value: any = useSelector(getFormValues('messageInput'));
-
+const MessageInput: React.FC<IMessageInputProps> = ({handleSubmit, submitForm, values, setFieldValue}) => {
 	const keyHandler = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+		//submit on Shift + Enter
 		if(e.shiftKey && e.key == 'Enter')
-			dispatch(submit('messageInput'));
+			submitForm();
 	};
 
 	const emojiHandler = (emoji: IEmojiData) => {
-		let newValue = (value ? value.message : '') + emoji.emoji;
-		dispatch(change('message', newValue));
+		//add emoji to message
+		setFieldValue('message', values.message + emoji.emoji);
 	};
 
 	return (
@@ -54,10 +50,10 @@ const MessageInput: React.FC<IMessageInputProps> = ({handleSubmit, change}) => {
 	);
 };
 
-export default reduxForm<IMessageInputData>({
-	form: 'messageInput',
-	onSubmitSuccess(data: Partial<IMessageInputData>, dispatch: Dispatch){
-		console.log('Submit');
-		dispatch(reset('messageInput'));
+export default withFormik<{}, IMessageInputData>({
+	mapPropsToValues: () => ({message: ''}),
+	handleSubmit: (values, formikBag) => {
+		formikBag.resetForm();
+		console.log(values);
 	}
 })(MessageInput);

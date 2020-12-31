@@ -1,11 +1,12 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {denormalize, schema} from 'normalizr';
 
 import {IMessage} from '../../../interfaces/IMessage';
-import {RootState} from '../../index';
-import {selectMessages} from '../../messages';
+import {RootState} from '../../';
 import {IUser} from '../../../interfaces/IUser';
 import {IDialog} from '../../../interfaces/IDialog';
-import {denormalize, schema} from 'normalizr';
+
+import {selectMessages} from '../../messages';
 import {selectDialogs} from '../../dialogs';
 import {selectUsers} from '../../users';
 
@@ -73,8 +74,6 @@ const denormalizeMessages = (messagesIds: string[], entities: {
 	const users = new schema.Entity('users', {}, {idAttribute: '_id'}),
 		dialogs = new schema.Entity('dialogs', {}, {idAttribute: '_id'}),
 		messages = new schema.Entity('messages', {author: users, dialog: dialogs}, {idAttribute: '_id'});
-
-	console.log(denormalize(messagesIds, [messages], entities));
 
 	return denormalize(messagesIds, [messages], entities);
 };
