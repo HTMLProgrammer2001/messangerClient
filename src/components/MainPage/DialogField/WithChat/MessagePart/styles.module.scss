@@ -86,3 +86,22 @@
     bottom: 30px;
     right: calc(100% - 20px);
 }
+
+.user{
+    &_row{
+        @include flex(center, center);
+
+        width: 100%;
+    }
+
+    &_but{
+        @extend %button_text_filled;
+
+        padding: .5rem 1rem;
+        transition: .3s all;
+
+        &:hover{
+            background: darken($bgBlue, 10%);
+        }
+    }
+}

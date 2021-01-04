@@ -1,27 +1,22 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
 
-import UserAvatar from '../../../../Common/UserAvatar';
-import MessageInput from './MessageInput';
+import {selectChatDialogState} from '../../../../../redux/chat/dialog/slice';
 
-import styles from './styles.module.scss';
-import {IUser} from '../../../../../interfaces/IUser';
-import {selectMeInfo} from '../../../../../redux/me/slice';
+import MessageType from './Types/MessageType';
+import UserType from './Types/UserType';
 
 
 export const MessagePart: React.FC<{}> = () => {
-	const user = useSelector(selectMeInfo) as IUser;
+	const chatDialog = useSelector(selectChatDialogState);
 
-	return (
-		<div className={styles.message_row}>
-			<UserAvatar
-				avatar={user.avatar}
-				name={user.name}
-			/>
+	if(chatDialog.dialog)
+		return <MessageType/>;
 
-			<MessageInput/>
-		</div>
-	);
+	if(chatDialog.user)
+		return <UserType/>;
+
+	return null;
 };
 
 export default MessagePart;

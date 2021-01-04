@@ -10,7 +10,7 @@ import IsAuthenticated from '../../utils/HOC/IsAuthenticated';
 
 const MainPage: React.FC<{}> = () => {
 	useEffect(() => {
-		document.title = 'Messanger';
+		document.title = 'Messenger';
 	}, []);
 
 	return (

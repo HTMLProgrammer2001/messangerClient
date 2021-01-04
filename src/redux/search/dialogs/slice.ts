@@ -1,13 +1,13 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {denormalize, schema} from 'normalizr';
 
 import {RootState} from '../../';
 import {IDialog} from '../../../interfaces/IDialog';
-import mapIdWith from '../../../utils/helpers/mapIdWith';
-import {selectDialogs} from '../../dialogs';
 import {IMessage} from '../../../interfaces/IMessage';
-import {selectMessages} from '../../messages';
 import {IUser} from '../../../interfaces/IUser';
-import {denormalize, schema} from 'normalizr';
+
+import {selectDialogs} from '../../dialogs';
+import {selectMessages} from '../../messages';
 import {selectUsers} from '../../users';
 
 

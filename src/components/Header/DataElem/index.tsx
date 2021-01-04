@@ -3,17 +3,22 @@ import {useSelector} from 'react-redux';
 import cn from 'classnames';
 
 import styles from '../styles.module.scss';
-import {selectChatDialog} from '../../../redux/chat/dialog/slice';
+import {selectChatDialog, selectChatDialogState, selectChatUser} from '../../../redux/chat/dialog/slice';
 import DialogData from './DialogData';
+import UserData from './UserData';
 
 
 const DataElem: React.FC<{}> = () => {
 	let dialog = useSelector(selectChatDialog),
-		isActive = !!dialog,
+		user = useSelector(selectChatUser),
+		isActive = !!dialog || !!user,
 		elem = null;
 
 	if(dialog)
 		elem = <DialogData dialog={dialog}/>;
+
+	if(user)
+		elem = <UserData user={user}/>;
 
 	return (
 		<div className={cn(styles.menuElem, {

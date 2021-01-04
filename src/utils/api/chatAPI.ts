@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import {IGetDialogResponse} from '../../interfaces/Responses/chat/IGetDialogResponse';
+import {IGetUserResponse} from '../../interfaces/Responses/IGetUserResponse';
 
 
 const client = axios.create({
@@ -13,6 +14,11 @@ const chatAPI = {
 		return client.get<IGetDialogResponse>(`/dialogs/nickname/${nick}`, {
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
 		})
+	},
+	getUserByNick(nick: string){
+		return client.get<IGetUserResponse>(`/users/${nick}`, {
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+		});
 	}
 };
 

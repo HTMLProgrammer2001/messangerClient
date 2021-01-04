@@ -1,7 +1,8 @@
 {
   "name": "Messenger",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "homepage": "https://htmlprogrammer2001.github.io/messangerClient",
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.0",
     "axios": "^0.20.0",

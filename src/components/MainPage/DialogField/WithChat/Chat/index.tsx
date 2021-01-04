@@ -12,7 +12,7 @@ import Loader from '../../../../Common/Loader';
 
 const Chat: React.FC<{}> = () => {
 	const messages = [],
-		{isLoading, error, id} = useSelector(selectChatDialogState);
+		{isLoading, wasError, dialog} = useSelector(selectChatDialogState);
 
 	if(isLoading)
 		return (
@@ -21,10 +21,10 @@ const Chat: React.FC<{}> = () => {
 			</div>
 		);
 
-	if(error)
+	if(wasError)
 		return (
 			<div className={styles.chat}>
-				<div className="red">{error}</div>
+				<div className="red">Error in loading</div>
 			</div>
 		);
 
@@ -48,11 +48,7 @@ const Chat: React.FC<{}> = () => {
 
 					return (
 						<>
-							{
-								!isSame &&
-									<RelativeDate time={message.time}/>
-							}
-
+							{!isSame && <RelativeDate time={message.time}/>}
 							<Message {...message} key={message._id}/>
 						</>
 					)

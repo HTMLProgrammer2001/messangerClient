@@ -36,7 +36,7 @@ const meSlice = createSlice({
 });
 
 export const selectMeState = (state: RootState) => state.me;
-export const selectMeInfo = (state: RootState) => mapIdWith<IUser>(selectMeState(state).user, selectUsers(state));
+export const selectMeInfo = (state: RootState) => mapIdWith<IUser>(selectMeState(state).user, selectUsers(state)) as IUser;
 
 export const {set: meSet, reset: meReset, start: meStart} = meSlice.actions;
 export default meSlice.reducer;
