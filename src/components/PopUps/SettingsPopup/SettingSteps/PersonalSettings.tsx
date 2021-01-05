@@ -29,7 +29,7 @@ const PersonalSettings: React.FC<IPersonalInfoProps> = ({user}) => {
 
 				<div>
 					<div className="additional" onClick={showChangeName}>
-						{user.nickname || 'Set nick'}
+						@{user.nickname}
 					</div>
 
 					<div className="muted small">Nick</div>

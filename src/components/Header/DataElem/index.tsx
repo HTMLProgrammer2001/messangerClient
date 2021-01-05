@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux';
 import cn from 'classnames';
 
 import styles from '../styles.module.scss';
-import {selectChatDialog, selectChatDialogState, selectChatUser} from '../../../redux/chat/dialog/slice';
+import {selectChatDialog, selectChatUser} from '../../../redux/chat/dialog/slice';
 import DialogData from './DialogData';
 import UserData from './UserData';
 

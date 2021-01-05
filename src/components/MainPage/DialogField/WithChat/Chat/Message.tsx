@@ -3,6 +3,7 @@ import React from 'react';
 import UserAvatar from '../../../../Common/UserAvatar';
 import styles from './styles.module.scss';
 import {IMessage} from '../../../../../interfaces/IMessage';
+import secondsToTime from '../../../../../utils/helpers/secondsToTime';
 
 
 type IMessageProps = IMessage;
@@ -28,9 +29,7 @@ const Message: React.FC<IMessageProps> = (props) => (
 		</div>
 
 		<div className={styles.message_time}>
-			{
-				new Date(props.time).toLocaleTimeString()
-			}
+			{secondsToTime(props.time)}
 		</div>
 	</div>
 );

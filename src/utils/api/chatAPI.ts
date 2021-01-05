@@ -19,6 +19,14 @@ const chatAPI = {
 		return client.get<IGetUserResponse>(`/users/${nick}`, {
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
 		});
+	},
+	getMessagesForChat(chat: string, offset = 1){
+		return client.get(`/messages/chat/${chat}`, {
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem('token')}`,
+				page: offset
+			}
+		})
 	}
 };
 

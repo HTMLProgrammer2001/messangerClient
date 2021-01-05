@@ -97,6 +97,15 @@
     }
 }
 
+.row{
+    display: flex;
+    justify-content: space-between;
+    
+    i{
+        cursor: pointer;
+    }
+}
+
 .switcher{
     @include flex(space-between, center);
 }

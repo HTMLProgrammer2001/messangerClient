@@ -3,8 +3,8 @@ import React, {useContext} from 'react';
 import styles from './styles.module.scss';
 import {IUser} from '../../../interfaces/IUser';
 
-import UserAvatar from '../../Common/UserAvatar';
 import PopUpContext from '../../../utils/context/PopUpContext';
+import UserPopup from '../../PopUps/UserPopup';
 
 
 type IUserDataProps = {
@@ -14,12 +14,11 @@ type IUserDataProps = {
 const UserData: React.FC<IUserDataProps> = ({user}) => {
 	const {setElement} = useContext(PopUpContext),
 		handler = () => {
-			setElement(() => <div>{user.name}</div>)
+			setElement(() => <UserPopup user={user}/>)
 		};
 
 	return (
 		<div className={styles.wrapper} onClick={handler}>
-			<UserAvatar name={user.name} avatar={user.avatar} size={40}/>
 			<div>{user.name}</div>
 		</div>
 	);

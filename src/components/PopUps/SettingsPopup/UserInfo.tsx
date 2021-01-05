@@ -8,19 +8,21 @@ import NewNamePopUp from '../NewNamePopup';
 
 
 type IUserInfo = {
-	user: IUser
+	user: IUser,
+	isProfile?: boolean
 }
 
-const UserInfo: React.FC<IUserInfo> = ({user}) => {
+const UserInfo: React.FC<IUserInfo> = ({user, isProfile = true}) => {
 	const {setElement} = useContext(PopUpContext);
 
 	const changeNameHandler = () => {
-		setElement(() => <NewNamePopUp/>);
+		if(isProfile)
+			setElement(() => <NewNamePopUp/>);
 	};
 
 	return (
 		<div className={styles.info}>
-			<UserAvatar name={user.name} avatar={user.avatar} profile/>
+			<UserAvatar name={user.name} avatar={user.avatar} profile={isProfile}/>
 
 			<div className={styles.info_row}>
 				<div className={styles.info_name} onClick={changeNameHandler}>

@@ -3,6 +3,7 @@ import {useSelector} from 'react-redux';
 
 import styles from './styles.module.scss';
 import {selectChatDialogState} from '../../../../../redux/chat/dialog/slice';
+import {selectChatMessages} from '../../../../../redux/chat/messages/slice';
 import dateToString from '../../../../../utils/helpers/dateToString';
 
 import Message from './Message';
@@ -11,7 +12,7 @@ import Loader from '../../../../Common/Loader';
 
 
 const Chat: React.FC<{}> = () => {
-	const messages = [],
+	const messages = useSelector(selectChatMessages),
 		{isLoading, wasError, dialog} = useSelector(selectChatDialogState);
 
 	if(isLoading)

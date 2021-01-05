@@ -15,8 +15,14 @@
 }
 
 .menuElem{
+    @include flex(flex-start, center);
+
+    font-weight: bold;
+
     width: 70%;
     height: 48px;
+
+    padding: 0 1rem;
 
     &.active{
         transition: .3s all;

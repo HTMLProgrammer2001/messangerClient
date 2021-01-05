@@ -1,30 +1,51 @@
 import {takeLatest, put, all, call} from 'redux-saga/effects';
 import {AxiosResponse} from 'axios';
+import {normalize, schema} from 'normalizr';
 
 import {IGetDialogResponse} from '../../../interfaces/Responses/chat/IGetDialogResponse';
 import {IGetUserResponse} from '../../../interfaces/Responses/IGetUserResponse';
+import {IDialog} from '../../../interfaces/IDialog';
+import {IUser} from '../../../interfaces/IUser';
+import {IMessage} from '../../../interfaces/IMessage';
 
 import {searchSetCurrent} from '../../search/state/slice';
 import {chatDialogStart, chatDialogError, chatSetDialog, chatSetUser} from './slice';
-import {searchUserSuccess} from '../../search/users/slice';
-import {searchSetText} from '../../search/state/slice';
-import {dialogsAdd} from '../../dialogs';
-import {usersAdd} from '../../users';
+import {chatMessagesStart, chatMessagesClear} from '../messages/slice';
+import {dialogsAddMany} from '../../dialogs';
+import {usersAdd, usersAddMany} from '../../users';
+import {messagesAddMany} from '../../messages';
 import chatAPI from '../../../utils/api/chatAPI';
-import {SearchTypes} from '../../../constants/SearchTypes';
 
+
+const normalizeDialog = (data: IDialog) => {
+	const author = new schema.Entity('users', {}, {idAttribute: '_id'}),
+		message = new schema.Entity('messages', {author}, {idAttribute: '_id'}),
+		dialog = new schema.Entity('dialogs', {lastMessage: message});
+
+	return normalize<any, {
+		users: Record<string, IUser>,
+		messages: Record<string, IMessage>,
+		dialogs: Record<string, IDialog>,
+	}>(data, dialog);
+};
 
 function *getDialog(nick: string) {
 	try {
 		const respDialog: AxiosResponse<IGetDialogResponse> = yield call(chatAPI.getDialogByNick, nick);
+		const normalizedResp = normalizeDialog(respDialog.data.dialog);
 
 		//set dialogs to store
-		yield put(dialogsAdd(respDialog.data.dialog));
+		yield put(dialogsAddMany(normalizedResp.entities.dialogs));
+		yield put(usersAddMany(normalizedResp.entities.users));
+		yield put(messagesAddMany(normalizedResp.entities.messages));
 		yield put(chatSetDialog({nick, id: respDialog.data.dialog._id}));
 
-		return true;
+		return false;
 	}
 	catch(e){
+		if(e.response?.status == 404)
+			return 404;
+
 		return true;
 	}
 }
@@ -35,13 +56,14 @@ function *getUser(nick: string) {
 
 		//set user to store
 		yield put(usersAdd(respUser.data.user));
-		yield put(searchUserSuccess(respUser.data.user._id));
 		yield put(chatSetUser({nick, id: respUser.data.user._id}));
-		yield put(searchSetText({type: SearchTypes.NICK, text: `@${nick}`}));
 
-		return true;
+		return false;
 	}
 	catch(e){
+		if(e.response?.status == 404)
+			return 404;
+
 		return true;
 	}
 }
@@ -51,10 +73,17 @@ function* getChatSaga({payload}: ReturnType<typeof searchSetCurrent>){
 	yield put(chatDialogStart());
 
 	try{
-		const res: boolean[] = yield all([call(getDialog, payload), call(getUser, payload)]);
+		//clear messages
+		yield put(chatMessagesClear());
 
-		if(!res.every(item => item))
+		const res: number[] = yield all([call(getDialog, payload), call(getUser, payload)]);
+
+		//set error
+		if(res.every(item => item == 404) || (res[0] && res[1]))
 			yield put(chatDialogError());
+
+		//start message loading
+		yield put(chatMessagesStart());
 	}
 	catch(e){
 		console.log(e.message);

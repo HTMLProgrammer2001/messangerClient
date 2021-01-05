@@ -1,4 +1,4 @@
-const secondsToDate = (secs: number) => {
+const secondsToTime = (secs: number) => {
 	let date = new Date(secs),
 		hours: string|number = date.getHours() % 12,
 		minutes: string|number = date.getMinutes(),
@@ -10,4 +10,4 @@ const secondsToDate = (secs: number) => {
 	return `${hours}:${minutes}${zone}`;
 };
 
-export default secondsToDate;
+export default secondsToTime;

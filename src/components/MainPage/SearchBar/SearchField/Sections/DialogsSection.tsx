@@ -11,7 +11,7 @@ import {
 
 import SearchItem from '../SearchItem';
 import Loader from '../../../../Common/Loader';
-import secondsToDate from '../../../../../utils/helpers/secondsToDate';
+import secondsToTime from '../../../../../utils/helpers/secondsToTime';
 
 
 const DialogsSection: React.FC<{}> = () => {
@@ -56,7 +56,7 @@ const DialogsSection: React.FC<{}> = () => {
 				{
 					dialogs.map(dialog => {
 						//get time
-						const time = dialog.lastMessage?.time && secondsToDate(dialog.lastMessage.time);
+						const time = dialog.lastMessage?.time && secondsToTime(dialog.lastMessage.time);
 
 						let text = 'History was deleted';
 

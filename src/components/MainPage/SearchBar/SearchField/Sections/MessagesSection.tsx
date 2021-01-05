@@ -8,7 +8,7 @@ import {selectSearchMessagesState, selectSearchMessagesStateData, searchMessages
 
 import SearchItem from '../SearchItem';
 import Loader from '../../../../Common/Loader';
-import secondsToDate from '../../../../../utils/helpers/secondsToDate';
+import secondsToTime from '../../../../../utils/helpers/secondsToTime';
 
 
 const MessagesSection: React.FC<{}> = () => {
@@ -53,7 +53,7 @@ const MessagesSection: React.FC<{}> = () => {
 					<SearchItem
 						dlgProps={{
 							name: message.dialog.name,
-							time: secondsToDate(message.time),
+							time: secondsToTime(message.time),
 							text: `${message.author.name}: ${message.message}`,
 							nick: message.dialog.nick,
 							avatar: message.dialog.avatar

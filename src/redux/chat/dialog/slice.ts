@@ -1,11 +1,14 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {denormalize, schema} from 'normalizr';
 
 import {RootState} from '../../';
 import {IDialog} from '../../../interfaces/IDialog';
 import {IUser} from '../../../interfaces/IUser';
+import {IMessage} from '../../../interfaces/IMessage';
 
 import {selectDialogs} from '../../dialogs';
 import {selectUsers} from '../../users';
+import {selectMessages} from '../../messages';
 import mapIdWith from '../../../utils/helpers/mapIdWith';
 
 
@@ -56,8 +59,24 @@ export const selectChatUser = (state: RootState) => (
 	mapIdWith(selectChatDialogState(state).user, selectUsers(state)) as IUser
 );
 
+const denormalizeDialog = (dialogID: string, entities: {
+	users: Record<string, IUser>,
+	messages: Record<string, IMessage>,
+	dialogs: Record<string, IDialog>
+}) => {
+	const author = new schema.Entity('users', {}, {idAttribute: '_id'}),
+		message = new schema.Entity('messages', {author}, {idAttribute: '_id'}),
+		dialog = new schema.Entity('dialogs', {lastMessage: message}, {idAttribute: '_id'});
+
+	return denormalize(dialogID, dialog, entities);
+};
+
 export const selectChatDialog = (state: RootState) => (
-	mapIdWith(selectChatDialogState(state).dialog, selectDialogs(state)) as IDialog
+	denormalizeDialog(selectChatDialogState(state).dialog, {
+		users: selectUsers(state),
+		messages: selectMessages(state),
+		dialogs: selectDialogs(state)
+	})
 );
 
 //exports
