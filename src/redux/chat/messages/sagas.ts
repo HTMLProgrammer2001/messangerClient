@@ -7,7 +7,7 @@ import {IMessage} from '../../../interfaces/IMessage';
 import {IUser} from '../../../interfaces/IUser';
 import {IDialog} from '../../../interfaces/IDialog';
 
-import {chatMessagesStart, chatMessagesError, chatMessagesSuccess, selectChatMessagesState} from './slice';
+import {chatMessagesStart, chatMessagesError, chatMessagesSuccess, selectChatMessagesState, chatMessagesClear} from './slice';
 import {selectChatDialogState} from '../dialog/slice';
 import {messagesAddMany} from '../../messages';
 import {usersAddMany} from '../../users';
@@ -35,6 +35,12 @@ function *getMessagesForChatSaga() {
 		//get data from redux
 		const {offset} = yield select(selectChatMessagesState),
 			{dialog} = yield select(selectChatDialogState);
+
+		if(!dialog) {
+			//clear message state
+			yield put(chatMessagesClear());
+			return;
+		}
 
 		//make api call
 		const resp: IGetMessagesResp = yield call(chatAPI.getMessagesForChat, dialog, offset + 1),

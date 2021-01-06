@@ -13,12 +13,14 @@ import Loader from '../../../../Common/Loader';
 
 const Chat: React.FC<{}> = () => {
 	const messages = useSelector(selectChatMessages),
-		{isLoading, wasError, dialog} = useSelector(selectChatDialogState);
+		{isLoading, wasError} = useSelector(selectChatDialogState);
 
 	if(isLoading)
 		return (
 			<div className={styles.chat}>
-				<Loader/>
+				<div className={styles.noMessage} style={{color: 'black'}}>
+					<Loader/>
+				</div>
 			</div>
 		);
 
@@ -40,21 +42,21 @@ const Chat: React.FC<{}> = () => {
 
 	return (
 		<div className={styles.chat}>
-			<RelativeDate time={messages[0].time}/>
-
 			{
-				messages.map((message) => {
+				messages.map((message, index) => {
 					const isSame = lastDate == dateToString(message.time);
 					lastDate = dateToString(message.time);
 
 					return (
 						<>
-							{!isSame && <RelativeDate time={message.time}/>}
+							{!isSame && <RelativeDate time={messages[index - 1].time}/>}
 							<Message {...message} key={message._id}/>
 						</>
 					)
 				})
 			}
+
+			<RelativeDate time={messages.slice(-1)[0].time}/>
 		</div>
 	);
 };

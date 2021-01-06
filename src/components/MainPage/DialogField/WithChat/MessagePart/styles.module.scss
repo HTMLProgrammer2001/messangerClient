@@ -103,5 +103,11 @@
         &:hover{
             background: darken($bgBlue, 10%);
         }
+
+        &:disabled{
+            background: darken($bgBlue, 10%);
+            color: $textMuted;
+            cursor: not-allowed;
+        }
     }
 }

@@ -27,6 +27,12 @@ const chatAPI = {
 				page: offset
 			}
 		})
+	},
+
+	createPersonal(id: string){
+		return client.post<{message: string}>(`/dialogs/personal`, {to: id}, {
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+		});
 	}
 };
 

@@ -41,8 +41,10 @@ const chatDialogSlice = createSlice({
 			state.isLoading = false;
 			state.wasError = true;
 		},
-		setDialog(state, action: PayloadAction<{ nick: string, id: string }>) {
+		success(state, action: PayloadAction<null>){
 			state.isLoading = false;
+		},
+		setDialog(state, action: PayloadAction<{ nick: string, id: string }>) {
 			state.nick = action.payload.nick;
 			state.dialog = action.payload.id;
 		},
@@ -81,7 +83,8 @@ export const selectChatDialog = (state: RootState) => (
 
 //exports
 export const {
-	start: chatDialogStart, error: chatDialogError, setDialog: chatSetDialog, setUser: chatSetUser
+	start: chatDialogStart, error: chatDialogError, setDialog: chatSetDialog,
+	setUser: chatSetUser, success: chatSuccess
 } = chatDialogSlice.actions;
 
 export default chatDialogSlice.reducer;
