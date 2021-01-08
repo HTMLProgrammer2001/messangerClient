@@ -1,12 +1,15 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
+import cn from 'classnames';
 
 import styles from './styles.module.scss';
+import {MessageTypes} from '../../../../../constants/MessageTypes';
+
 import {selectChatDialogState} from '../../../../../redux/chat/dialog/slice';
 import {selectChatMessages} from '../../../../../redux/chat/messages/slice';
 import dateToString from '../../../../../utils/helpers/dateToString';
 
-import Message from './Message';
+import Message from '../../../../Common/Message/';
 import RelativeDate from '../../../../Common/RelativeDate';
 import Loader from '../../../../Common/Loader';
 
@@ -50,7 +53,12 @@ const Chat: React.FC<{}> = () => {
 					return (
 						<>
 							{!isSame && <RelativeDate time={messages[index - 1].time}/>}
-							<Message {...message} key={message._id}/>
+
+							<div className={cn(styles.chat_message, 'fa', {
+								[styles.noHover]: message.type == MessageTypes.SPECIAL
+							})}>
+								<Message message={message} key={message._id}/>
+							</div>
 						</>
 					)
 				})

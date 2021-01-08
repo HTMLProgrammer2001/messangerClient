@@ -27,12 +27,16 @@ const MessageInput: React.FC<IMessageInputProps> = ({handleSubmit, submitForm, v
 	return (
 		<form onSubmit={handleSubmit} className={styles.message_form}>
 			<div style={{display: 'flex'}}>
-				<Field
-					component="textarea"
-					name="message"
-					className={styles.message_text}
-					onKeyDown={keyHandler}
-				/>
+				<div className={styles.message_wrap}>
+					<Field
+						component="textarea"
+						name="message"
+						className={styles.message_text}
+						onKeyDown={keyHandler}
+					/>
+
+					<div className={styles.line}/>
+				</div>
 
 				<button className={styles.message_button}>
 					<i className={`fas fa-paper-plane ${styles.message_send}`}/>

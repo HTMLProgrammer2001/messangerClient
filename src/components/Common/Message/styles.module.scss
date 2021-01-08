@@ -1,0 +1,72 @@
+@import "../../../styles/includes/main";
+
+.message{
+    @include flex(space-between, flex-start);
+
+    &_data{
+        margin: 5px 0 0 10px;
+    }
+
+    &_from{
+        text-decoration: underline;
+        color: $blue;
+
+        margin-bottom: 5px;
+
+        &:hover{
+            text-decoration: none;
+        }
+    }
+
+    &_content{
+        display: flex;
+    }
+
+    &_time{
+        color: $gray;
+        margin-top: 20px;
+    }
+}
+
+.special{
+    width: fit-content;
+    padding: 5px 10px;
+    margin: 0 auto;
+
+    background: $bgBadge;
+    border-radius: 10px;
+
+    color: $textLight;
+    font-size: .9rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.image{
+    max-width: 50%;
+    max-height: 400px;
+}
+
+.document{
+    display: flex;
+    align-items: flex-start;
+
+    margin-top: .5rem;
+
+    &_icon{
+        font-size: 1.5rem;
+        color: $textLight;
+        text-align: center;
+        line-height: 40px;
+
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+
+        background: $blue;
+    }
+
+    &_info{
+        margin-left: 10px;
+    }
+}
