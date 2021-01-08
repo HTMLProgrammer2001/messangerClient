@@ -9,6 +9,7 @@ export type IMessage = {
 	time: number,
 	message: string,
 	author: IUserShort,
-	url: string,
+	url?: string,
+	size?: number,
 	dialog?: IDialog
 };

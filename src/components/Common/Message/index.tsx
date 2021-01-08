@@ -5,7 +5,7 @@ import {MessageTypes} from '../../../constants/MessageTypes';
 
 import TextMessage from './MessageTypes/TextMessage';
 import ImageMessage from './MessageTypes/ImageMessage';
-import AudioMessage from './MessageTypes/AudioMessage';
+import AudioMessage from './MessageTypes/AudioMessage/';
 import VideoMessage from './MessageTypes/VideoMessage';
 import DocumentMessage from './MessageTypes/DocumentMessage';
 import SpecialMessage from './MessageTypes/SpecialMessage';
