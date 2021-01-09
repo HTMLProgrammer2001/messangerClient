@@ -8,7 +8,7 @@ type IImagePopupProps = {
 }
 
 const ImagePopup: React.FC<IImagePopupProps> = ({url}) => (
-	<div>
+	<div className={styles.wrapper}>
 		<img
 			className={styles.img}
 			src={url}

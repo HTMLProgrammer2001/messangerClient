@@ -1,6 +1,6 @@
 import React, {useCallback, useRef, useState} from 'react';
 
-import styles from '../../styles.module.scss';
+import styles from './styles.module.scss';
 
 
 type ILineProps = {
@@ -55,16 +55,18 @@ const Line: React.FC<ILineProps> = ({onChange, val}) => {
 		},
 
 		onMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
+			//change state
 			setDrag(true);
 			setDragVal(val);
 
+			//set handlers
 			document.body.onmouseup = onMouseUp;
 			document.body.onmousemove = onMouseMove;
 			document.body.ontouchmove = onTouchMove;
 			document.body.ontouchend = onTouchEnd;
 
+			//prevent dragging
 			e.preventDefault();
-			console.log('Touch');
 		};
 
 	const style = (isDrag ? dragVal : val) + '%';

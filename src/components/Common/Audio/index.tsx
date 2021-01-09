@@ -1,24 +1,26 @@
 import React, {useEffect, useRef, useState} from 'react';
 
-import styles from '../../styles.module.scss';
+import styles from './styles.module.scss';
 import cn from 'classnames';
 
 import Line from './Line';
-import secondsToDuration from '../../../../../utils/helpers/secondsToDuration';
+import secondsToDuration from '../../../utils/helpers/secondsToDuration';
+import Volume from './Volume';
 
 
-type IAudioElemProps = {
+type IAudioProps = {
 	url: string,
 	name: string,
 	size: number
 }
 
-const AudioElem: React.FC<IAudioElemProps> = ({name, url, size}) => {
+const Audio: React.FC<IAudioProps> = ({name, url}) => {
 	//state
 	const [isShown, show] = useState(false),
 		[isPlay, setPlay] = useState(false),
 		[value, setValue] = useState(0),
-		[dur, setDur] = useState(0);
+		[volume, setVolume] = useState(100),
+		[dur, setDur] = useState(null);
 
 	const audio = useRef<HTMLAudioElement>(null);
 
@@ -32,7 +34,7 @@ const AudioElem: React.FC<IAudioElemProps> = ({name, url, size}) => {
 			//show audio element
 			show(true);
 			setPlay(true);
-			audio.current.play();
+			await audio.current.play();
 
 			return;
 		}
@@ -48,6 +50,13 @@ const AudioElem: React.FC<IAudioElemProps> = ({name, url, size}) => {
 		onChangeTime = (val: number) => {
 			if (audio.current)
 				audio.current.currentTime = audio.current.duration * (val / 100);
+		},
+		onChangeVolume = (val: number) => {
+			//change volume of music
+			if(audio.current) {
+				audio.current.volume = val / 100;
+				setVolume(val);
+			}
 		},
 		onLoad = () => {
 			//update duration
@@ -92,8 +101,10 @@ const AudioElem: React.FC<IAudioElemProps> = ({name, url, size}) => {
 					ref={audio}
 				/>
 			</div>
+
+			{isShown && <Volume val={volume} onChange={onChangeVolume}/>}
 		</div>
 	);
 };
 
-export default AudioElem;
+export default Audio;

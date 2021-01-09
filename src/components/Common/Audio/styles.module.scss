@@ -1,0 +1,119 @@
+@import '../../../styles/includes/main';
+
+.audio{
+    @include flex(flex-start, center);
+
+    &_icon{
+        font-size: 1.2rem;
+        color: $textLight;
+        text-align: center;
+        line-height: 40px;
+
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+
+        background: $blue;
+    }
+
+    &_info{
+        margin-left: .5rem;
+        height: 100%;
+    }
+
+    &_name{
+        margin-bottom: 5px;
+
+        color: $blue;
+        text-decoration: underline;
+
+        &:hover{
+            text-decoration: none;
+        }
+    }
+
+    &_line{
+        margin-top: 10px;
+        width: 200px;
+        height: 3px;
+
+        position: relative;
+
+        background: transparentize($blue, .5);
+    }
+
+    &_ball{
+        width: 15px;
+        height: 15px;
+
+        position: absolute;
+        left: 0;
+        top: -7px;
+        border-radius: 50%;
+
+        background: $blue;
+    }
+
+    &_played{
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        height: 100%;
+
+        background: $blue;
+    }
+
+    &_header{
+        @include flex(space-between, flex-start, column);
+
+        font-size: .9rem;
+        color: $gray;
+
+        &.loaded{
+            flex-direction: row;
+        }
+    }
+}
+
+.volume{
+    position: relative;
+    padding: 1.5rem .5rem;
+
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: $blue;
+
+    &_lineCont{
+        @include flex(center, center);
+
+        position: absolute;
+        top: -35px;
+        left: 5px;
+
+        width: 100%;
+        height: 50px;
+    }
+
+    &_line{
+        height: 50px;
+        width: 4px;
+
+        background: $bgBlue;
+    }
+
+    &_ball{
+        width: 14px;
+        height: 5px;
+
+        position: absolute;
+        top: 0;
+        left: calc(1rem - 6px);
+
+        background: $bgBlue;
+    }
+
+    &_icon{
+        width: 15px;
+    }
+}

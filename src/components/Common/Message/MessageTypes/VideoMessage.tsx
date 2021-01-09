@@ -1,6 +1,9 @@
 import React from 'react';
 
+import styles from '../styles.module.scss';
 import {IMessage} from '../../../../interfaces/IMessage';
+import Wrapper from './Wrapper';
+import Video from '../../Video/';
 
 
 type IVideoMessageProps = {
@@ -8,7 +11,11 @@ type IVideoMessageProps = {
 }
 
 const VideoMessage: React.FC<IVideoMessageProps> = ({message}) => (
-	<video src={message.url} controls={true} autoPlay={false}/>
+	<Wrapper message={message}>
+		<div className={styles.video}>
+			<Video url={message.url} size={message.size} name={message.message}/>
+		</div>
+	</Wrapper>
 );
 
 export default VideoMessage;

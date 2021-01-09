@@ -16,13 +16,13 @@ const PopUpElement: React.FC<{}> = () => (
 				};
 
 				return (
-					<div>
+					<>
 						{
 							renderElements.map((elem, key) => (
 								<Content handler={handler} RenderElement={elem} key={key}/>
 							))
 						}
-					</div>
+					</>
 				);
 			}
 		}

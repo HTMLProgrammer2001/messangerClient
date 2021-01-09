@@ -1,6 +1,7 @@
 @import "../../../styles/includes/main";
 
 .wrapper{
+    max-width: 75%;
     @include flex(center, center, column);
 }
 

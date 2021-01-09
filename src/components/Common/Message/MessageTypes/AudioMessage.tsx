@@ -1,9 +1,9 @@
 import React from 'react';
 
-import {IMessage} from '../../../../../interfaces/IMessage';
+import {IMessage} from '../../../../interfaces/IMessage';
 
-import Wrapper from '../Wrapper';
-import Audio from './Audio';
+import Wrapper from './Wrapper';
+import Audio from '../../Audio';
 
 
 type IAudioMessageProps = {
