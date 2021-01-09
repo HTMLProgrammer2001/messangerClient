@@ -22,10 +22,8 @@ const chatAPI = {
 	},
 	getMessagesForChat(chat: string, offset = 1){
 		return client.get(`/messages/chat/${chat}`, {
-			headers: {
-				Authorization: `Bearer ${localStorage.getItem('token')}`,
-				page: offset
-			}
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
+			params: {page: offset}
 		})
 	},
 
