@@ -12,6 +12,7 @@ import logIn from './logIn/slice';
 import change from './change/slice';
 import me from './me/slice';
 import createPersonal from './createPersonal/slice';
+import clear from './clear/slice';
 import editMe from './editMe/';
 import search from './search/';
 import chat from './chat/';
@@ -26,7 +27,7 @@ let reducer = combineReducers({
 	logIn, dialogs, chat,
 	users, editMe,
 	search, change, messages,
-	createPersonal
+	createPersonal, clear
 });
 
 let saga = createSagaMiddleware(),

@@ -112,3 +112,19 @@
 .switcher{
     @include flex(space-between, center);
 }
+
+.action{
+    color: $blue;
+    cursor: pointer;
+    transition: .3s all;
+
+    margin-top: .5rem !important;
+
+    &:hover{
+        color: red;
+    }
+
+    &.disabled{
+        color: $gray;
+    }
+}

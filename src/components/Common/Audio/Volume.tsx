@@ -56,7 +56,7 @@ const Volume: React.FC<IVolumeProps> = ({onChange, val}) => {
 					'fa-volume-off': val == 0
 				})}
 				onClick={() => onChange(val == 0 ? 100 : 0)}
-				title={val.toString()}
+				title={val.toFixed(0).toString()}
 			/>
 
 			{

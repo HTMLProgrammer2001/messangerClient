@@ -31,6 +31,21 @@ const chatAPI = {
 		return client.post<{message: string}>(`/dialogs/personal`, {to: id}, {
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
 		});
+	},
+	createChat(name: string, ids: string[]){
+		return client.post<{message: string}>('/dialogs/chat', {name, participants: ids}, {
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+		});
+	},
+	ban(id: string){
+		return client.post<{message: string}>('/dialogs/ban', {id}, {
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+		})
+	},
+	clear(data: {user?: string, dialog?: string}){
+		return client.post<{message: string}>('/dialogs/clear', data, {
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+		});
 	}
 };
 

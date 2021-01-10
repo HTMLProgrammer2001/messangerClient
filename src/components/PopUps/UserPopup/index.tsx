@@ -8,6 +8,7 @@ import UserInfo from '../SettingsPopup/UserInfo';
 import MessageBut from './MessageBut';
 import UserData from './Items/UserData';
 import UserNotification from './Items/UserNotification';
+import Actions from './Items/Actions';
 
 
 type IUserPopupProps = {
@@ -29,6 +30,7 @@ const UserPopup: React.FC<IUserPopupProps> = ({user}) => (
 		<div className={styles.content}>
 			<UserData user={user}/>
 			<UserNotification/>
+			<Actions user={user}/>
 		</div>
 	</div>
 );

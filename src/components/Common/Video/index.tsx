@@ -1,5 +1,4 @@
 import React, {useContext, useRef, useState} from 'react';
-import cn from 'classnames';
 
 import styles from './styles.module.scss';
 import secondsToDuration from '../../../utils/helpers/secondsToDuration';
@@ -7,6 +6,7 @@ import sizeToString from '../../../utils/helpers/sizeToString';
 
 import PopUpContext from '../../../utils/context/PopUpContext';
 import Preview from './Preview';
+import VideoPopup from '../../PopUps/VideoPopup';
 
 
 type IVideoProps = {
@@ -25,7 +25,7 @@ const VideoMessage: React.FC<IVideoProps> = ({url, size, name}) => {
 		{setElement} = useContext(PopUpContext);
 
 	const handler = () => {
-			setElement(() => <video src={url}/>)
+			setElement(() => <VideoPopup url={url}/>)
 		},
 		canPlayHandler = () => {
 			setDur(video.current?.duration);
@@ -44,9 +44,9 @@ const VideoMessage: React.FC<IVideoProps> = ({url, size, name}) => {
 
 			<video
 				src={url}
-				hidden={true}
 				ref={video}
 				preload="metadata"
+				style={{display: 'none'}}
 				onCanPlay={canPlayHandler}
 			/>
 		</div>

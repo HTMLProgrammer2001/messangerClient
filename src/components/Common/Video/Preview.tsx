@@ -18,9 +18,20 @@ const Preview: React.FC<IPreviewProps> = ({video, handler}) => {
 
 		const can = canvas.current;
 
-		//draw image
-		const ctx = can.getContext('2d');
-		ctx.drawImage(video, 0, 0, can.width, can.height, 0, 0, video.width, video.height);
+		video.muted = true;
+
+		video.onplay = () => {
+			video.pause();
+
+			//draw image
+			setInterval(() => {
+				const ctx = can.getContext('2d');
+				ctx.drawImage(video, 0, 0, can.width, can.height);
+			}, 100);
+		};
+
+		//play video
+		video.play();
 	}, [video, canvas.current]);
 
 	return (
