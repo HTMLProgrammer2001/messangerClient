@@ -9,5 +9,6 @@ export type IDialog = {
 	name: string,
 	lastMessage?: IMessage,
 	unread: number,
-	user?: IUser
+	user?: IUser,
+	isActive: boolean
 };

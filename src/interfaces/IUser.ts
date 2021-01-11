@@ -6,5 +6,6 @@ export type IUser = {
 	phone?: string,
 	description?: string,
 	role?: number,
+	isBanned: boolean,
 	opts: Record<string, any>
 };

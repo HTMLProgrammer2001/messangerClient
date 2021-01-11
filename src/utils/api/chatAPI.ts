@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import {IGetDialogResponse} from '../../interfaces/Responses/chat/IGetDialogResponse';
 import {IGetUserResponse} from '../../interfaces/Responses/IGetUserResponse';
+import {IUser} from '../../interfaces/IUser';
 
 
 const client = axios.create({
@@ -16,7 +17,7 @@ const chatAPI = {
 		})
 	},
 	getUserByNick(nick: string){
-		return client.get<IGetUserResponse>(`/users/${nick}`, {
+		return client.get<IGetUserResponse>(`/users/nickname/${nick}`, {
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
 		});
 	},
@@ -38,7 +39,7 @@ const chatAPI = {
 		});
 	},
 	ban(id: string){
-		return client.post<{message: string}>('/dialogs/ban', {id}, {
+		return client.post<{message: string, newUser: IUser}>('/users/ban', {id}, {
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
 		})
 	},

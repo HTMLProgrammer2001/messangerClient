@@ -14,7 +14,7 @@ type IUserDataProps = {
 const UserData: React.FC<IUserDataProps> = ({user}) => {
 	const {setElement} = useContext(PopUpContext),
 		handler = () => {
-			setElement(() => <UserPopup user={user}/>)
+			setElement(() => <UserPopup userID={user._id}/>)
 		};
 
 	return (

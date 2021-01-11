@@ -13,6 +13,7 @@ import editMe from './editMe/editMeSaga';
 import search from './search/searchSaga';
 import createPersonal from './createPersonal/sagas';
 import clear from './clear/sagas';
+import ban from './ban/sagas';
 
 
 //create root saga that we can run
@@ -22,7 +23,7 @@ function* rootSaga(){
 		signInSaga(), logInSaga(), logoutSaga(),
 		chatSaga(), newGroup(), me(),
 		editMe(), change(), search(),
-		createPersonal(), clear()
+		createPersonal(), clear(), ban()
 	]);
 }
 
