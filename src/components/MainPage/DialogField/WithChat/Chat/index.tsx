@@ -8,11 +8,13 @@ import {selectChatMessages} from '../../../../../redux/chat/messages/slice';
 
 import Loader from '../../../../Common/Loader';
 import Messages from './Messages';
+import {selectSendMessagesForDialog} from '../../../../../redux/sendMessage/slice';
 
 
 const Chat: React.FC<{}> = () => {
 	const messages = useSelector(selectChatMessages),
-		{isLoading, wasError} = useSelector(selectChatDialogState);
+		{isLoading, wasError, dialog} = useSelector(selectChatDialogState),
+		loadingMessages = useSelector(selectSendMessagesForDialog(dialog));
 
 	if(isLoading)
 		return (
@@ -30,7 +32,7 @@ const Chat: React.FC<{}> = () => {
 			</div>
 		);
 
-	if(!messages.length)
+	if(!messages.length && !loadingMessages.length)
 		return (
 			<div className={styles.chat}>
 				<div className={styles.noMessage}>No messages</div>

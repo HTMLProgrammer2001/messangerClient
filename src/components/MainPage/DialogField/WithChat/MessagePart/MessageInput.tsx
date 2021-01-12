@@ -1,16 +1,27 @@
 import React from 'react';
-import {withFormik, Field, FormikProps} from 'formik';
+import {Field, FormikProps, withFormik} from 'formik';
 
 import styles from './styles.module.scss';
-import Emoji from './Emoji';
 import {IEmojiData} from 'emoji-picker-react';
+import {ISendMessage} from '../../../../../redux/sendMessage/slice';
+import {MessageTypes} from '../../../../../constants/MessageTypes';
+
+import Emoji from './Emoji';
+import ImageInput from './FileInputs/ImageInput';
+import AudioInput from './FileInputs/AudioInput';
+import VideoInput from './FileInputs/VideoInput';
+import DocumentInput from './FileInputs/DocumentInput';
 
 
 export type IMessageInputData = {
 	message: string
 };
 
-type IMessageInputProps = FormikProps<IMessageInputData>;
+type IOwnProps = {
+	onSubmit(data: Partial<ISendMessage>): void
+}
+
+type IMessageInputProps = FormikProps<IMessageInputData> & IOwnProps;
 
 const MessageInput: React.FC<IMessageInputProps> = ({handleSubmit, submitForm, values, setFieldValue}) => {
 	const keyHandler = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -46,18 +57,22 @@ const MessageInput: React.FC<IMessageInputProps> = ({handleSubmit, submitForm, v
 			<div className={styles.message_actions}>
 				<Emoji onChange={emojiHandler}/>
 
-				<i className={`fas fa-file-audio ${styles.message_send}`}/>
-				<i className={`fas fa-file ${styles.message_send}`}/>
-				<i className={`fas fa-video ${styles.message_send}`}/>
+				<ImageInput/>
+				<AudioInput/>
+				<DocumentInput/>
+				<VideoInput/>
 			</div>
 		</form>
 	);
 };
 
-export default withFormik<{}, IMessageInputData>({
+export default withFormik<IOwnProps, IMessageInputData>({
 	mapPropsToValues: () => ({message: ''}),
-	handleSubmit: (values, formikBag) => {
+	handleSubmit: ({message}, formikBag) => {
 		formikBag.resetForm();
-		console.log(values);
+		formikBag.props.onSubmit({
+			message,
+			type: MessageTypes.MESSAGE
+		});
 	}
 })(MessageInput);

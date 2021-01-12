@@ -4,13 +4,10 @@ import {IMessage} from '../../../../interfaces/IMessage';
 
 import Wrapper from './Wrapper';
 import Audio from '../../Audio';
+import {IMessageProps} from '../index';
 
 
-type IAudioMessageProps = {
-	message: IMessage
-}
-
-const AudioMessage: React.FC<IAudioMessageProps> = ({message}) => (
+const AudioMessage: React.FC<IMessageProps> = ({message}) => (
 	<Wrapper message={message}>
 		<Audio
 			url={message.url}

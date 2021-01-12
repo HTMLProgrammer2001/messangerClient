@@ -39,16 +39,21 @@
 
         &:hover{
             background: rgba(66, 116, 155, 0.1);
+        }
 
-            &::before{
-                opacity: 1;
-            }
+        &.loading::before{
+            background: transparentize($blue, .6);
+        }
+
+        &.unreaded::before{
+            background: transparentize($blue, .2);
         }
 
         &::before{
-            content: '\f058';
-            font-size: 1.5rem;
-            color: rgba(66, 116, 155, 0.5);
+            content: '';
+
+            width: 10px;
+            height: 10px;
 
             display: block;
             position: absolute;
@@ -56,8 +61,7 @@
             top: 50%;
 
             transform: translate(-50%, -50%);
-            opacity: 0;
-            transition: .3s all;
+            border-radius: 50%;
         }
     }
 }

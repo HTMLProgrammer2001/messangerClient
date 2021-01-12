@@ -14,6 +14,7 @@ import search from './search/searchSaga';
 import createPersonal from './createPersonal/sagas';
 import clear from './clear/sagas';
 import ban from './ban/sagas';
+import sendMessage from './sendMessage/sagas';
 
 
 //create root saga that we can run
@@ -23,7 +24,8 @@ function* rootSaga(){
 		signInSaga(), logInSaga(), logoutSaga(),
 		chatSaga(), newGroup(), me(),
 		editMe(), change(), search(),
-		createPersonal(), clear(), ban()
+		createPersonal(), clear(), ban(),
+		sendMessage()
 	]);
 }
 

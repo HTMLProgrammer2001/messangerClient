@@ -12,10 +12,12 @@ import VideoPopup from '../../PopUps/VideoPopup';
 type IVideoProps = {
 	url: string,
 	name: string,
-	size: number
+	size: number,
+	isLoading?: boolean,
+	progress?: number
 }
 
-const VideoMessage: React.FC<IVideoProps> = ({url, size, name}) => {
+const VideoMessage: React.FC<IVideoProps> = ({url, size, name, isLoading = false, progress = 0}) => {
 	//state
 	const [dur, setDur] = useState(null),
 		[isLoaded, setLoaded] = useState(false);
@@ -24,9 +26,7 @@ const VideoMessage: React.FC<IVideoProps> = ({url, size, name}) => {
 	const video = useRef<HTMLVideoElement>(null),
 		{setElement} = useContext(PopUpContext);
 
-	const handler = () => {
-			setElement(() => <VideoPopup url={url}/>)
-		},
+	const handler = () => setElement(() => <VideoPopup url={url}/>),
 		canPlayHandler = () => {
 			setDur(video.current?.duration);
 			setLoaded(true);

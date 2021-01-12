@@ -1,16 +1,12 @@
 import React from 'react';
 
-import {IMessage} from '../../../../interfaces/IMessage';
+import {IMessageProps} from '../index';
 
 import DocumentElem from '../../Document/';
 import Wrapper from './Wrapper';
 
 
-type IDocumentMessageProps = {
-	message: IMessage
-}
-
-const DocumentMessage: React.FC<IDocumentMessageProps> = ({message}) => (
+const DocumentMessage: React.FC<IMessageProps> = ({message}) => (
 	<Wrapper message={message}>
 		<DocumentElem
 			name={message.message}

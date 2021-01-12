@@ -1,15 +1,10 @@
 import React from 'react';
 
-import {IMessage} from '../../../../interfaces/IMessage';
-
 import Wrapper from './Wrapper';
+import {IMessageProps} from '../index';
 
 
-type ITextMessageProps = {
-	message: IMessage
-}
-
-const TextMessage: React.FC<ITextMessageProps> = ({message}) => (
+const TextMessage: React.FC<IMessageProps> = ({message}) => (
 	<Wrapper message={message}>
 		{message.message}
 	</Wrapper>

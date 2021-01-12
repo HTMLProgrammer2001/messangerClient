@@ -1,6 +1,6 @@
-import {IUserShort} from './IUserShort';
 import {IDialog} from './IDialog';
 import {MessageTypes} from '../constants/MessageTypes';
+import {IUser} from './IUser';
 
 
 export type IMessage = {
@@ -8,7 +8,7 @@ export type IMessage = {
 	type: MessageTypes,
 	time: number,
 	message: string,
-	author: IUserShort,
+	author: IUser,
 	url?: string,
 	size?: number,
 	dialog?: IDialog

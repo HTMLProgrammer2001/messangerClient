@@ -11,33 +11,42 @@ import DocumentMessage from './MessageTypes/DocumentMessage';
 import SpecialMessage from './MessageTypes/SpecialMessage';
 
 
-type IMessageProps = {
-	message: IMessage
+export type IMessageProps = {
+	message: IMessage,
+	isLoading?: boolean,
+	progress?: number
 }
 
-const Message: React.FC<IMessageProps> = ({message}) => {
+const Message: React.FC<IMessageProps> = ({message, isLoading = false, progress = null}) => {
+	let Elem: React.FC<IMessageProps> = null;
+
 	switch (message.type) {
 		case MessageTypes.MESSAGE:
-			return <TextMessage message={message}/>;
+			Elem = TextMessage;
+			break;
 
 		case MessageTypes.IMAGE:
-			return <ImageMessage message={message}/>;
+			Elem = ImageMessage;
+			break;
 
 		case MessageTypes.AUDIO:
-			return <AudioMessage message={message}/>;
+			Elem = AudioMessage;
+			break;
 
 		case MessageTypes.VIDEO:
-			return <VideoMessage message={message}/>;
+			Elem = VideoMessage;
+			break;
 
 		case MessageTypes.DOCUMENT:
-			return <DocumentMessage message={message}/>;
+			Elem = DocumentMessage;
+			break;
 
 		case MessageTypes.SPECIAL:
-			return <SpecialMessage message={message}/>;
-
-		default:
-			return null;
+			Elem = SpecialMessage;
+			break;
 	}
+
+	return <Elem message={message} isLoading={isLoading} progress={progress}/>
 };
 
 export default Message;
