@@ -2,9 +2,10 @@ import React from 'react';
 import {useDispatch} from 'react-redux';
 
 import styles from '../styles.module.scss';
+import {IInputProps} from './ImageInput';
 
 
-const AudioInput: React.FC = () => {
+const AudioInput: React.FC<IInputProps> = () => {
 	const dispatch = useDispatch();
 
 	const handler = (e: React.ChangeEvent<HTMLInputElement>) => {

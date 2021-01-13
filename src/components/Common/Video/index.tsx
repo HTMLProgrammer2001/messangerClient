@@ -14,10 +14,11 @@ type IVideoProps = {
 	name: string,
 	size: number,
 	isLoading?: boolean,
-	progress?: number
+	progress?: number,
+	cancel?: () => void
 }
 
-const VideoMessage: React.FC<IVideoProps> = ({url, size, name, isLoading = false, progress = 0}) => {
+const VideoMessage: React.FC<IVideoProps> = ({url, size, name, isLoading = false, progress = 0, cancel}) => {
 	//state
 	const [dur, setDur] = useState(null),
 		[isLoaded, setLoaded] = useState(false);
@@ -26,7 +27,12 @@ const VideoMessage: React.FC<IVideoProps> = ({url, size, name, isLoading = false
 	const video = useRef<HTMLVideoElement>(null),
 		{setElement} = useContext(PopUpContext);
 
-	const handler = () => setElement(() => <VideoPopup url={url}/>),
+	const handler = () => {
+			if(!isLoading)
+				setElement(() => <VideoPopup url={url}/>);
+			else
+				cancel();
+		},
 		canPlayHandler = () => {
 			setDur(video.current?.duration);
 			setLoaded(true);

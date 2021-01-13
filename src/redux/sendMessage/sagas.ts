@@ -1,42 +1,62 @@
-import {takeEvery, delay, call, put, race, take} from 'redux-saga/effects';
-import axios, {AxiosResponse} from 'axios';
+import {takeEvery, delay, call, put, fork, take, cancel, cancelled, race} from 'redux-saga/effects';
+import axios, {AxiosResponse, CancelToken} from 'axios';
 
-import {sendMessageStart, sendMessageSuccess, sendMessageProgress, sendMessageCancel, ISendMessage} from './slice';
-import sendMessageAPI from '../../utils/api/sendMessageAPI';
 import {ISendMessageResponse} from '../../interfaces/Responses/chat/ISendMessageResponse';
+import {sendMessageStart, sendMessageSuccess, sendMessageProgress, sendMessageCancel, ISendMessage} from './slice';
+import {messagesAdd} from '../messages';
+import {dialogsAdd} from '../dialogs';
+import sendMessageAPI from '../../utils/api/sendMessageAPI';
 
 
-function* sendMessageSaga({payload}: ReturnType<typeof sendMessageStart>) {
-	const {token, cancel} = axios.CancelToken.source();
+function* sendMessageApi(data: ISendMessage, token: CancelToken){
+	let i = 0;
 
 	while (true) {
 		try {
-			let {action, api} = yield race({
-				action: take(action => {
-					return action.type == sendMessageCancel.type && action.payload == payload._id
-				}),
-				api: call(sendMessageAPI.send, payload, token, function* (progress: number) {
-					yield put(sendMessageProgress({message: payload._id, progress}));
-				})
-			});
+			//make api call
+			const resp: AxiosResponse<ISendMessageResponse> = yield call(sendMessageAPI.send,
+				data, token, function* (progress: number) {
+					yield put(sendMessageProgress({message: data._id, progress}));
+				});
 
-			const resp = api as AxiosResponse<ISendMessageResponse>;
+			//update state
+			yield put(sendMessageSuccess(data._id));
+			yield put(messagesAdd(resp.data.newMessage));
 
-			console.log(resp);
-			console.log(action);
+			//update dialog last message
+			yield put(dialogsAdd({_id: data.dialog, lastMessage: resp.data.newMessage._id} as any));
 
-			if (resp)
-				yield put(sendMessageSuccess(payload._id));
-			else {
-				console.log('Cancel');
-				return cancel();
-			}
-
+			//exit loop
 			break;
 		} catch (e) {
-			console.log(e);
-			yield delay(1500);
+			//exit on task cancel
+			if(yield cancelled())
+				return;
+
+			//increase interval
+			if(i < 60)
+				i++;
+
+			yield delay(1000 * i);
 		}
+	}
+}
+
+function* sendMessageSaga({payload}: ReturnType<typeof sendMessageStart>) {
+	const source = axios.CancelToken.source(),
+		//start send messages
+		task = yield fork(sendMessageApi, payload, source.token);
+
+	//start race between success sending and cancellation
+	const {api, cancelMessage} = yield race({
+		api: take(action => action.type == sendMessageSuccess.type && action.payload == payload._id),
+		cancelMessage: take(action => action.type == sendMessageCancel.type && action.payload == payload._id)
+	});
+
+	if(cancelMessage){
+		//stop api calls
+		yield cancel(task);
+		source.cancel();
 	}
 }
 

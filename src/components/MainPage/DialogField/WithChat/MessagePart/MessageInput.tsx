@@ -1,10 +1,14 @@
 import React from 'react';
 import {Field, FormikProps, withFormik} from 'formik';
+import {useSelector} from 'react-redux';
+import {IEmojiData} from 'emoji-picker-react';
 
 import styles from './styles.module.scss';
-import {IEmojiData} from 'emoji-picker-react';
 import {ISendMessage} from '../../../../../redux/sendMessage/slice';
 import {MessageTypes} from '../../../../../constants/MessageTypes';
+
+import {selectMeInfo} from '../../../../../redux/me/slice';
+import {selectChatDialog} from '../../../../../redux/chat/dialog/slice';
 
 import Emoji from './Emoji';
 import ImageInput from './FileInputs/ImageInput';
@@ -24,10 +28,15 @@ type IOwnProps = {
 type IMessageInputProps = FormikProps<IMessageInputData> & IOwnProps;
 
 const MessageInput: React.FC<IMessageInputProps> = ({handleSubmit, submitForm, values, setFieldValue}) => {
+	const author = useSelector(selectMeInfo),
+		dialog = useSelector(selectChatDialog);
+
 	const keyHandler = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
 		//submit on Shift + Enter
-		if(e.shiftKey && e.key == 'Enter')
+		if(e.shiftKey && e.key == 'Enter') {
 			submitForm();
+			e.preventDefault();
+		}
 	};
 
 	const emojiHandler = (emoji: IEmojiData) => {
@@ -57,10 +66,10 @@ const MessageInput: React.FC<IMessageInputProps> = ({handleSubmit, submitForm, v
 			<div className={styles.message_actions}>
 				<Emoji onChange={emojiHandler}/>
 
-				<ImageInput/>
-				<AudioInput/>
-				<DocumentInput/>
-				<VideoInput/>
+				<ImageInput author={author} dialog={dialog}/>
+				<AudioInput author={author} dialog={dialog}/>
+				<DocumentInput author={author} dialog={dialog}/>
+				<VideoInput author={author} dialog={dialog}/>
 			</div>
 		</form>
 	);

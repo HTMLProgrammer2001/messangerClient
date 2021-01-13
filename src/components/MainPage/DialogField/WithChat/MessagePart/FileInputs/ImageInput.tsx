@@ -1,19 +1,22 @@
 import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {v4 as uuid} from 'uuid';
 import {toast} from 'react-toastify';
 
+import {IDialog} from '../../../../../../interfaces/IDialog';
+import {IUser} from '../../../../../../interfaces/IUser';
 import styles from '../styles.module.scss';
-import {selectChatDialog} from '../../../../../../redux/chat/dialog/slice';
-import {selectMeInfo} from '../../../../../../redux/me/slice';
 import {sendMessageStart} from '../../../../../../redux/sendMessage/slice';
 import {MessageTypes} from '../../../../../../constants/MessageTypes';
 
 
-const ImageInput: React.FC = () => {
-	const dispatch = useDispatch(),
-		dialog = useSelector(selectChatDialog),
-		author = useSelector(selectMeInfo);
+export type IInputProps = {
+	author: IUser,
+	dialog: IDialog
+}
+
+const ImageInput: React.FC<IInputProps> = ({dialog, author}) => {
+	const dispatch = useDispatch();
 
 	const handler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		//check files count
