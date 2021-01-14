@@ -37,6 +37,9 @@ const ImageInput: React.FC<IInputProps> = ({dialog, author}) => {
 				time: Date.now(), type: MessageTypes.IMAGE, url
 			}));
 		}
+
+		//reset form
+		e.target.form.reset();
 	};
 
 	return (

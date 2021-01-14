@@ -19,18 +19,25 @@ const VideoInput: React.FC<IInputProps> = ({dialog, author}) => {
 			return;
 		}
 
+		//check file size
+		for(let file of e.target.files){
+			if(file.size > 100 * 1024 * 1024){
+				toast.error('Video must be less than 100Mb');
+				return;
+			}
+		}
+
 		//send selected files
 		for(let file of e.target.files){
-			//create url
-			const blob = new Blob([file]),
-				url = URL.createObjectURL(blob);
-
 			dispatch(sendMessageStart({
 				_id: uuid(), dialog, author,
 				message: file.name, size: file.size,
-				time: Date.now(), type: MessageTypes.VIDEO, url
+				time: Date.now(), type: MessageTypes.VIDEO, url: ''
 			}));
 		}
+
+		//reset form
+		e.target.form.reset();
 	};
 
 	return (

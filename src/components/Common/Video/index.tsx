@@ -40,7 +40,12 @@ const VideoMessage: React.FC<IVideoProps> = ({url, size, name, isLoading = false
 
 	return (
 		<div className={styles.video}>
-			<Preview video={isLoaded && video.current} handler={handler}/>
+			<Preview
+				video={isLoaded && video.current}
+				handler={handler}
+				isLoading={isLoading}
+				progress={progress}
+			/>
 
 			<div className={styles.video_info}>
 				<div className={styles.video_name} onClick={handler}>{name}</div>

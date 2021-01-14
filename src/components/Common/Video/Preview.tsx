@@ -2,14 +2,17 @@ import React, {useEffect, useRef} from 'react';
 import cn from 'classnames';
 
 import styles from './styles.module.scss';
+import Uploader from '../Uploader';
 
 
 type IPreviewProps = {
 	video?: HTMLVideoElement,
-	handler: () => void
+	handler: () => void,
+	isLoading?: boolean,
+	progress?: number
 }
 
-const Preview: React.FC<IPreviewProps> = ({video, handler}) => {
+const Preview: React.FC<IPreviewProps> = ({video, handler, isLoading = false, progress = 0}) => {
 	const canvas = useRef<HTMLCanvasElement>(null);
 
 	useEffect(() => {
@@ -17,7 +20,6 @@ const Preview: React.FC<IPreviewProps> = ({video, handler}) => {
 			return;
 
 		const can = canvas.current;
-
 		video.muted = true;
 
 		video.onplay = () => {
@@ -37,7 +39,12 @@ const Preview: React.FC<IPreviewProps> = ({video, handler}) => {
 	return (
 		<div className={styles.preview} onClick={handler}>
 			<canvas ref={canvas} className={styles.preview_canvas}/>
-			<i className={cn('fas fa-play', styles.preview_icon)}/>
+			{
+				!isLoading ?
+					<i className={cn('fas fa-play', styles.preview_icon)}/>
+						:
+					<Uploader progress={progress} cancel={() => null}/>
+			}
 		</div>
 	);
 };
