@@ -85,7 +85,7 @@ const Audio: React.FC<IAudioProps> = ({name, url, progress, isLoading, cancel}) 
 						'fa-pause': isPlay
 					})}/>
 						:
-					<div style={{position: 'relative', minWidth: '40px'}}>
+					<div style={{position: 'relative', minWidth: '40px', minHeight: '40px'}}>
 						<Uploader cancel={cancel} progress={progress} icon={true}/>
 					</div>
 			}

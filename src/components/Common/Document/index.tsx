@@ -5,32 +5,48 @@ import cn from 'classnames';
 import styles from './styles.module.scss';
 import sizeToString from '../../../utils/helpers/sizeToString';
 import useDownload from '../../../utils/hooks/useDownload';
+import Uploader from '../Uploader';
 
 
 type IDocumentProps = {
 	name: string,
 	size: number,
-	url: string
+	url: string,
+	isLoading?: boolean,
+	progress?: number,
+	cancel?: () => void
 }
 
-const Document: React.FC<IDocumentProps> = ({name, size, url}) => {
-	const {isLoading, error, download, progress} = useDownload(),
+const Document: React.FC<IDocumentProps> = ({name, size, url, isLoading, progress, cancel}) => {
+	const fileDownload = useDownload(),
 		handler = async () => {
-			if(!isLoading)
-				await download(url, name);
+			if(isLoading) {
+				cancel();
+				return ;
+			}
+
+			if(!fileDownload.isLoading)
+				await fileDownload.download(url, name);
 		};
 
 	useEffect(() => {
-		if(error)
-			toast.error(error);
-	}, [error]);
+		if(fileDownload.error)
+			toast.error(fileDownload.error);
+	}, [fileDownload.error]);
 
 	return (
 		<div className={styles.document}>
-			<i className={cn('fas', styles.document_icon, {
-				'fa-file': !isLoading,
-				'fa-spinner fa-spin': isLoading
-			})}/>
+			{
+				!isLoading ?
+					<i className={cn('fas', styles.document_icon, {
+						'fa-file': !fileDownload.isLoading,
+						'fa-spinner fa-spin': fileDownload.isLoading
+					})}/>
+						:
+					<div style={{position: 'relative', minWidth: '40px', minHeight: '40px'}}>
+						<Uploader cancel={cancel} progress={progress} icon={true}/>
+					</div>
+			}
 
 			<div className={styles.document_info}>
 				<a
@@ -42,7 +58,7 @@ const Document: React.FC<IDocumentProps> = ({name, size, url}) => {
 				</a>
 
 				<div className={styles.document_size}>
-					{isLoading && `${sizeToString(progress)}/`}
+					{fileDownload.isLoading && `${sizeToString(fileDownload.progress)}/`}
 					{sizeToString(size)}
 				</div>
 			</div>
