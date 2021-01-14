@@ -42,7 +42,7 @@ const Line: React.FC<ILineProps> = ({onChange, val}) => {
 
 	//wrappers
 	const onMouseUp = (e: MouseEvent) => {
-			up(e.clientX)
+			up(e.clientX);
 		},
 		onMouseMove = (e: MouseEvent) => {
 			move(e.clientX)
@@ -73,7 +73,11 @@ const Line: React.FC<ILineProps> = ({onChange, val}) => {
 
 	return (
 		<div className={styles.audio_line} ref={line}>
-			<span className={styles.audio_played} style={{width: style}}/>
+			<span
+				className={styles.audio_played}
+				onClick={onMouseUp as any}
+				style={{width: style}}
+			/>
 
 			<span
 				className={styles.audio_ball}

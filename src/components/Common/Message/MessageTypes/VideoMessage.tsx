@@ -11,9 +11,7 @@ import Video from '../../Video/';
 
 const VideoMessage: React.FC<IMessageProps> = ({message, isLoading, progress}) => {
 	const dispatch = useDispatch(),
-		cancel = () => {
-			dispatch(sendMessageCancel(message._id));
-		};
+		cancel = () => dispatch(sendMessageCancel(message._id));
 
 	return (
 		<Wrapper message={message}>

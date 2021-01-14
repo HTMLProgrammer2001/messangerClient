@@ -1,17 +1,18 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
+import cn from 'classnames';
 
 import styles from './styles.module.scss';
 import {selectSendMessagesForDialog} from '../../../../../redux/sendMessage/slice';
 import {selectChatDialogState} from '../../../../../redux/chat/dialog/slice';
 import Message from '../../../../Common/Message';
-import cn from 'classnames';
-import {MessageTypes} from '../../../../../constants/MessageTypes';
 
 
 const LoadingMessages = () => {
 	const {dialog} = useSelector(selectChatDialogState),
 		loadingMessages = useSelector(selectSendMessagesForDialog(dialog));
+
+	loadingMessages.reverse();
 
 	return (
 		<div className={styles.chat}>

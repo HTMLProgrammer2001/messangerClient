@@ -6,15 +6,19 @@ import cn from 'classnames';
 import Line from './Line';
 import secondsToDuration from '../../../utils/helpers/secondsToDuration';
 import Volume from './Volume';
+import Uploader from '../Uploader';
 
 
 type IAudioProps = {
 	url: string,
 	name: string,
-	size: number
+	size: number,
+	isLoading?: boolean,
+	progress?: number,
+	cancel?: () => void
 }
 
-const Audio: React.FC<IAudioProps> = ({name, url}) => {
+const Audio: React.FC<IAudioProps> = ({name, url, progress, isLoading, cancel}) => {
 	//state
 	const [isShown, show] = useState(false),
 		[isPlay, setPlay] = useState(false),
@@ -74,10 +78,17 @@ const Audio: React.FC<IAudioProps> = ({name, url}) => {
 
 	return (
 		<div className={styles.audio}>
-			<i onClick={handler} className={cn('fas', styles.audio_icon, {
-				'fa-play': !isPlay,
-				'fa-pause': isPlay
-			})}/>
+			{
+				!isLoading ?
+					<i onClick={handler} className={cn('fas', styles.audio_icon, {
+						'fa-play': !isPlay,
+						'fa-pause': isPlay
+					})}/>
+						:
+					<div style={{position: 'relative', minWidth: '40px'}}>
+						<Uploader cancel={cancel} progress={progress} icon={true}/>
+					</div>
+			}
 
 			<div className={styles.audio_info}>
 				<div className={cn(styles.audio_header, {
@@ -85,10 +96,6 @@ const Audio: React.FC<IAudioProps> = ({name, url}) => {
 				})}>
 					<div className={styles.audio_name} onClick={handler}>
 						{name}
-					</div>
-
-					<div className={styles.audio_time}>
-						{left}
 					</div>
 				</div>
 
@@ -98,11 +105,15 @@ const Audio: React.FC<IAudioProps> = ({name, url}) => {
 					src={url}
 					onTimeUpdate={onTimeUpdate}
 					onCanPlay={onLoad}
+					onEnded={() => setPlay(false)}
 					ref={audio}
 				/>
 			</div>
 
-			{isShown && <Volume val={volume} onChange={onChangeVolume}/>}
+			<div className={styles.audio_control}>
+				{isShown && <Volume val={volume} onChange={onChangeVolume}/>}
+				{left}
+			</div>
 		</div>
 	);
 };

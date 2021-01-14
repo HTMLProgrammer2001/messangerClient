@@ -1,10 +1,12 @@
+@import "../../../styles/includes/main";
+
 .loader{
     position: absolute;
     left: 50%;
     top: 50%;
 
     max-width: 60px;
-    min-height: 60px;
+    max-height: 60px;
     width: 75%;
     height: 75%;
 
@@ -15,6 +17,14 @@
     padding: .3rem;
 
     cursor: pointer;
+
+    &.icon{
+        width: 40px;
+        min-width: 40px;
+        height: 40px;
+
+        background: $blue;
+    }
 
     &_circle{
         position: absolute;

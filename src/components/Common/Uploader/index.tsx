@@ -1,17 +1,19 @@
 import React from 'react';
+import cn from 'classnames';
 
 import styles from './styles.module.scss';
 
 
 type IUploaderProps = {
 	cancel: () => void,
-	progress: number
+	progress: number,
+	icon?: boolean
 }
 
-const Uploader: React.FC<IUploaderProps> = ({cancel, progress}) => (
+const Uploader: React.FC<IUploaderProps> = ({cancel, progress, icon = false}) => (
 	<svg
 		viewBox="0 0 100 100"
-		className={styles.loader}
+		className={cn(styles.loader, {[styles.icon]: icon})}
 		onClick={cancel}
 	>
 		<circle
