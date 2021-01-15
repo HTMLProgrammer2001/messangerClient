@@ -34,7 +34,7 @@ const ImageInput: React.FC<IInputProps> = ({dialog, author}) => {
 			dispatch(sendMessageStart({
 				_id: uuid(), dialog, author,
 				message: file.name, size: file.size,
-				time: Date.now(), type: MessageTypes.IMAGE, url
+				time: Date.now(), type: MessageTypes.IMAGE, url, file
 			}));
 		}
 

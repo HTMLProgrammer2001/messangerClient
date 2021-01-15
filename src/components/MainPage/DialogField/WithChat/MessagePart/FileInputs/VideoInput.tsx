@@ -32,7 +32,7 @@ const VideoInput: React.FC<IInputProps> = ({dialog, author}) => {
 			dispatch(sendMessageStart({
 				_id: uuid(), dialog, author,
 				message: file.name, size: file.size,
-				time: Date.now(), type: MessageTypes.VIDEO, url: ''
+				time: Date.now(), type: MessageTypes.VIDEO, url: '', file
 			}));
 		}
 

@@ -35,7 +35,7 @@ const AudioInput: React.FC<IInputProps> = ({dialog, author}) => {
 			dispatch(sendMessageStart({
 				_id: uuid(), dialog, author,
 				message: file.name, size: file.size,
-				time: Date.now(), type: MessageTypes.AUDIO, url
+				time: Date.now(), type: MessageTypes.AUDIO, url, file
 			}));
 		}
 

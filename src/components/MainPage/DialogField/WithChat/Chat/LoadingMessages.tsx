@@ -14,8 +14,11 @@ const LoadingMessages = () => {
 
 	loadingMessages.reverse();
 
+	if(!loadingMessages)
+		return;
+
 	return (
-		<div className={styles.chat}>
+		<>
 			{
 				loadingMessages.map(msg => (
 					<div className={cn(styles.chat_message, 'fa', {
@@ -30,7 +33,7 @@ const LoadingMessages = () => {
 					</div>
 				))
 			}
-		</div>
+		</>
 	);
 };
 

@@ -1,30 +1,57 @@
-import {takeEvery, delay, call, put, fork, take, cancel, cancelled, race} from 'redux-saga/effects';
+import {takeEvery, delay, call, put, fork, take, cancel, cancelled, race, select} from 'redux-saga/effects';
+import {channel} from 'redux-saga';
 import axios, {AxiosResponse, CancelToken} from 'axios';
 
 import {ISendMessageResponse} from '../../interfaces/Responses/chat/ISendMessageResponse';
 import {sendMessageStart, sendMessageSuccess, sendMessageProgress, sendMessageCancel, ISendMessage} from './slice';
 import {messagesAdd} from '../messages';
 import {dialogsAdd} from '../dialogs';
+import {chatMessagesAdd} from '../chat/messages/slice';
 import sendMessageAPI from '../../utils/api/sendMessageAPI';
+import {selectChatDialogState} from '../chat/dialog/slice';
 
+
+function *progressWatch(prgChannel: any){
+	while(true){
+		const action = yield take(prgChannel);
+		yield put(action);
+	}
+}
 
 function* sendMessageApi(data: ISendMessage, token: CancelToken){
 	let i = 0;
 
+	//create progress channel and watch it
+	const progressChannel = channel();
+	yield fork(progressWatch, progressChannel);
+
 	while (true) {
 		try {
+
 			//make api call
 			const resp: AxiosResponse<ISendMessageResponse> = yield call(sendMessageAPI.send,
-				data, token, function* (progress: number) {
-					yield put(sendMessageProgress({message: data._id, progress}));
+				data, token, (progress: number) => {
+					progressChannel.put(sendMessageProgress({message: data._id, progress}));
 				});
+
+			//get current dialog
+			const {dialog} = yield select(selectChatDialogState);
 
 			//update state
 			yield put(sendMessageSuccess(data._id));
-			yield put(messagesAdd(resp.data.newMessage));
+			yield put(messagesAdd({
+				...resp.data.newMessage,
+				author: resp.data.newMessage.author._id
+			} as any));
 
 			//update dialog last message
-			yield put(dialogsAdd({_id: data.dialog, lastMessage: resp.data.newMessage._id} as any));
+			yield put(dialogsAdd({_id: data.dialog._id, lastMessage: resp.data.newMessage._id} as any));
+
+			if(dialog == data.dialog._id)
+				yield put(chatMessagesAdd({
+					message: resp.data.newMessage._id,
+					first: true
+				}));
 
 			//exit loop
 			break;

@@ -10,7 +10,14 @@ const client = axios.create({
 
 const sendMessageAPI = {
 	async send(message: ISendMessage, cancelToken: CancelToken, callback: (progress: number) => void){
-		return client.post<ISendMessageResponse>('/messages', message, {
+		//create form data
+		let form = new FormData();
+		form.append('message', message.message);
+		form.append('type', message.type.toString());
+		form.append('dialog', message.dialog._id);
+		form.append('file', message.file);
+
+		return client.post<ISendMessageResponse>('/messages', form, {
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
 			cancelToken: cancelToken,
 			onUploadProgress: progressEvent => {

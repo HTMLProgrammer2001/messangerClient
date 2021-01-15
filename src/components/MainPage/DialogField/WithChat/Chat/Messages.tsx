@@ -47,11 +47,11 @@ const Messages: React.FC = () => {
 						<>
 							{!isSame && <RelativeDate time={messages[index - 1].time}/>}
 
-							<div className={cn(styles.chat_message, 'fa', {
+							<div  key={message._id} className={cn(styles.chat_message, 'fa', {
 								[styles.noHover]: message.type == MessageTypes.SPECIAL,
 								[styles.unreaded]: !message.readed
 							})}>
-								<Message message={message} key={message._id}/>
+								<Message message={message}/>
 							</div>
 						</>
 					)

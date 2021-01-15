@@ -24,7 +24,7 @@ const DocumentInput: React.FC<IInputProps> = ({author, dialog}) => {
 			dispatch(sendMessageStart({
 				_id: uuid(), dialog, author,
 				message: file.name, size: file.size,
-				time: Date.now(), type: MessageTypes.DOCUMENT, url: ''
+				time: Date.now(), type: MessageTypes.DOCUMENT, url: '', file
 			}));
 		}
 

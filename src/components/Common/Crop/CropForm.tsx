@@ -50,7 +50,7 @@ const CropForm: React.FC<ICropFormProps> = ({onChange, img}) => {
 							onClick={save}>Next</div>
 					</div>
 
-					<canvas ref = {elem} id="cropField" style={{width: '100%'}}>
+					<canvas ref = {elem} id="cropField" style={{maxWidth: '75vw', maxHeight: '75vh'}}>
 						Canvas is not supported :(
 					</canvas>
 				</>

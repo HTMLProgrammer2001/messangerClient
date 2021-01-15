@@ -18,7 +18,9 @@ export function *searchUserSaga({payload}: ReturnType<typeof searchUserStart>) {
 	}
 	catch (e) {
 		//show error
-		toast.error('Error in user loading occured');
+		if(e.response?.status != 404)
+			toast.error('Error in user loading occured');
+
 		yield put(searchUserError());
 	}
 }
