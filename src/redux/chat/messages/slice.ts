@@ -52,6 +52,9 @@ const chatMessageSlice =  createSlice({
 		},
 		addMessage(state, {payload}: PayloadAction<{message: string, first: boolean}>){
 			payload.first ? state.messages.unshift(payload.message) : state.messages.push(payload.message);
+		},
+		removeMessage(state, action: PayloadAction<string>){
+			state.messages = state.messages.filter(id => id != action.payload);
 		}
 	}
 });
@@ -83,7 +86,7 @@ export const selectChatMessages = (state: RootState) => (
 export const {
 	start: chatMessagesStart, error: chatMessagesError,
 	success: chatMessagesSuccess, clear: chatMessagesClear,
-	addMessage: chatMessagesAdd
+	addMessage: chatMessagesAdd, removeMessage: chatMessagesRemove
 } = chatMessageSlice.actions;
 
 export default chatMessageSlice.reducer;

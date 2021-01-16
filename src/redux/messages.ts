@@ -32,6 +32,9 @@ const messageSlice = createSlice({
 		},
 		clear(state, action: PayloadAction<null>){
 			return {};
+		},
+		remove(state, action: PayloadAction<string>){
+			delete state[action.payload];
 		}
 	}
 });
@@ -40,5 +43,9 @@ const messageSlice = createSlice({
 export const selectMessages = (state: RootState) => state.messages;
 
 //exports
-export const {add: messagesAdd, addMany: messagesAddMany, clear: messagesClear} = messageSlice.actions;
+export const {
+	add: messagesAdd, addMany: messagesAddMany,
+	clear: messagesClear, remove: messagesRemove
+} = messageSlice.actions;
+
 export default messageSlice.reducer;

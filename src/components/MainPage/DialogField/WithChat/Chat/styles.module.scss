@@ -37,7 +37,7 @@
             }
         }
 
-        &:hover{
+        &:hover, &.selected{
             background: rgba(66, 116, 155, 0.1);
         }
 

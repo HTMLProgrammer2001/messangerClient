@@ -57,8 +57,7 @@ const DialogsSection: React.FC<{}> = () => {
 					dialogs.map(dialog => {
 						//get time
 						const time = dialog.lastMessage?.time && secondsToTime(dialog.lastMessage.time);
-
-						let text = 'History was deleted';
+						let text = 'Message was deleted';
 
 						if(dialog.lastMessage)
 							text = `${dialog.lastMessage.author.name}: ${dialog.lastMessage.message}`;

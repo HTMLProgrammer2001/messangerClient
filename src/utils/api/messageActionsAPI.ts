@@ -1,14 +1,14 @@
-import axios, {CancelToken, CancelTokenSource} from 'axios';
+import axios, {CancelToken} from 'axios';
 
 import {ISendMessage} from '../../redux/sendMessage/slice';
 import {ISendMessageResponse} from '../../interfaces/Responses/chat/ISendMessageResponse';
 
 
 const client = axios.create({
-	baseURL: process.env.API_URL || 'http://localhost:5000'
+	baseURL: process.env.API_URL || 'http://localhost:5000/'
 });
 
-const sendMessageAPI = {
+const messageActionsAPI = {
 	async send(message: ISendMessage, cancelToken: CancelToken, callback: (progress: number) => void){
 		//create form data
 		let form = new FormData();
@@ -24,7 +24,14 @@ const sendMessageAPI = {
 				callback(progressEvent.loaded/progressEvent.total);
 			}
 		});
+	},
+
+	async deleteMessages(messages: string[], forOthers: boolean){
+		return client.delete('/messages', {
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
+			params: {messages, forOthers}
+		});
 	}
 };
 
-export default sendMessageAPI;
+export default messageActionsAPI;

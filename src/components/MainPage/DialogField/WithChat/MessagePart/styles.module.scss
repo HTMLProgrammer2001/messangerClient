@@ -104,8 +104,11 @@
     &_but {
         @extend %button_text_filled;
 
+        margin: 0 .25rem;
         padding: .5rem 1rem;
         transition: .3s all;
+
+        font-size: 1rem;
 
         &:hover {
             background: darken($bgBlue, 10%);

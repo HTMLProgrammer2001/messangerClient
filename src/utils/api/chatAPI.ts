@@ -33,11 +33,6 @@ const chatAPI = {
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
 		});
 	},
-	createChat(name: string, ids: string[]){
-		return client.post<{message: string}>('/dialogs/chat', {name, participants: ids}, {
-			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
-		});
-	},
 	ban(id: string){
 		return client.post<{message: string, newUser: IUser}>('/users/ban', {id}, {
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}

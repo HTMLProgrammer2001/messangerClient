@@ -7,7 +7,7 @@ import {sendMessageStart, sendMessageSuccess, sendMessageProgress, sendMessageCa
 import {messagesAdd} from '../messages';
 import {dialogsAdd} from '../dialogs';
 import {chatMessagesAdd} from '../chat/messages/slice';
-import sendMessageAPI from '../../utils/api/sendMessageAPI';
+import messageActionsAPI from '../../utils/api/messageActionsAPI';
 import {selectChatDialogState} from '../chat/dialog/slice';
 
 
@@ -29,7 +29,7 @@ function* sendMessageApi(data: ISendMessage, token: CancelToken){
 		try {
 
 			//make api call
-			const resp: AxiosResponse<ISendMessageResponse> = yield call(sendMessageAPI.send,
+			const resp: AxiosResponse<ISendMessageResponse> = yield call(messageActionsAPI.send,
 				data, token, (progress: number) => {
 					progressChannel.put(sendMessageProgress({message: data._id, progress}));
 				});

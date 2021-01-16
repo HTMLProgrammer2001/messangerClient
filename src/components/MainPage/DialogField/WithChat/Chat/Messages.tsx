@@ -5,6 +5,7 @@ import cn from 'classnames';
 import styles from './styles.module.scss';
 import {MessageTypes} from '../../../../../constants/MessageTypes';
 import {selectChatMessages, selectChatMessagesState, chatMessagesStart} from '../../../../../redux/chat/messages/slice';
+import {selectChatSelectedState, chatSelectedToggle} from '../../../../../redux/chat/selected';
 import dateToString from '../../../../../utils/helpers/dateToString';
 
 import RelativeDate from '../../../../Common/RelativeDate';
@@ -16,6 +17,7 @@ import LoadingMessages from './LoadingMessages';
 const Messages: React.FC = () => {
 	const messages = useSelector(selectChatMessages),
 		{isLoading, offset, totalPages} = useSelector(selectChatMessagesState),
+		selected = useSelector(selectChatSelectedState),
 		dispatch = useDispatch();
 
 	const chat = useRef<HTMLDivElement>(null);
@@ -30,6 +32,9 @@ const Messages: React.FC = () => {
 		//get data from store
 		if(left < 100 && offset < totalPages)
 			dispatch(chatMessagesStart());
+	},
+	toggleSelect = (id: string) => {
+		dispatch(chatSelectedToggle(id));
 	};
 
 	let lastDate = dateToString(messages[0]?.time);
@@ -40,6 +45,7 @@ const Messages: React.FC = () => {
 
 			{
 				messages.map((message, index) => {
+					//check same date as previous
 					const isSame = lastDate == dateToString(message.time);
 					lastDate = dateToString(message.time);
 
@@ -49,8 +55,9 @@ const Messages: React.FC = () => {
 
 							<div  key={message._id} className={cn(styles.chat_message, 'fa', {
 								[styles.noHover]: message.type == MessageTypes.SPECIAL,
-								[styles.unreaded]: !message.readed
-							})}>
+								[styles.unreaded]: !message.readed,
+								[styles.selected]: selected.includes(message._id)
+							})} onClick={() => toggleSelect(message._id)}>
 								<Message message={message}/>
 							</div>
 						</>

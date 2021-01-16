@@ -6,11 +6,17 @@ import {selectChatDialogState, selectChatDialog} from '../../../../../redux/chat
 import MessageType from './Types/MessageType';
 import UserType from './Types/UserType';
 import BannedType from './Types/BannedType';
+import {selectChatSelectedCount} from '../../../../../redux/chat/selected';
+import SelectType from './Types/SelectType';
 
 
 export const MessagePart: React.FC<{}> = () => {
 	const chatDialogState = useSelector(selectChatDialogState),
-		chatDialog = useSelector(selectChatDialog);
+		chatDialog = useSelector(selectChatDialog),
+		count = useSelector(selectChatSelectedCount);
+
+	if(count && chatDialog?.isActive)
+		return <SelectType/>;
 
 	if(chatDialog?.isActive)
 		return <MessageType/>;
