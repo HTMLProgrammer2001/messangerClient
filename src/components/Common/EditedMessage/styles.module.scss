@@ -1,0 +1,25 @@
+@import "../../../styles/includes/main";
+
+.edit{
+    @include flex(space-between, center);
+
+    padding: 1rem 2rem 1rem 2rem;
+    border-left: 5px solid $blue;
+
+    background: lighten($blue, 50%);
+}
+
+.close{
+    color: $gray;
+    font: {
+        weight: bold;
+        size: 1.5rem;
+    }
+
+    cursor: pointer;
+    transition: .3s all;
+
+    &:hover{
+        color: darken($gray, 20%);
+    }
+}

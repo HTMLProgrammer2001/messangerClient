@@ -12,7 +12,9 @@ const TextMessage: React.FC<IMessageProps> = ({message, isLoading}) => {
 	return (
 		<Wrapper message={message}>
 			<div onClick={() => isLoading && dispatch(sendMessageCancel(message._id))}>
-				{message.message}
+				<pre>
+					{message.message}
+				</pre>
 			</div>
 		</Wrapper>
 	);

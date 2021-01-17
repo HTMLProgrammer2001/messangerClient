@@ -14,6 +14,8 @@ import {chatMessagesStart, chatMessagesClear} from '../messages/slice';
 import {dialogsAddMany} from '../../dialogs';
 import {usersAdd, usersAddMany} from '../../users';
 import {messagesAddMany} from '../../messages';
+import {chatSelectedClear} from '../selected';
+import {chatEditClear} from '../edit/slice';
 import chatAPI from '../../../utils/api/chatAPI';
 
 
@@ -71,6 +73,10 @@ function *getUser(nick: string) {
 function* getChatSaga({payload}: ReturnType<typeof searchSetCurrent>){
 	if(!payload)
 		return;
+
+	//reset old chat data
+	yield put(chatEditClear());
+	yield put(chatSelectedClear());
 
 	//set loading in true
 	yield put(chatDialogStart());

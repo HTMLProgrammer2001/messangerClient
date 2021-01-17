@@ -31,6 +31,22 @@ const messageActionsAPI = {
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
 			params: {messages, forOthers}
 		});
+	},
+
+	async editMessage(id: string, message: ISendMessage, cancel: CancelToken, callback: (p: number) => void){
+		//create form data
+		let form = new FormData();
+		form.append('message', message.message);
+		form.append('type', message.type.toString());
+		form.append('file', message.file);
+
+		return client.put(`/messages/${id}`, form, {
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
+			cancelToken: cancel,
+			onUploadProgress: progressEvent => {
+				callback(progressEvent.loaded/progressEvent.total);
+			}
+		});
 	}
 };
 

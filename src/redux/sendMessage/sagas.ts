@@ -9,6 +9,7 @@ import {dialogsAdd} from '../dialogs';
 import {chatMessagesAdd} from '../chat/messages/slice';
 import messageActionsAPI from '../../utils/api/messageActionsAPI';
 import {selectChatDialogState} from '../chat/dialog/slice';
+import {toast} from 'react-toastify';
 
 
 function *progressWatch(prgChannel: any){
@@ -59,6 +60,13 @@ function* sendMessageApi(data: ISendMessage, token: CancelToken){
 			//exit on task cancel
 			if(yield cancelled())
 				return;
+
+			if(e.toJSON().message != 'Network Error') {
+				toast.error(e.response?.data.message || e.message);
+				yield put(sendMessageCancel(data._id));
+
+				return;
+			}
 
 			//increase interval
 			if(i < 60)

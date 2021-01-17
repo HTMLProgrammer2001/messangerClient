@@ -27,6 +27,12 @@ const sendMessageSlice = createSlice({
 				msg: action.payload
 			};
 		},
+		add(state, action: PayloadAction<ISendMessage>){
+			state[action.payload._id] = {
+				progress: 0,
+				msg: action.payload
+			};
+		},
 		success(state, action: PayloadAction<string>){
 			delete state[action.payload];
 		},
@@ -48,7 +54,8 @@ export const selectSendMessagesForDialog = (id: string) =>
 //exports
 export const {
 	start: sendMessageStart, success: sendMessageSuccess,
-	progress: sendMessageProgress, cancel: sendMessageCancel
+	progress: sendMessageProgress, cancel: sendMessageCancel,
+	add: sendMessageAdd
 } = sendMessageSlice.actions;
 
 export default sendMessageSlice.reducer;

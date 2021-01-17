@@ -9,6 +9,7 @@ import {
 	selectChatSelectedState
 } from '../../../../../../redux/chat/selected';
 import {chatDeleteStart} from '../../../../../../redux/chat/delete/slice';
+import {chatEditSetMessage} from '../../../../../../redux/chat/edit/slice';
 import PopUpContext from '../../../../../../utils/context/PopUpContext';
 import DeleteMessagesPopup from '../../../../../PopUps/DeleteMessages';
 
@@ -24,20 +25,25 @@ const SelectType: React.FC<{}> = () => {
 	const dispatch = useDispatch();
 
 	//handlers
-	const clearSelect = () => {
-		dispatch(chatSelectedClear());
-	},
-	deleteHandler = () => {
+	const deleteHandler = () => {
 		if(isCurrent)
 			setElement(() => <DeleteMessagesPopup/>);
 		else
 			dispatch(chatDeleteStart({messages: selected, other: false}));
-	};
+	},
+	clearSelect = () => dispatch(chatSelectedClear()),
+	editHandler = () => dispatch(chatEditSetMessage(selected[0]));
 
 	return (
 		<div className={styles.user_row}>
 			<button className={styles.user_but}>Resend</button>
-			<button className={styles.user_but} disabled={count != 1 || !isCurrent}>Edit</button>
+
+			<button
+				className={styles.user_but}
+				disabled={count != 1 || !isCurrent}
+				onClick={editHandler}
+			>Edit</button>
+
 			<button className={styles.user_but} onClick={deleteHandler}>Delete({count})</button>
 			<button className={styles.user_but} onClick={clearSelect}>Cancel</button>
 		</div>

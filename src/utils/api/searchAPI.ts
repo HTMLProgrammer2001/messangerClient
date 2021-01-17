@@ -26,7 +26,7 @@ const searchAPI = {
 		});
 	},
 	getUser(nick: string){
-		return client.get<IGetUserResponse>(`/users/${nick}`, {
+		return client.get<IGetUserResponse>(`/users/nickname/${nick}`, {
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
 		});
 	},
