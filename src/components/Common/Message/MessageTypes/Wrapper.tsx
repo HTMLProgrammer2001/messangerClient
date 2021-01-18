@@ -16,9 +16,10 @@ type IWrapper = {
 
 const Wrapper: React.FC<IWrapper> = ({message, children}) => {
 	const {setElement} = useContext(PopUpContext),
-		handler = () => {
+		handler = (e: React.MouseEvent) => {
 			//show popup with info about this user
 			setElement(() => <UserPopup userID={message.author._id}/>)
+			e.stopPropagation();
 		};
 
 	return (

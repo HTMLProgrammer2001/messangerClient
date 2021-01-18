@@ -1,5 +1,4 @@
 import React, {useContext, useEffect} from 'react';
-import {connect, ConnectedProps} from 'react-redux';
 
 import styles from '../AboutPopup/styles.module.scss';
 import SearchForm from './Elements/SearchForm';

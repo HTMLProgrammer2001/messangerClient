@@ -1,7 +1,12 @@
 @import "../../../styles/includes/main";
 
 .video{
+    @media all and(max-width: 600px) {
+        flex-direction: column;
+    }
+
     @include flex();
+
     width: 100%;
 
     &_name{

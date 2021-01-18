@@ -6,3 +6,12 @@
 
 	background: $bgElem;
 }
+
+.cont{
+    flex-direction: column;
+    height: 100vh;
+
+    @media all and(max-width: 600px) {
+        background: #fff;
+    }
+}

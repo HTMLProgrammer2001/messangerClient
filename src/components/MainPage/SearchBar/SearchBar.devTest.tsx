@@ -1,9 +1,4 @@
 import React from 'react';
-import {shallow} from 'enzyme';
-
-import {IDialog} from '../../../interfaces/IDialog';
-import {Dialogs} from './';
-import styles from './styles.module.scss';
 
 
 // describe('Dialogs unconnected test: ', () => {

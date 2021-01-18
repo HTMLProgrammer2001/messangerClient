@@ -15,7 +15,10 @@ import Uploader from '../../Uploader';
 const ImageMessage: React.FC<IMessageProps> = ({message, isLoading = false, progress = 0}) => {
 	const {setElement} = useContext(PopUpContext),
 		dispatch = useDispatch(),
-		handler = () => setElement(() => <ImagePopup url={message.url}/>);
+		handler = (e: React.MouseEvent) => {
+			setElement(() => <ImagePopup url={message.url}/>);
+			e.stopPropagation();
+		};
 
 	return (
 		<Wrapper message={message}>

@@ -8,6 +8,11 @@
 
 .header{
 	@extend %header;
+    @include flex(space-between);
+
+    &>h3{
+        margin: 0;
+    }
 }
 
 .content{

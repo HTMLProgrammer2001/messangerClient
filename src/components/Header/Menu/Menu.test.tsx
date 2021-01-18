@@ -3,7 +3,7 @@ import {shallow, ShallowWrapper} from 'enzyme';
 
 import Menu from './';
 import styles from '../styles.module.scss';
-import MenuList from '../MenuList';
+import MenuList from './MenuList';
 
 
 describe('Buttons test', () => {

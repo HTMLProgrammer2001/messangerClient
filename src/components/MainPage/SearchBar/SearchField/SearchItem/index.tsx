@@ -30,7 +30,9 @@ export const SearchItem: React.FC<ISearchItemProps> = ({handler, isCurrent, dlgP
 					{dlgProps.name}
 
 					<p className={styles.dialog_last}>
-						{dlgProps.text}
+						<div className={styles.dialog_overflow}>
+							{dlgProps.text}
+						</div>
 					</p>
 				</div>
 

@@ -91,6 +91,10 @@
     position: absolute;
     bottom: 30px;
     right: calc(100% - 20px);
+
+    @media all and(max-width: 600px) {
+        left: -30px;
+    }
 }
 
 .user {

@@ -43,6 +43,7 @@ const Line: React.FC<ILineProps> = ({onChange, val}) => {
 	//wrappers
 	const onMouseUp = (e: MouseEvent) => {
 			up(e.clientX);
+			e.stopPropagation();
 		},
 		onMouseMove = (e: MouseEvent) => {
 			move(e.clientX)

@@ -1,8 +1,8 @@
 import React from 'react';
 import {mount, shallow} from 'enzyme';
 
-import MenuList from './';
-import styles from '../styles.module.scss';
+import MenuList from './index';
+import styles from '../../styles.module.scss';
 
 
 describe('Menu list test', () => {

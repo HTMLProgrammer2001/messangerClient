@@ -19,7 +19,7 @@ const UserData: React.FC<IUserDataProps> = ({user}) => {
 
 	return (
 		<div className={styles.wrapper} onClick={handler}>
-			<div>{user.name}</div>
+			<div className={styles.name}>{user.name}</div>
 		</div>
 	);
 };
