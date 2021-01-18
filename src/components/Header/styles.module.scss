@@ -12,6 +12,10 @@
 .name{
     width: 30%;
     padding: 1rem;
+
+    @media all and(max-width: 600px) {
+        width: fit-content;
+    }
 }
 
 .menuElem{
@@ -48,7 +52,7 @@
 		padding: 0;
 
 		position: absolute;
-		right: -1rem;
+		right: 0;
 
 		color: $blue;
 		text-align: left;
@@ -95,4 +99,18 @@
 		height: 0;
 		border-top: 1px solid $blue;
 	}
+}
+
+.back{
+    display: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    @media all and(max-width: 600px) {
+        display: block;
+
+        & + .logo{
+            display: none;
+        }
+    }
 }

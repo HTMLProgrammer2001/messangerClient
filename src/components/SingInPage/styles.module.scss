@@ -12,7 +12,7 @@
 }
 
 .form{
-	max-width: 80%;
+	max-width: 100%;
 	width: 500px;	
 
 	&_header{
@@ -46,6 +46,7 @@
 
 .formWrap{
     @include flex(center, center, column);
+    width: 90%;
 }
 
 .links{

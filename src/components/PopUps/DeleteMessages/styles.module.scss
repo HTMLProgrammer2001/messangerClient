@@ -8,6 +8,9 @@
 
 .header{
     @extend %header;
+    @include flex(space-between);
+
+    font-size: 1rem;
 }
 
 .content{

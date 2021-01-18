@@ -7,7 +7,7 @@ import Uploader from '../Uploader';
 
 type IPreviewProps = {
 	video?: HTMLVideoElement,
-	handler: () => void,
+	handler: (e: React.MouseEvent) => void,
 	isLoading?: boolean,
 	progress?: number
 }

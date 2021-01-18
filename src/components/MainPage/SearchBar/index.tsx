@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
+import cn from 'classnames';
 
 import styles from './styles.module.scss';
 import {searchStart} from '../../../redux/search/state/slice';
@@ -8,7 +9,7 @@ import SearchForm from './SearchForm';
 import Items from './SearchField';
 
 
-export const Dialogs: React.FC<{}> = () => {
+export const SearchBar: React.FC<{isSelect: boolean}> = ({isSelect}) => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -16,7 +17,7 @@ export const Dialogs: React.FC<{}> = () => {
 	}, []);
 
 	return (
-		<div className={styles.wrapper}>
+		<div className={cn(styles.wrapper, {[styles.selected]: isSelect})}>
 			<SearchForm/>
 
 			<div className={styles.dialog_wrap}>
@@ -26,4 +27,5 @@ export const Dialogs: React.FC<{}> = () => {
 	);
 };
 
-export default Dialogs;
+export default SearchBar;
+

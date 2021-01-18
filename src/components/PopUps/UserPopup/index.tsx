@@ -12,6 +12,7 @@ import UserNotification from './Items/UserNotification';
 import Actions from './Items/Actions';
 import {useSelector} from 'react-redux';
 import mapIdWith from '../../../utils/helpers/mapIdWith';
+import ClosePopUp from '../../Common/ClosePopUp';
 
 
 type IUserPopupProps = {
@@ -27,7 +28,11 @@ const UserPopup: React.FC<IUserPopupProps> = ({userID}) => {
 			<div className={styles.header}>
 				<div className={styles.row}>
 					<b>User profile</b>
-					<i className="fas fa-phone"/>
+
+					<div style={{display: 'flex'}}>
+						<i className="fas fa-phone"/>
+						<ClosePopUp/>
+					</div>
 				</div>
 
 				<UserInfo user={user} isProfile={false}/>

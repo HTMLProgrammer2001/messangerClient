@@ -1,6 +1,7 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
 
+import styles from '../styles.module.scss';
 import {IMessageProps} from '../index';
 import {sendMessageCancel} from '../../../../redux/sendMessage/slice';
 import Wrapper from './Wrapper';
@@ -12,7 +13,7 @@ const TextMessage: React.FC<IMessageProps> = ({message, isLoading}) => {
 	return (
 		<Wrapper message={message}>
 			<div onClick={() => isLoading && dispatch(sendMessageCancel(message._id))}>
-				<pre>
+				<pre className={styles.text}>
 					{message.message}
 				</pre>
 			</div>

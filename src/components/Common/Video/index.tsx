@@ -27,11 +27,13 @@ const VideoMessage: React.FC<IVideoProps> = ({url, size, name, isLoading = false
 	const video = useRef<HTMLVideoElement>(null),
 		{setElement} = useContext(PopUpContext);
 
-	const handler = () => {
+	const handler = (e: React.MouseEvent) => {
 			if(!isLoading)
 				setElement(() => <VideoPopup url={url}/>);
 			else
 				cancel();
+
+			e.stopPropagation();
 		},
 		canPlayHandler = () => {
 			setDur(video.current?.duration);

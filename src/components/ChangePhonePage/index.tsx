@@ -17,7 +17,7 @@ const ChangePage: React.FC<{}> = () => {
 	}, []);
 
 	const {resend, cancel, change} = bindActionCreators({
-		resend(vals: IChangeFormData, type: string){
+		resend(vals: IChangeFormData, type: string) {
 			let phone = type == 'old' ? vals.oldPhone : vals.newPhone;
 			return changeResend({phone});
 		},
@@ -27,14 +27,16 @@ const ChangePage: React.FC<{}> = () => {
 
 	return (
 		<div className={styles.wrapper}>
-			<ChangeForm
-				verifing={verifing}
-				cancel={cancel}
-				resend={resend}
-				err={errors}
-				isLoading={isLoading}
-				onSubmit={change}
-			/>
+			<div className={styles.formWrap}>
+				<ChangeForm
+					verifing={verifing}
+					cancel={cancel}
+					resend={resend}
+					err={errors}
+					isLoading={isLoading}
+					onSubmit={change}
+				/>
+			</div>
 		</div>
 	);
 };

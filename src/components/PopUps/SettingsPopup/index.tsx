@@ -12,6 +12,7 @@ import NotificationSettings from './SettingSteps/NotificationSettings';
 import GeneralSettings from './SettingSteps/GeneralSettings';
 import PopUpContext from '../../../utils/context/PopUpContext';
 import AvatarUploader from './AvatarUploader';
+import ClosePopUp from '../../Common/ClosePopUp';
 
 
 const SettingsPopup: React.FC<{}> = () => {
@@ -29,7 +30,10 @@ const SettingsPopup: React.FC<{}> = () => {
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.header}>
-				<b>Settings</b>
+				<div className={styles.header_row}>
+					<b>Settings</b>
+					<ClosePopUp/>
+				</div>
 
 				<UserInfo user={user}/>
 				<AvatarUploader/>

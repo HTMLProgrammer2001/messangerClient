@@ -26,14 +26,16 @@ export const SignInPage: React.FC<{}> = () => {
 
 	return (
 		<div className={styles.wrapper}>
-			<SignInForm
-				onSubmit={signIn}
-				resend={signInResend}
-				cancel={resetSignIn}
-				verifing={verifing}
-				err={errors}
-				isLoading={isLoading}
-			/>
+			<div className={styles.formWrap}>
+				<SignInForm
+					onSubmit={signIn}
+					resend={signInResend}
+					cancel={resetSignIn}
+					verifing={verifing}
+					err={errors}
+					isLoading={isLoading}
+				/>
+			</div>
 		</div>
 	);
 };

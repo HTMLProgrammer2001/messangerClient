@@ -2,6 +2,15 @@
 
 .wrapper{
 	width: 75%;
+
+    @media all and(max-width: 600px){
+        display: none;
+
+        &.selected {
+            display: block;
+            width: 100%;
+        }
+    }
 }
 
 .gray{

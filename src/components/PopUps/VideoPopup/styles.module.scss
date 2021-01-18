@@ -1,3 +1,5 @@
+@import '../../../styles/includes/main';
+
 .wrapper{
     display: flex;
     justify-content: center;
@@ -10,4 +12,15 @@
 .video{
     max-width: 100%;
     max-height: 100%;
+}
+
+.header{
+    @extend %header;
+    @include flex(space-between);
+
+    width: 100%;
+
+    &>h3{
+        margin: 0;
+    }
 }

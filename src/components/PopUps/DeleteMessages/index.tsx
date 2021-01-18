@@ -7,6 +7,7 @@ import {selectChatSelectedState} from '../../../redux/chat/selected';
 
 import Switch from '../../Common/Switch';
 import PopUpContext from '../../../utils/context/PopUpContext';
+import ClosePopUp from '../../Common/ClosePopUp';
 
 
 const DeleteMessagesPopup: React.FC<{}> = () => {
@@ -22,7 +23,10 @@ const DeleteMessagesPopup: React.FC<{}> = () => {
 
 	return (
 		<div className={styles.wrapper}>
-			<h3 className={styles.header}>Delete messages</h3>
+			<h3 className={styles.header}>
+				<div>Delete messages</div>
+				<ClosePopUp/>
+			</h3>
 
 			<div className={styles.content}>
 				<div style={{display: 'flex'}}>

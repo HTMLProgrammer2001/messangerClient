@@ -13,7 +13,7 @@ describe('Relative date test: ', () => {
 		str: 'Yesterday'
 	}, {
 		date: +new Date(0),
-		str: '1970-1-1'
+		str: '1970-01-01'
 	}];
 
 	it('Mounted', () => {

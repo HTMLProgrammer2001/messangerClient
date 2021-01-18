@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import classnames from 'classnames';
 
 import styles from '../styles.module.scss';
-import MenuList from '../MenuList';
+import MenuList from './MenuList';
 
 
 const Menu: React.FC<{}> = () => {
