@@ -47,10 +47,13 @@
     max-height: 100%;
 
     &_wrapper{
-        position: relative;
-
-        max-width: 50%;
+        display: flex;
         max-height: 400px;
+        max-width: 50%;
+
+        @media all and(max-width: 600px) {
+            max-width: 75%;
+        }
     }
 }
 

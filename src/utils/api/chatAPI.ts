@@ -4,7 +4,6 @@ import {IGetDialogResponse} from '../../interfaces/Responses/chat/IGetDialogResp
 import {IGetUserResponse} from '../../interfaces/Responses/IGetUserResponse';
 import {IUser} from '../../interfaces/IUser';
 
-
 const client = axios.create({
 	baseURL: process.env.API_URL || 'http://localhost:5000/'
 });

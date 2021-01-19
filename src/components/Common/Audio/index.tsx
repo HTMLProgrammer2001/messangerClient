@@ -33,7 +33,7 @@ const Audio: React.FC<IAudioProps> = ({name, url, progress, isLoading, cancel}) 
 	}, []);
 
 	//handlers
-	const handler = async () => {
+	const handler = async (e: React.MouseEvent) => {
 		if(!isShown && audio.current) {
 			//show audio element
 			show(true);
@@ -77,7 +77,7 @@ const Audio: React.FC<IAudioProps> = ({name, url, progress, isLoading, cancel}) 
 		left = 0;
 
 	return (
-		<div className={styles.audio}>
+		<div className={styles.audio} onClick={(e) => e.stopPropagation()}>
 			{
 				!isLoading ?
 					<i onClick={handler} className={cn('fas', styles.audio_icon, {
