@@ -23,6 +23,7 @@ jobs:
             - name: Build 🔧
               env:
                   CI: ""
+                  API_URL: "https://messangerkx.herokuapp.com/"
               run: |
                   npm run build
 

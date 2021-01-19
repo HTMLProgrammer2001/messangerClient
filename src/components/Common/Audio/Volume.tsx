@@ -11,7 +11,7 @@ type IVolumeProps = {
 
 const Volume: React.FC<IVolumeProps> = ({onChange, val}) => {
 	//state
-	const [isHover, setHover] = useState(false);
+	const [isHover, setHover] = useState(true);
 
 	//refs
 	const line = useRef<HTMLDivElement>(null);
@@ -30,10 +30,22 @@ const Volume: React.FC<IVolumeProps> = ({onChange, val}) => {
 			//set volume
 			onChange(y);
 		},
-		up = () => {
+		up = (e: MouseEvent) => {
 			//clear handlers
 			document.body.onmouseup = null;
 			document.body.onmousemove = null;
+
+			if(!line.current)
+				return;
+
+			//calculate position
+			let rect = line.current.getBoundingClientRect(),
+				y = 100 - (e.clientY - rect.top - 5) / (rect.height) * 100;
+
+			y = y < 0 ? 0 : (y > 100 ? 100 : y);
+
+			//set volume
+			onChange(y);
 		},
 		down = (e: React.MouseEvent) => {
 			//set handlers
@@ -61,7 +73,7 @@ const Volume: React.FC<IVolumeProps> = ({onChange, val}) => {
 
 			{
 				isHover &&
-					<div className={styles.volume_lineCont} ref={line}>
+					<div className={styles.volume_lineCont} ref={line} onClick={up as any}>
 						<div className={styles.volume_line}>
 							<span
 								className={styles.volume_ball}

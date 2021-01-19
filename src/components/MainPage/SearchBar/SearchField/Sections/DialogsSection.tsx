@@ -11,6 +11,7 @@ import {
 
 import SearchItem from '../SearchItem';
 import Loader from '../../../../Common/Loader';
+import dateToString from '../../../../../utils/helpers/dateToString';
 import secondsToTime from '../../../../../utils/helpers/secondsToTime';
 
 
@@ -56,7 +57,16 @@ const DialogsSection: React.FC<{}> = () => {
 				{
 					dialogs.map(dialog => {
 						//get time
-						const time = dialog.lastMessage?.time && secondsToTime(dialog.lastMessage.time);
+						let time: any = dialog.lastMessage?.time;
+
+						if(time){
+							const isToday = +new Date() - +new Date(time) <= 1000 * 3600 * 24 &&
+								new Date(time).getDay() == new Date().getDay();
+
+							time = isToday ? secondsToTime(time) : dateToString(time);
+						}
+
+						//get text
 						let text = 'Message was deleted';
 
 						if(dialog.lastMessage)

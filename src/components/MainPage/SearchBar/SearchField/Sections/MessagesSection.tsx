@@ -8,6 +8,7 @@ import {selectSearchMessagesState, selectSearchMessagesStateData, searchMessages
 
 import SearchItem from '../SearchItem';
 import Loader from '../../../../Common/Loader';
+import dateToString from '../../../../../utils/helpers/dateToString';
 import secondsToTime from '../../../../../utils/helpers/secondsToTime';
 
 
@@ -49,19 +50,24 @@ const MessagesSection: React.FC<{}> = () => {
 			<b className={styles.header}>Messages({total})</b>
 
 			{
-				messages.map(message => (
-					<SearchItem
-						dlgProps={{
-							name: message.dialog.name,
-							time: secondsToTime(message.time),
-							text: `${message.author.name}: ${message.message}`,
-							nick: message.dialog.nick,
-							avatar: message.dialog.avatar
-						}}
-						isCurrent={current == `${message.dialog._id}_${message._id}`}
-						handler={() => changeCurrent(message.dialog._id, message._id)}
-					/>
-				))
+				messages.map(message => {
+					const isToday = +(new Date()) - +new Date(message.time) <= 1000 * 3600 * 24 &&
+						new Date(message.time).getDay() == new Date().getDay();
+
+					return (
+						<SearchItem
+							dlgProps={{
+								name: message.dialog.name,
+								time: isToday ? secondsToTime(message.time) : dateToString(message.time),
+								text: `${message.author.name}: ${message.message}`,
+								nick: message.dialog.nick,
+								avatar: message.dialog.avatar
+							}}
+							isCurrent={current == `${message.dialog.nick}_${message._id}`}
+							handler={() => changeCurrent(message.dialog.nick, message._id)}
+						/>
+					)
+				})
 			}
 
 			{isLoading && <Loader/>}

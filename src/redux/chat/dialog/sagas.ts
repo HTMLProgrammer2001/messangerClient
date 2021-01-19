@@ -74,6 +74,8 @@ function* getChatSaga({payload}: ReturnType<typeof searchSetCurrent>){
 	if(!payload)
 		return;
 
+	const dlgID = payload.split('_')[0];
+
 	//reset old chat data
 	yield put(chatEditClear());
 	yield put(chatSelectedClear());
@@ -85,7 +87,7 @@ function* getChatSaga({payload}: ReturnType<typeof searchSetCurrent>){
 		//clear messages
 		yield put(chatMessagesClear());
 
-		const res: number[] = yield all([call(getDialog, payload), call(getUser, payload)]);
+		const res: number[] = yield all([call(getDialog, dlgID), call(getUser, dlgID)]);
 
 		//set error
 		if(res.every(item => item == 404) || (res[0] && res[1]))
