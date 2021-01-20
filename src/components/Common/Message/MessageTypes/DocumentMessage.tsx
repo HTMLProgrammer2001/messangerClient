@@ -3,7 +3,7 @@ import {useDispatch} from 'react-redux';
 
 import {IMessageProps} from '../index';
 
-import DocumentElem from '../../Document/';
+import DocumentElem from '../../Items/Document/';
 import Wrapper from './Wrapper';
 import {sendMessageCancel} from '../../../../redux/sendMessage/slice';
 

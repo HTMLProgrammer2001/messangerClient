@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 import {IErrors} from '../../interfaces/IErrors';
-import {ILogInFormData} from '../../components/LogInPage/LogInForm';
+import {ILogInFormData} from '../../components/pages/LogInPage/LogInForm';
 import {RootState} from '../index';
 
 

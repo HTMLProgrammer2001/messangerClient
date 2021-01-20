@@ -1,0 +1,74 @@
+@import '../../../styles/includes/main';
+
+.wrapper{
+	@include flex(center, center, row, wrap);
+	margin: 0;
+	padding: 0;
+
+	width: 100vw;
+	height: 100vh;
+
+	background: $linearBack;
+}
+
+.form{
+	max-width: 100%;
+	width: 500px;	
+
+	&_header{
+		@include flex(space-between, center);
+		width: 100%;
+
+		margin-bottom: 1rem;
+		padding: 0 .5rem;
+	}
+
+	&_content{
+		padding: 2rem;
+		background: $bgElem;
+	}
+
+	&_next{
+		@extend %button_text;
+	}
+
+	&_name{
+		font-weight: bold;
+		font-size: 1.1rem;
+
+		margin: 0;
+	}
+
+	&_desc{
+		color: $textMuted;
+	}
+}
+
+.formWrap{
+    @include flex(center, center, column);
+    width: 90%;
+}
+
+.links{
+    width: 100%;
+    padding: .5rem;
+
+    display: flex;
+    justify-content: space-between;
+
+    &>a{
+        color: $blue;
+        font: {
+            weight: bold;
+            size: 1rem;
+        }
+
+        text-decoration: none;
+        transition: .3s all;
+
+        &:hover{
+            color: darken($blue, 20%);
+            text-decoration: none;
+        }
+    }
+}

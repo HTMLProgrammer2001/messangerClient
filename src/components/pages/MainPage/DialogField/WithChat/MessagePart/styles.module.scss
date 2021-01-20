@@ -1,0 +1,127 @@
+@import "../../../../../../styles/includes/main";
+
+.message_row {
+    display: flex;
+    padding: 1rem;
+}
+
+.message_wrap {
+    width: 100%;
+    margin-left: 1rem;
+    position: relative;
+
+    textarea:focus+.line{
+        left: 0;
+        width: 100%;
+    }
+}
+
+.line {
+    transition: .3s all;
+
+    display: block;
+    position: absolute;
+    z-index: 9999;
+    bottom: 4px;
+    left: 50%;
+
+    width: 0;
+    height: 1px;
+    background: $blue;
+}
+
+.message_text {
+    appearance: none;
+    border: none;
+    outline: none;
+    resize: none;
+
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    border-bottom: 1px solid silver;
+
+    font-family: Roboto;
+    color: #000;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.message_form {
+    width: 75%;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.message_send {
+    color: $gray;
+    font-size: 1.5rem;
+
+    cursor: pointer;
+    transition: .3s all;
+
+    &:hover {
+        color: $blue;
+    }
+}
+
+.message_button {
+    appearance: none;
+    background: none;
+    border: none;
+    outline: none;
+}
+
+.message_actions {
+    margin: 10px;
+    position: relative;
+
+    & > * {
+        margin: 0 5px;
+    }
+}
+
+.picker {
+    position: absolute;
+    bottom: 30px;
+    right: calc(100% - 20px);
+
+    @media all and(max-width: 600px) {
+        left: -30px;
+    }
+}
+
+.user {
+    &_row {
+        @include flex(center, center);
+
+        width: 100%;
+        padding: 1rem;
+    }
+
+    &_but {
+        @extend %button_text_filled;
+
+        margin: 0 .25rem;
+        padding: .5rem 1rem;
+        transition: .3s all;
+
+        font-size: 1rem;
+
+        &:hover {
+            background: darken($bgBlue, 10%);
+        }
+
+        &:disabled {
+            background: darken($bgBlue, 10%);
+            color: $textMuted;
+            cursor: not-allowed;
+        }
+    }
+}

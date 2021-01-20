@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 import {IErrors} from '../../interfaces/IErrors';
-import {ISignInFormData} from '../../components/SingInPage/SignInForm';
+import {ISignInFormData} from '../../components/pages/SingInPage/SignInForm';
 import {RootState} from '../index';
 
 

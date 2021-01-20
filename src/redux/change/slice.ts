@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 import {IErrors} from '../../interfaces/IErrors';
-import {IChangeFormData} from '../../components/ChangePhonePage/ChangeForm';
+import {IChangeFormData} from '../../components/pages/ChangePhonePage/ChangeForm';
 import {RootState} from '../index';
 
 

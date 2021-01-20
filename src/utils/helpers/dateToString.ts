@@ -11,35 +11,8 @@ const dateToString = (time: number | Date): string => {
 		result = 'Yesterday';
 
 	else if(curTime - parsedTime <= 1000 * 3600 * 24 * 7) {
-		switch (new Date(time).getDay()) {
-			case 0:
-				result = 'Sunday';
-				break;
-
-			case 1:
-				result = 'Monday';
-				break;
-
-			case 2:
-				result = 'Tuesday';
-				break;
-
-			case 3:
-				result = 'Wednesday';
-				break;
-
-			case 4:
-				result = 'Thursday';
-				break;
-
-			case 5:
-				result = 'Friday';
-				break;
-
-			case 6:
-				result = 'Saturday';
-				break;
-		}
+		let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+		result = days[new Date(time).getDay()];
 	}
 
 	else{

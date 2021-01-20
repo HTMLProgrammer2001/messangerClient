@@ -6,7 +6,7 @@ import {sendMessageCancel} from '../../../../redux/sendMessage/slice';
 import {IMessageProps} from '../index';
 
 import Wrapper from './Wrapper';
-import Video from '../../Video/';
+import Video from '../../Items/Video/';
 
 
 const VideoMessage: React.FC<IMessageProps> = ({message, isLoading, progress}) => {

@@ -3,15 +3,14 @@ import {useDispatch} from 'react-redux';
 
 import {IMessageProps} from '../index';
 import {sendMessageCancel} from '../../../../redux/sendMessage/slice';
+
 import Wrapper from './Wrapper';
-import Audio from '../../Audio';
+import Audio from '../../Items/Audio';
 
 
 const AudioMessage: React.FC<IMessageProps> = ({message, isLoading, progress}) => {
 	const dispatch = useDispatch(),
-		cancel = () => {
-			dispatch(sendMessageCancel(message._id));
-		};
+		cancel = () => dispatch(sendMessageCancel(message._id));
 
 	return (
 		<Wrapper message={message}>

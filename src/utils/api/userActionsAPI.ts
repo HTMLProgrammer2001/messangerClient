@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-import {ISignInFormData} from '../../components/SingInPage/SignInForm';
-import {ILogInFormData} from '../../components/LogInPage/LogInForm';
+import {ISignInFormData} from '../../components/pages/SingInPage/SignInForm';
+import {ILogInFormData} from '../../components/pages/LogInPage/LogInForm';
 import {IUser} from '../../interfaces/IUser';
 import {ILoginResponse} from '../../interfaces/Responses/ILoginResponse';
 import {ISignInResponse} from '../../interfaces/Responses/ISignInResponse';
 import {IEditMeResponse} from '../../interfaces/Responses/IEditMeResponse';
-import {IChangeFormData} from '../../components/ChangePhonePage/ChangeForm';
+import {IChangeFormData} from '../../components/pages/ChangePhonePage/ChangeForm';
 
 
 const client = axios.create({

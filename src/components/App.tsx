@@ -9,10 +9,10 @@ import PopUpContext from '../utils/context/PopUpContext';
 import PopUpElement from './PopUps/PopUpElement/';
 import PageLoader from './Common/PageLoader';
 
-const MainPage = lazy(() => import('./MainPage/'));
-const LogInPage = lazy(() => import('./LogInPage/'));
-const SingInPage = lazy(() => import('./SingInPage/'));
-const ChangePage = lazy(() => import('./ChangePhonePage/'));
+const MainPage = lazy(() => import('./pages/MainPage/'));
+const LogInPage = lazy(() => import('./pages/LogInPage/'));
+const SingInPage = lazy(() => import('./pages/SingInPage/'));
+const ChangePage = lazy(() => import('./pages/ChangePhonePage/'));
 
 
 const App: React.FC<{}> = () => {

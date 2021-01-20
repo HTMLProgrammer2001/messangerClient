@@ -9,19 +9,17 @@ type IEditedMessageProps = {
 	cancel: () => void
 }
 
-const EditedMessage: React.FC<IEditedMessageProps> = ({message, cancel}) => {
-	return (
-		<div className={styles.edit}>
-			<div className={styles.message}>
-				{message.message}
-			</div>
-
-			<div
-				className={styles.close}
-				onClick={cancel}
-			>&times;</div>
+const EditedMessage: React.FC<IEditedMessageProps> = ({message, cancel}) => (
+	<div className={styles.edit}>
+		<div className={styles.message}>
+			{message.message}
 		</div>
-	);
-};
+
+		<div
+			className={styles.close}
+			onClick={cancel}
+		>&times;</div>
+	</div>
+);
 
 export default EditedMessage;

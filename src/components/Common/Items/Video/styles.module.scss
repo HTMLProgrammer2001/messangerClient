@@ -1,0 +1,48 @@
+@import "../../../../styles/includes/main";
+
+.video{
+    @media all and(max-width: 600px) {
+        flex-direction: column;
+    }
+
+    @include flex();
+
+    width: 100%;
+
+    &_name{
+        font-size: 1rem;
+        color: $blue;
+        text-decoration: underline;
+
+        margin-bottom: 10px;
+    }
+
+    &_info{
+        color: $gray;
+        font-size: .9rem;
+
+        margin-left: .5rem;
+    }
+}
+
+.preview{
+    max-width: 100%;
+    position: relative;
+
+    &_canvas{
+        width: 100%;
+        background: #000;
+    }
+
+    &_icon{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #fff;
+
+        transform: translate(-50%, -50%);
+    }
+}

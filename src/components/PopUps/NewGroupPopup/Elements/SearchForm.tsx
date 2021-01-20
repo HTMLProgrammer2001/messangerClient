@@ -1,14 +1,17 @@
 import React from 'react';
-import {reduxForm, InjectedFormProps, Field, submit} from 'redux-form';
-import {Dispatch} from 'redux';
+import {Field, FormikProps, withFormik} from 'formik';
 
-import InputElement from '../../../FormElements/Input';
+import FormikInput from '../../../FormElements/FormikInput';
 
 export type INewGroupData = {
 	text: string
 };
 
-type INewGroupProps = InjectedFormProps<INewGroupData>;
+type IOwnProps = {
+	onSubmit: (vals: INewGroupData) => void
+}
+
+type INewGroupProps = FormikProps<INewGroupData> & IOwnProps;
 
 const SearchForm: React.FC<INewGroupProps> = ({handleSubmit}) => (
 	<form onSubmit={handleSubmit}>
@@ -16,15 +19,13 @@ const SearchForm: React.FC<INewGroupProps> = ({handleSubmit}) => (
 			name="text"
 			type="text"
 			placeholder="Enter username or nick"
-			component={InputElement}
+			component={FormikInput}
 			style={{marginTop: 0}}
 		/>
 	</form>
 );
 
-export default reduxForm<INewGroupData>({
-	form: 'newGroupForm',
-	onChange(values: Partial<INewGroupData>, dispatch: Dispatch<any>): void {
-		dispatch(submit('newGroupForm'));
-	}
+export default withFormik<IOwnProps, INewGroupData>({
+	mapPropsToValues: () => ({text: ''}),
+	handleSubmit: (vals, formikProps) => {formikProps.props.onSubmit(vals)}
 })(SearchForm);
