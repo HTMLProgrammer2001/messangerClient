@@ -7,7 +7,7 @@ import userActionsAPI from '../../utils/api/userActionsAPI';
 import expressErrorsToObject from '../../utils/helpers/expressErrorsToObject';
 
 
-function* changeSaga({payload}: ReturnType<typeof changeVerify>){
+export function* changeSaga({payload}: ReturnType<typeof changeVerify>){
 	try{
 		//make api request
 		yield call(userActionsAPI.changePhone, payload);
@@ -22,7 +22,7 @@ function* changeSaga({payload}: ReturnType<typeof changeVerify>){
 	}
 }
 
-function* changeCodeSaga({payload}: ReturnType<typeof changeCodeVerify>){
+export function* changeCodeSaga({payload}: ReturnType<typeof changeCodeVerify>){
 	try{
 		//make api request
 		yield call(userActionsAPI.confirmChangePhone, payload);
@@ -42,7 +42,7 @@ function* changeCodeSaga({payload}: ReturnType<typeof changeCodeVerify>){
 	}
 }
 
-function* changeResendSaga({payload}: ReturnType<typeof changeResend>){
+export function* changeResendSaga({payload}: ReturnType<typeof changeResend>){
 	try{
 		//make API call
 		yield call(userActionsAPI.resendChange, payload);

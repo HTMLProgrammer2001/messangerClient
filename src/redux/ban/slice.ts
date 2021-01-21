@@ -8,7 +8,7 @@ type IBanState = {
 	error: string
 }
 
-const initialState: IBanState = {
+export const initialState: IBanState = {
 	isLoading: false,
 	error: null
 };

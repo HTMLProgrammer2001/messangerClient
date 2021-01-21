@@ -4,7 +4,7 @@ import {appStart, appSuccess, appError} from './slice';
 import {meStart, meReset, meSet} from '../me/slice';
 
 
-function* initializeSaga(): any{
+export function* initializeSaga(): any{
 	try{
 		//start me loading
 		yield put(meStart());

@@ -8,7 +8,7 @@ import {dialogsAdd} from '../dialogs';
 import chatAPI from '../../utils/api/chatAPI';
 
 
-function *clearSaga({payload}: ReturnType<typeof clearStart>) {
+export function *clearSaga({payload}: ReturnType<typeof clearStart>) {
 	try{
 		//make api call
 		if(payload.type == 1)

@@ -1,4 +1,4 @@
-import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 import {RootState} from '../';
 import {IUser} from '../../interfaces/IUser';
@@ -11,7 +11,7 @@ type IMeState = {
 	user: string
 };
 
-const initialState: IMeState = {
+export const initialState: IMeState = {
 	isLoading: false,
 	user: null
 };

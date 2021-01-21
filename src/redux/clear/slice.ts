@@ -9,7 +9,7 @@ type IClearState = {
 	error: string
 }
 
-const initialState: IClearState = {
+export const initialState: IClearState = {
 	isLoading: false,
 	error: null
 };

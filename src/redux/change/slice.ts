@@ -12,7 +12,7 @@ type IChangeState = {
 	isLoading: boolean
 };
 
-const initialState: IChangeState = {
+export const initialState: IChangeState = {
 	verifing: false,
 	errors: null,
 	isLoading: false

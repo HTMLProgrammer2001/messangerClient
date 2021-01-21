@@ -7,7 +7,7 @@ type IAppState = {
 	isLoading: boolean
 };
 
-const initialState: IAppState = {
+export const initialState: IAppState = {
 	initialized: false,
 	isLoading: false
 };

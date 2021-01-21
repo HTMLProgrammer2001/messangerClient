@@ -7,7 +7,7 @@ import userActionsAPI from '../../utils/api/userActionsAPI';
 import {usersAdd} from '../users';
 
 
-function* meSaga(){
+export function* meSaga(){
 	try{
 		const token = localStorage.getItem('token');
 
