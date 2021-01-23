@@ -10,7 +10,7 @@ import userActionsAPI from '../../utils/api/userActionsAPI';
 import expressErrorsToObject from '../../utils/helpers/expressErrorsToObject';
 
 
-function* logInSaga({payload}: ReturnType<typeof logInVerify>){
+export function* logInSaga({payload}: ReturnType<typeof logInVerify>){
 	try{
 		//make api request
 		yield call(userActionsAPI.logIn, payload);
@@ -25,7 +25,7 @@ function* logInSaga({payload}: ReturnType<typeof logInVerify>){
 	}
 }
 
-function* logInCodeSaga({payload}: ReturnType<typeof logInCodeVerify>){
+export function* logInCodeSaga({payload}: ReturnType<typeof logInCodeVerify>){
 	try{
 		//make api request
 		const resp: AxiosResponse<ILoginResponse> = yield call(userActionsAPI.confirmLogin, payload);
@@ -44,7 +44,7 @@ function* logInCodeSaga({payload}: ReturnType<typeof logInCodeVerify>){
 	}
 }
 
-function* loginResendSaga({payload}: ReturnType<typeof logInResend>){
+export function* loginResendSaga({payload}: ReturnType<typeof logInResend>){
 	try{
 		//make API call
 		yield call(userActionsAPI.resendLogin, payload);

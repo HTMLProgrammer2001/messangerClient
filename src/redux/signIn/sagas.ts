@@ -9,7 +9,7 @@ import userActionsAPI from '../../utils/api/userActionsAPI';
 import expressErrorsToObject from '../../utils/helpers/expressErrorsToObject';
 
 
-function* signInSaga({payload}: ReturnType<typeof signInCodeVerify>){
+export function* signInSaga({payload}: ReturnType<typeof signInCodeVerify>){
 	try{
 		//make API request
 		yield call(userActionsAPI.signIn, payload);
@@ -24,7 +24,7 @@ function* signInSaga({payload}: ReturnType<typeof signInCodeVerify>){
 	}
 }
 
-function* signInCodeSaga({payload}: ReturnType<typeof signInCodeVerify>){
+export function* signInCodeSaga({payload}: ReturnType<typeof signInCodeVerify>){
 	try{
 		//make api request
 		const resp: AxiosResponse<ISignInResponse> = yield call(userActionsAPI.confirmSignIn, payload);
@@ -42,7 +42,7 @@ function* signInCodeSaga({payload}: ReturnType<typeof signInCodeVerify>){
 	}
 }
 
-function* signInResendSaga({payload}: ReturnType<typeof signInResend>) {
+export function* signInResendSaga({payload}: ReturnType<typeof signInResend>) {
 	try{
 		//make API call
 		yield call(userActionsAPI.resendSignIn, payload);

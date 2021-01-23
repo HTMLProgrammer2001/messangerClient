@@ -1,7 +1,5 @@
 import {call, put} from 'redux-saga/effects';
 
-jest.mock('../../utils/api/chatAPI');
-
 import chatAPI from '../../utils/api/chatAPI';
 import {banSaga} from './sagas';
 import {banStart, banSuccess, banError} from './slice';
@@ -9,6 +7,8 @@ import {usersAdd} from '../users';
 
 import {IUser} from '../../interfaces/IUser';
 
+
+jest.mock('../../utils/api/chatAPI');
 
 describe('Test ban saga', () => {
 	const ID = '12345678';

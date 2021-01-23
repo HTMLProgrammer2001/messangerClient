@@ -7,7 +7,7 @@ type ICreatePersonalData = {
 	isLoading: boolean
 }
 
-const initialState: ICreatePersonalData = {
+export const initialState: ICreatePersonalData = {
 	isLoading: false
 };
 

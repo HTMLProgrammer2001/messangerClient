@@ -7,5 +7,5 @@ export type IUser = {
 	description?: string,
 	role?: number,
 	isBanned: boolean,
-	opts: Record<string, any>
+	opts?: Record<string, any>
 };

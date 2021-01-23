@@ -12,7 +12,7 @@ type ISignInState = {
 	isLoading: boolean
 };
 
-const initialState: ISignInState = {
+export const initialState: ISignInState = {
 	verifing: false,
 	errors: null,
 	isLoading: false

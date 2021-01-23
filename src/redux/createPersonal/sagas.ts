@@ -6,7 +6,7 @@ import {searchSetCurrent, selectSearchCurrent} from '../search/state/slice';
 import chatAPI from '../../utils/api/chatAPI';
 
 
-function *createPersonalSaga({payload: id}: ReturnType<typeof createPersonalStart>) {
+export function *createPersonalSaga({payload: id}: ReturnType<typeof createPersonalStart>) {
 	try {
 		yield call(chatAPI.createPersonal, id);
 
