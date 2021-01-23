@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import cn from 'classnames';
 
@@ -15,32 +15,49 @@ import LoadingMessages from './LoadingMessages';
 
 
 const Messages: React.FC = () => {
+	//get data from store
 	const messages = useSelector(selectChatMessages),
 		{isLoading, offset, totalPages} = useSelector(selectChatMessagesState),
 		selected = useSelector(selectChatSelectedState),
 		dispatch = useDispatch();
 
-	const chat = useRef<HTMLDivElement>(null);
+	//refs
+	const chat = useRef<HTMLDivElement>(null),
+		loadIndicator = useRef<HTMLSpanElement>(null);
 
-	const scrollHandler = () => {
-		if(!chat.current || isLoading)
+	//init intersection observer
+	useEffect(() => {
+		if(!chat.current || !loadIndicator.current)
 			return;
 
-		//calculate left scroll
-		const left = chat.current.scrollTop + chat.current.scrollHeight - chat.current.clientHeight;
+		//create observer
+		let observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if(entry.target != loadIndicator.current)
+					return;
 
-		//get data from store
-		if(left < 100 && offset < totalPages)
-			dispatch(chatMessagesStart());
-	},
-	toggleSelect = (id: string) => {
+				if(entry.isIntersecting && offset < totalPages && !isLoading)
+					dispatch(chatMessagesStart());
+			});
+		}, {root: chat.current, threshold: 1});
+
+		//connect
+		observer.observe(loadIndicator.current);
+
+		return () => {
+			observer.unobserve(loadIndicator.current);
+			observer.disconnect();
+		};
+	}, []);
+
+	const toggleSelect = (id: string) => {
 		dispatch(chatSelectedToggle(id));
 	};
 
 	let lastDate = dateToString(messages[0]?.time);
 
 	return (
-		<div className={styles.chat} onScroll={scrollHandler} ref={chat}>
+		<div className={styles.chat} ref={chat}>
 			<LoadingMessages/>
 
 			{
@@ -66,7 +83,8 @@ const Messages: React.FC = () => {
 			}
 
 			{!!messages.length && <RelativeDate time={messages.slice(-1)[0]?.time}/>}
-			{isLoading && <Loader/>}
+			<span ref={loadIndicator}/>
+			{offset < totalPages && <div className="center"><span>Loading...</span></div>}
 		</div>
 	);
 };

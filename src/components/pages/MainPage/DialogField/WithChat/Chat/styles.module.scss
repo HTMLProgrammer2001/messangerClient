@@ -9,7 +9,7 @@
     padding-top: 1rem;
 
     overflow: scroll;
-    scroll-snap-type: both;
+    scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
 
     &_message{
