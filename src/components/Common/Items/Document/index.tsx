@@ -49,7 +49,7 @@ const Document: React.FC<IDocumentProps> = ({name, size, url, isLoading, progres
 					</div>
 			}
 
-			<div className={styles.document_info}>
+			<div className={styles.document_info} onClick={e => e.stopPropagation()}>
 				<a
 					href="#"
 					onClick={handler}

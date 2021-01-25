@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation} from 'react-router';
 import cn from 'classnames';
+import {useDispatch} from 'react-redux';
 
 import styles from './styles.module.scss';
+import {wsConnect, wsDisconnect} from '../../../redux/ws/wsAPI';
 
 import SearchBar from './SearchBar';
 import DialogField from './DialogField';
@@ -12,7 +14,8 @@ import IsAuthenticated from '../../../utils/HOC/IsAuthenticated';
 
 const MainPage: React.FC<{}> = () => {
 	const [isDialogMode, setDialogMode] = useState(false),
-		location = useLocation();
+		location = useLocation(),
+		dispatch = useDispatch();
 
 	useEffect(() => {
 		//parse QP
@@ -22,6 +25,10 @@ const MainPage: React.FC<{}> = () => {
 
 	useEffect(() => {
 		document.title = 'Messenger';
+
+		//connect to websocket
+		dispatch(wsConnect());
+		return () => dispatch(wsDisconnect());
 	}, []);
 
 	return (
