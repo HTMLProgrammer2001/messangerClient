@@ -4,8 +4,10 @@ import {channel} from 'redux-saga';
 
 import ws from '../../utils/ws';
 import {IMessage} from '../../interfaces/IMessage';
+import {IDialog} from '../../interfaces/IDialog';
 
 import {wsNewMessage} from './newMessage';
+import {wsNewDialog} from './newDialog';
 
 
 //create actions
@@ -30,6 +32,7 @@ function *connectSaga() {
 
 		//add handlers
 		ws.addHandler('newMessage', (msg: IMessage) => wsChannel.put(wsNewMessage(msg)));
+		ws.addHandler('newDialog', (dlg: IDialog) => wsChannel.put(wsNewDialog(dlg)));
 	});
 }
 

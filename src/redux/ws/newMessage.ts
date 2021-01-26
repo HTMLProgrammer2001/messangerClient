@@ -3,7 +3,7 @@ import {createAction} from '@reduxjs/toolkit';
 
 import {IMessage} from '../../interfaces/IMessage';
 import {messagesAdd} from '../messages';
-import {dialogsAdd, selectDialogs} from '../dialogs';
+import {dialogsAdd} from '../dialogs';
 import {usersAdd} from '../users';
 import {selectChatDialogState} from '../chat/dialog/slice';
 import {chatMessagesAdd} from '../chat/messages/slice';
