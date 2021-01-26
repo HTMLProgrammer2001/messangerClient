@@ -16,6 +16,7 @@ import {usersAdd, usersAddMany} from '../../users';
 import {messagesAddMany} from '../../messages';
 import {chatSelectedClear} from '../selected';
 import {chatEditClear} from '../edit/slice';
+import {wsDialogConnect, wsDialogDisconnect} from '../../ws/dialog/wsDialogAPI';
 import chatAPI from '../../../utils/api/chatAPI';
 
 
@@ -33,6 +34,8 @@ const normalizeDialog = (data: IDialog) => {
 
 function *getDialog(nick: string) {
 	try {
+		yield put(wsDialogDisconnect());
+
 		const respDialog: AxiosResponse<IGetDialogResponse> = yield call(chatAPI.getDialogByNick, nick);
 		const normalizedResp = normalizeDialog(respDialog.data.dialog);
 
@@ -41,6 +44,7 @@ function *getDialog(nick: string) {
 		yield put(usersAddMany(normalizedResp.entities.users));
 		yield put(messagesAddMany(normalizedResp.entities.messages));
 		yield put(chatSetDialog({nick, id: respDialog.data.dialog._id}));
+		yield put(wsDialogConnect());
 
 		return false;
 	}
