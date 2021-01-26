@@ -8,6 +8,9 @@ import {IDialog} from '../../interfaces/IDialog';
 
 import {wsNewMessage} from './newMessage';
 import {wsNewDialog} from './newDialog';
+import {wsToggle} from './dialog/banUser';
+import {updateMessage} from './dialog/updateMessage';
+import {deleteMessage} from './dialog/deleteMessage';
 
 
 //create actions
@@ -33,6 +36,9 @@ function *connectSaga() {
 		//add handlers
 		ws.addHandler('newMessage', (msg: IMessage) => wsChannel.put(wsNewMessage(msg)));
 		ws.addHandler('newDialog', (dlg: IDialog) => wsChannel.put(wsNewDialog(dlg)));
+		ws.addHandler('banUser', (user: string) => wsChannel.put(wsToggle(user)));
+		ws.addHandler('updateMessage', (msg: IMessage) => wsChannel.put(updateMessage(msg)));
+		ws.addHandler('deleteMessage', (id: string) => wsChannel.put(deleteMessage(id)));
 	});
 }
 

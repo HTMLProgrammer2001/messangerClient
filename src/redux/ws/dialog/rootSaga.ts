@@ -1,12 +1,14 @@
 import {all} from 'redux-saga/effects';
 
-import wsDialogAPI from './wsDialogAPI';
+import updateMessage from './updateMessage';
+import deleteMessage from './deleteMessage';
 import banUser from './banUser';
 
 
 function *watchDialogSaga() {
 	yield all([
-		wsDialogAPI(),
+		updateMessage(),
+		deleteMessage(),
 		banUser()
 	]);
 }
