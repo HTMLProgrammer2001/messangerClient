@@ -11,5 +11,6 @@ export type IMessage = {
 	author: IUser,
 	url?: string,
 	size?: number,
-	dialog?: IDialog
+	dialog?: IDialog,
+	readed?: boolean
 };

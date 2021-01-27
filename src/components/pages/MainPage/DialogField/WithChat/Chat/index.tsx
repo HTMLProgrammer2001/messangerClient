@@ -7,7 +7,7 @@ import {selectChatDialogState} from '../../../../../../redux/chat/dialog/slice';
 import {selectChatMessages} from '../../../../../../redux/chat/messages/slice';
 
 import Loader from '../../../../../Common/Loader';
-import Messages from './Messages';
+import ChatData from './ChatData';
 import {selectSendMessagesForDialog} from '../../../../../../redux/sendMessage/slice';
 
 
@@ -39,7 +39,7 @@ const Chat: React.FC<{}> = () => {
 			</div>
 		);
 
-	return <Messages/>;
+	return <ChatData/>;
 };
 
 export default Chat;

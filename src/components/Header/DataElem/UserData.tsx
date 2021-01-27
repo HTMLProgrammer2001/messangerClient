@@ -13,9 +13,7 @@ type IUserDataProps = {
 
 const UserData: React.FC<IUserDataProps> = ({user}) => {
 	const {setElement} = useContext(PopUpContext),
-		handler = () => {
-			setElement(() => <UserPopup userID={user._id}/>)
-		};
+		handler = () => setElement(() => <UserPopup userID={user._id}/>);
 
 	return (
 		<div className={styles.wrapper} onClick={handler}>

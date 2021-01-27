@@ -2,10 +2,10 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import cn from 'classnames';
 
-import styles from './styles.module.scss';
-import {selectSendMessagesForDialog} from '../../../../../../redux/sendMessage/slice';
-import {selectChatDialogState} from '../../../../../../redux/chat/dialog/slice';
-import Message from '../../../../../Common/Message';
+import styles from '../styles.module.scss';
+import {selectSendMessagesForDialog} from '../../../../../../../redux/sendMessage/slice';
+import {selectChatDialogState} from '../../../../../../../redux/chat/dialog/slice';
+import Message from '../../../../../../Common/Message';
 
 
 const LoadingMessages = () => {

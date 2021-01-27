@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Field, FormikProps, withFormik} from 'formik';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {IEmojiData} from 'emoji-picker-react';
 import AutosizeTextarea from 'react-textarea-autosize';
 
@@ -10,6 +10,9 @@ import {MessageTypes} from '../../../../../../constants/MessageTypes';
 
 import {selectMeInfo} from '../../../../../../redux/me/slice';
 import {selectChatDialog} from '../../../../../../redux/chat/dialog/slice';
+import throttle from '../../../../../../utils/helpers/throttle';
+import {wsSendDialogStatus} from '../../../../../../redux/ws/dialog/status';
+import {DialogStatus} from '../../../../../../constants/DialogStatus';
 
 import Emoji from './Emoji';
 import ImageInput from './FileInputs/ImageInput';
@@ -34,7 +37,12 @@ const MessageInput: React.FC<IMessageInputProps> = (props) => {
 	const {handleSubmit, submitForm, values, setFieldValue, onSubmit, single = false} = props;
 
 	const author = useSelector(selectMeInfo),
-		dialog = useSelector(selectChatDialog);
+		dialog = useSelector(selectChatDialog),
+		dispatch = useDispatch();
+
+	const sendHandler = useCallback(throttle(() => {
+		dispatch(wsSendDialogStatus({dialog: dialog._id, status: DialogStatus.MESSAGE}));
+	}, 1000), []);
 
 	const keyHandler = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
 		//submit on Shift + Enter
@@ -42,6 +50,8 @@ const MessageInput: React.FC<IMessageInputProps> = (props) => {
 			submitForm();
 			e.preventDefault();
 		}
+
+		sendHandler();
 	};
 
 	const emojiHandler = (emoji: IEmojiData) => {

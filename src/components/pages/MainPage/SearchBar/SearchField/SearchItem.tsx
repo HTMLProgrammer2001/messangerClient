@@ -1,7 +1,7 @@
 import React from 'react';
 
-import styles from '../../styles.module.scss';
-import UserAvatar from '../../../../../Common/UserAvatar';
+import styles from '../styles.module.scss';
+import UserAvatar from '../../../../Common/UserAvatar';
 
 
 type ISearchItemProps = {

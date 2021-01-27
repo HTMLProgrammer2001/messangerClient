@@ -13,6 +13,7 @@ import {updateMessage} from './dialog/updateMessage';
 import {deleteMessage} from './dialog/deleteMessage';
 import {wsUserOnline} from './user/online';
 import {wsUserOffline} from './user/offline';
+import {wsDialogSetStatus} from './dialog/status';
 
 
 //create actions
@@ -43,6 +44,7 @@ function *connectSaga() {
 		ws.addHandler('deleteMessage', (id: string) => wsChannel.put(deleteMessage(id)));
 		ws.addHandler('online', (id: string) => wsChannel.put(wsUserOnline(id)));
 		ws.addHandler('offline', (id: string) => wsChannel.put(wsUserOffline(id)));
+		ws.addHandler('setStatus', (data: any) => wsChannel.put(wsDialogSetStatus(data)));
 	});
 }
 
