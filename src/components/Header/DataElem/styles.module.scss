@@ -6,9 +6,15 @@
     height: 100%;
 }
 
-.name{
+.data{
     @media all and(max-width: 600px) {
         width: 100%;
         text-align: center;
     }
+}
+
+.lastSeen{
+    color: #ccc;
+    font-size: .8rem;
+    font-weight: normal;
 }

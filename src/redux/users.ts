@@ -43,6 +43,7 @@ const userSlice = createSlice({
 
 //selectors
 export const selectUsers = (state: RootState) => state.users;
+export const selectUserById = (id: string) => (state: RootState) => state.users[id];
 
 //exports
 export const {usersAdd, usersAddMany, usersClear, usersDelete} = userSlice.actions;

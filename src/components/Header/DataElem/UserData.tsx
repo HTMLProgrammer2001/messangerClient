@@ -19,7 +19,13 @@ const UserData: React.FC<IUserDataProps> = ({user}) => {
 
 	return (
 		<div className={styles.wrapper} onClick={handler}>
-			<div className={styles.name}>{user.name}</div>
+			<div className={styles.data}>
+				<div>{user.name}</div>
+
+				<div className={styles.lastSeen}>
+					{user.isOnline ? 'Online' : `Was at ${new Date(user.lastSeen).toLocaleString()}`}
+				</div>
+			</div>
 		</div>
 	);
 };

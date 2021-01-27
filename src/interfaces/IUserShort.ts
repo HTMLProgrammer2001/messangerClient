@@ -3,5 +3,7 @@ export type IUserShort = {
 	nick: string,
 	name: string,
 	avatar?: string,
-	lastSeen: string | number
+	lastSeen: number,
+	isOnline: boolean,
+	isBanned: boolean
 };

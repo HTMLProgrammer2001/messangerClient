@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 
 import {IUser} from '../../../interfaces/IUser';
 import styles from './styles.module.scss';
+
 import UserAvatar from '../../Common/UserAvatar';
 import PopUpContext from '../../../utils/context/PopUpContext';
 import NewNamePopUp from '../NewNamePopup';
@@ -30,7 +31,7 @@ const UserInfo: React.FC<IUserInfo> = ({user, isProfile = true}) => {
 				</div>
 
 				<div className={styles.info_status}>
-					online
+					{isProfile || user.isOnline ? 'online' : `Was at ${new Date(user.lastSeen).toLocaleString()}`}
 				</div>
 			</div>
 		</div>

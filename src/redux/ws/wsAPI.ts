@@ -11,6 +11,8 @@ import {wsNewDialog} from './newDialog';
 import {wsToggle} from './dialog/banUser';
 import {updateMessage} from './dialog/updateMessage';
 import {deleteMessage} from './dialog/deleteMessage';
+import {wsUserOnline} from './user/online';
+import {wsUserOffline} from './user/offline';
 
 
 //create actions
@@ -39,6 +41,8 @@ function *connectSaga() {
 		ws.addHandler('banUser', (user: string) => wsChannel.put(wsToggle(user)));
 		ws.addHandler('updateMessage', (msg: IMessage) => wsChannel.put(updateMessage(msg)));
 		ws.addHandler('deleteMessage', (id: string) => wsChannel.put(deleteMessage(id)));
+		ws.addHandler('online', (id: string) => wsChannel.put(wsUserOnline(id)));
+		ws.addHandler('offline', (id: string) => wsChannel.put(wsUserOffline(id)));
 	});
 }
 

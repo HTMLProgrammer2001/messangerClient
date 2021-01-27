@@ -1,17 +1,17 @@
 import React from 'react';
+import {useSelector} from 'react-redux';
 
 
 import styles from '../SettingsPopup/styles.module.scss';
 import {IUser} from '../../../interfaces/IUser';
 import {selectUsers} from '../../../redux/users';
+import mapIdWith from '../../../utils/helpers/mapIdWith';
 
 import UserInfo from '../SettingsPopup/UserInfo';
 import MessageBut from './MessageBut';
 import UserData from './Items/UserData';
 import UserNotification from './Items/UserNotification';
 import Actions from './Items/Actions';
-import {useSelector} from 'react-redux';
-import mapIdWith from '../../../utils/helpers/mapIdWith';
 import ClosePopUp from '../../Common/ClosePopUp';
 
 
