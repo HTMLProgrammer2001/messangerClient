@@ -1,10 +1,11 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 
 import styles from '../SettingsPopup/styles.module.scss';
 import {IUser} from '../../../interfaces/IUser';
 import {selectUsers} from '../../../redux/users';
+import {callStart} from '../../../redux/call/slice';
 import mapIdWith from '../../../utils/helpers/mapIdWith';
 
 import UserInfo from '../SettingsPopup/UserInfo';
@@ -21,7 +22,10 @@ type IUserPopupProps = {
 
 const UserPopup: React.FC<IUserPopupProps> = ({userID}) => {
 	const users = useSelector(selectUsers),
-		user = mapIdWith(userID, users) as IUser;
+		user = mapIdWith(userID, users) as IUser,
+		dispatch = useDispatch();
+
+	const callHandler = () => dispatch(callStart(userID));
 
 	return (
 		<div className={styles.wrapper}>
@@ -30,7 +34,7 @@ const UserPopup: React.FC<IUserPopupProps> = ({userID}) => {
 					<b>User profile</b>
 
 					<div style={{display: 'flex'}}>
-						<i className="fas fa-phone"/>
+						<i className="fas fa-phone" onClick={callHandler}/>
 						<ClosePopUp/>
 					</div>
 				</div>

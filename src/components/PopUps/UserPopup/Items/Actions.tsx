@@ -13,15 +13,14 @@ type IActionsProps = {
 }
 
 const Actions: React.FC<IActionsProps> = ({user}) => {
+	//use hooks
 	const {isLoading: clearLoading} = useSelector(selectClearState),
 		{isLoading: banLoading} = useSelector(selectBanState),
-		dispatch = useDispatch(),
-		clearHandler = () => {
-			dispatch(clearStart({id: user._id, type: 1}));
-		},
-		banHandler = () => {
-			dispatch(banStart(user._id));
-		};
+		dispatch = useDispatch();
+
+	//handlers
+	const clearHandler = () => dispatch(clearStart({id: user._id, type: 1})),
+		banHandler = () => dispatch(banStart(user._id));
 
 	return (
 		<div className={styles.content_item}>

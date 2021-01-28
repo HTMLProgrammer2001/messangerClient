@@ -9,7 +9,7 @@ import {IUser} from '../../../interfaces/IUser';
 import {usersAddMany} from '../../users';
 import {dialogsAddMany} from '../../dialogs';
 import {messagesAddMany} from '../../messages';
-import {searchDialogsAdd} from '../../search/dialogs/slice';
+import {searchDialogsNew} from '../../search/dialogs/slice';
 
 
 //create actions
@@ -36,7 +36,7 @@ function *newDialogSaga({payload: dialog}: ReturnType<typeof wsNewDialog>) {
 	yield put(usersAddMany(normalizedDialog.entities.users));
 	yield put(messagesAddMany(normalizedDialog.entities.messages));
 	yield put(dialogsAddMany(normalizedDialog.entities.dialogs));
-	yield put(searchDialogsAdd(normalizedDialog.result));
+	yield put(searchDialogsNew(normalizedDialog.result));
 }
 
 function *newDialogWatchSaga() {

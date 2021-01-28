@@ -21,6 +21,7 @@ import users from './users';
 import messages from './messages';
 import ban from './ban/slice';
 import sendMessage from './sendMessage/slice';
+import call from './call/slice';
 
 
 //create reducer
@@ -30,7 +31,7 @@ let reducer = combineReducers({
 	users, editMe,
 	search, change, messages,
 	createPersonal, clear, ban,
-	sendMessage
+	sendMessage, call
 });
 
 let saga = createSagaMiddleware(),

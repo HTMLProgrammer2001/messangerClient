@@ -56,7 +56,7 @@ const searchDialogsSlice = createSlice({
 		},
 		success(state, action: PayloadAction<ISearchDialogsSuccessProps>){
 			state.isLoading = false;
-			state.data = state.data.concat(action.payload.dialogs);
+			state.data =  [...new Set([...state.data, ...action.payload.dialogs])];
 			state.offset = action.payload.offset;
 			state.total = action.payload.total;
 			state.totalPages = action.payload.totalPages;
@@ -64,8 +64,9 @@ const searchDialogsSlice = createSlice({
 		clear(state, action: PayloadAction<null>){
 			return {...initialState};
 		},
-		add(state, action: PayloadAction<string>){
+		newDialog(state, action: PayloadAction<string>){
 			state.data = [action.payload, ...state.data];
+			state.total += 1;
 		}
 	}
 });
@@ -94,7 +95,7 @@ export const selectSearchDialogsStateData = (state: RootState) => (
 
 //exports
 export const {
-	startName: searchDialogsStartName, startNick: searchDialogsStartNick, add: searchDialogsAdd,
+	startName: searchDialogsStartName, startNick: searchDialogsStartNick, newDialog: searchDialogsNew,
 	error: searchDialogsError, success: searchDialogsSuccess, clear: searchDialogsClear
 } = searchDialogsSlice.actions;
 
