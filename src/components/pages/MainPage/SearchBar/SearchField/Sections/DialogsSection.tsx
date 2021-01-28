@@ -49,17 +49,22 @@ const DialogsSection: React.FC<{}> = () => {
 	if (!dialogs.length)
 		return null;
 
+	//sort by last message
+	const sortedDialogs = dialogs.sort((prev, next) => (
+		+new Date(next.lastMessage?.time) - +new Date(prev.lastMessage?.time)
+	));
+
 	return (
 		<div>
 			<b className={styles.header}>Dialogs({total})</b>
 
 			<div>
 				{
-					dialogs.map(dialog => {
+					sortedDialogs.map(dialog => {
 						//get time
 						let time: any = dialog.lastMessage?.time;
 
-						if(time){
+						if (time) {
 							const isToday = +new Date() - +new Date(time) <= 1000 * 3600 * 24 &&
 								new Date(time).getDay() == new Date().getDay();
 
@@ -69,7 +74,7 @@ const DialogsSection: React.FC<{}> = () => {
 						//get text
 						let text = 'Message was deleted';
 
-						if(dialog.lastMessage)
+						if (dialog.lastMessage)
 							text = `${dialog.lastMessage.author.name}: ${dialog.lastMessage.message}`;
 
 						return (

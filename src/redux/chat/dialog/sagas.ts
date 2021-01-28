@@ -9,7 +9,7 @@ import {IUser} from '../../../interfaces/IUser';
 import {IMessage} from '../../../interfaces/IMessage';
 
 import {searchSetCurrent} from '../../search/state/slice';
-import {chatDialogStart, chatDialogError, chatSetDialog, chatSetUser, chatSuccess} from './slice';
+import {chatDialogStart, chatDialogError, chatSetDialog, chatSetUser, chatSuccess, chatClear} from './slice';
 import {chatMessagesStart, chatMessagesClear} from '../messages/slice';
 import {dialogsAddMany} from '../../dialogs';
 import {usersAdd, usersAddMany} from '../../users';
@@ -71,8 +71,10 @@ function *getUser(nick: string) {
 }
 
 function* getChatSaga({payload}: ReturnType<typeof searchSetCurrent>){
-	if(!payload)
+	if(!payload) {
+		yield put(chatClear());
 		return;
+	}
 
 	const dlgID = payload.split('_')[0];
 

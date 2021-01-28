@@ -2,18 +2,19 @@ import {createAction} from '@reduxjs/toolkit';
 import {put, takeLeading, all, take, fork} from 'redux-saga/effects';
 import {channel} from 'redux-saga';
 
-import ws from '../../utils/ws';
+import ws from '../../utils/ws/appWebsocket';
 import {IMessage} from '../../interfaces/IMessage';
 import {IDialog} from '../../interfaces/IDialog';
 
-import {wsNewMessage} from './newMessage';
-import {wsNewDialog} from './newDialog';
-import {wsToggle} from './dialog/banUser';
-import {updateMessage} from './dialog/updateMessage';
-import {deleteMessage} from './dialog/deleteMessage';
+import {wsNewMessage} from './message/newMessage';
+import {wsNewDialog} from './dialog/newDialog';
+import {wsToggle} from './user/banUser';
+import {updateMessage} from './message/updateMessage';
+import {deleteMessage} from './message/deleteMessage';
 import {wsUserOnline} from './user/online';
 import {wsUserOffline} from './user/offline';
 import {wsDialogSetStatus} from './dialog/status';
+import {viewMessages} from './message/viewMessage';
 
 
 //create actions
@@ -45,6 +46,7 @@ function *connectSaga() {
 		ws.addHandler('online', (id: string) => wsChannel.put(wsUserOnline(id)));
 		ws.addHandler('offline', (id: string) => wsChannel.put(wsUserOffline(id)));
 		ws.addHandler('setStatus', (data: any) => wsChannel.put(wsDialogSetStatus(data)));
+		ws.addHandler('viewMessages', (ids: string[]) => wsChannel.put(viewMessages(ids)));
 	});
 }
 

@@ -13,6 +13,12 @@ const dialogsSlice = createSlice({
 	name: 'dialogs',
 	initialState,
 	reducers: {
+		dialogAddCount(state, action: PayloadAction<{dialog: string, count: number}>){
+			const dlg = state[action.payload.dialog];
+
+			if(dlg)
+				dlg.unread = dlg.unread + action.payload.count;
+		},
 		dialogsAdd(state, action: PayloadAction<IDialog>){
 			const id = action.payload._id,
 				cur = state[id] || {};
@@ -43,5 +49,5 @@ const dialogsSlice = createSlice({
 export const selectDialogs = (state: RootState) => state.dialogs;
 
 //exports
-export const {dialogsAdd, dialogsClear, dialogsDelete, dialogsAddMany} = dialogsSlice.actions;
+export const {dialogsAdd, dialogsClear, dialogsDelete, dialogsAddMany, dialogAddCount} = dialogsSlice.actions;
 export default dialogsSlice.reducer;

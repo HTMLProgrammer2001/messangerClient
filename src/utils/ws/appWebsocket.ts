@@ -24,6 +24,10 @@ class Websocket{
 		this.socket?.emit('changeDialogStatus', dialogID, statusType);
 	}
 
+	viewMessages(ids: string[]){
+		this.socket?.emit('viewMessages', ids);
+	}
+
 	removeHandler(event: string, fn: (...args: any[]) => void){
 		this.socket?.off(event, fn);
 	}

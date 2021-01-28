@@ -1,12 +1,13 @@
-import {takeEvery, put, select} from 'redux-saga/effects';
+import {takeEvery, put, select, call} from 'redux-saga/effects';
 import {createAction} from '@reduxjs/toolkit';
 
-import {IMessage} from '../../interfaces/IMessage';
-import {messagesAdd} from '../messages';
-import {dialogsAdd} from '../dialogs';
-import {usersAdd} from '../users';
-import {selectChatDialogState} from '../chat/dialog/slice';
-import {chatMessagesAdd} from '../chat/messages/slice';
+import {IMessage} from '../../../interfaces/IMessage';
+import {messagesAdd} from '../../messages';
+import {dialogsAdd, dialogAddCount} from '../../dialogs';
+import {usersAdd} from '../../users';
+import {selectChatDialogState} from '../../chat/dialog/slice';
+import {chatMessagesAdd} from '../../chat/messages/slice';
+import ws from '../../../utils/ws/appWebsocket';
 
 
 //create actions
@@ -22,8 +23,12 @@ function *newMessageSaga({payload: message}: ReturnType<typeof wsNewMessage>) {
 
 	const {dialog: curDialog} = yield select(selectChatDialogState);
 
-	if(curDialog == message.dialog._id)
+	if(curDialog == message.dialog._id) {
 		yield put(chatMessagesAdd({message: message._id, first: true}));
+		yield call(ws.viewMessages.bind(ws), [message._id]);
+	}
+	else
+		yield put(dialogAddCount({dialog: message.dialog._id, count: 1}));
 }
 
 function *watchNewMessageSaga() {

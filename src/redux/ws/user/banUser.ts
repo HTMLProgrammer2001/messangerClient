@@ -7,7 +7,7 @@ import {dialogsAdd} from '../../dialogs';
 
 
 //create actions
-export const wsToggle = createAction<string>('WS/dialog/ban');
+export const wsToggle = createAction<string>('WS/user/toggleBan');
 
 //create sagas
 function *toggleBanSaga({payload: userBan}: ReturnType<typeof wsToggle>) {

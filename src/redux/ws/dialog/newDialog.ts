@@ -2,14 +2,14 @@ import {createAction} from '@reduxjs/toolkit';
 import {takeEvery, put} from 'redux-saga/effects';
 import {normalize, schema} from 'normalizr';
 
-import {IDialog} from '../../interfaces/IDialog';
-import {IMessage} from '../../interfaces/IMessage';
-import {IUser} from '../../interfaces/IUser';
+import {IDialog} from '../../../interfaces/IDialog';
+import {IMessage} from '../../../interfaces/IMessage';
+import {IUser} from '../../../interfaces/IUser';
 
-import {usersAddMany} from '../users';
-import {dialogsAddMany} from '../dialogs';
-import {messagesAddMany} from '../messages';
-import {searchDialogsAdd} from '../search/dialogs/slice';
+import {usersAddMany} from '../../users';
+import {dialogsAddMany} from '../../dialogs';
+import {messagesAddMany} from '../../messages';
+import {searchDialogsAdd} from '../../search/dialogs/slice';
 
 
 //create actions

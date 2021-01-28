@@ -1,7 +1,7 @@
 import {createAction} from '@reduxjs/toolkit';
 import {takeEvery, put, all, call} from 'redux-saga/effects';
 
-import ws from '../../../utils/ws/';
+import ws from '../../../utils/ws/appWebsocket';
 import {dialogsAdd} from '../../dialogs';
 import {DialogStatus} from '../../../constants/DialogStatus';
 

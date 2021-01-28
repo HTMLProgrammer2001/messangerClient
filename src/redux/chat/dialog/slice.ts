@@ -51,6 +51,9 @@ const chatDialogSlice = createSlice({
 		setUser(state, action: PayloadAction<{ nick: string, id: string }>) {
 			state.user = action.payload.id;
 			state.nick = action.payload.nick;
+		},
+		clear(state, action: PayloadAction<null>){
+			return {...initialState};
 		}
 	}
 });
@@ -84,7 +87,7 @@ export const selectChatDialog = (state: RootState) => (
 //exports
 export const {
 	start: chatDialogStart, error: chatDialogError, setDialog: chatSetDialog,
-	setUser: chatSetUser, success: chatSuccess
+	setUser: chatSetUser, success: chatSuccess, clear: chatClear
 } = chatDialogSlice.actions;
 
 export default chatDialogSlice.reducer;
