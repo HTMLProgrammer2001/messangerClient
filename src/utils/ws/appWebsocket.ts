@@ -28,6 +28,18 @@ class Websocket{
 		this.socket?.emit('viewMessages', ids);
 	}
 
+	sendCall(to: string){
+		this.socket?.emit('sendCall', to);
+	}
+
+	disconnectCall(to: string){
+		this.socket?.emit('disconnectCall', to);
+	}
+
+	acceptCall(peerID: string, withUser: string){
+		this.socket?.emit('acceptCall', peerID, withUser);
+	}
+
 	removeHandler(event: string, fn: (...args: any[]) => void){
 		this.socket?.off(event, fn);
 	}

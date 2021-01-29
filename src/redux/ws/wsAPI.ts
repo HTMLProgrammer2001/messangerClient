@@ -15,6 +15,8 @@ import {wsUserOnline} from './user/online';
 import {wsUserOffline} from './user/offline';
 import {wsDialogSetStatus} from './dialog/status';
 import {viewMessages} from './message/viewMessage';
+import {wsCallAccept, wsCallDisconnect, wsCallReceive} from './call';
+import {IUser} from '../../interfaces/IUser';
 
 
 //create actions
@@ -47,6 +49,9 @@ function *connectSaga() {
 		ws.addHandler('offline', (id: string) => wsChannel.put(wsUserOffline(id)));
 		ws.addHandler('setStatus', (data: any) => wsChannel.put(wsDialogSetStatus(data)));
 		ws.addHandler('viewMessages', (ids: string[]) => wsChannel.put(viewMessages(ids)));
+		ws.addHandler('acceptCall', (peerID: string) => wsChannel.put(wsCallAccept(peerID)));
+		ws.addHandler('receiveCall', (from: IUser) => wsChannel.put(wsCallReceive(from)));
+		ws.addHandler('disconnectCall', (withID: string) => wsChannel.put(wsCallDisconnect(withID)));
 	});
 }
 

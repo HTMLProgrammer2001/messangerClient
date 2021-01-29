@@ -21,8 +21,7 @@ type IUserPopupProps = {
 }
 
 const UserPopup: React.FC<IUserPopupProps> = ({userID}) => {
-	const users = useSelector(selectUsers),
-		user = mapIdWith(userID, users) as IUser,
+	const user = mapIdWith(userID, useSelector(selectUsers)) as IUser,
 		dispatch = useDispatch();
 
 	const callHandler = () => dispatch(callStart(userID));

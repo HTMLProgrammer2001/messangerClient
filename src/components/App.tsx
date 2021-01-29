@@ -1,6 +1,6 @@
-import React, {useState, lazy, Suspense} from 'react';
+import React, {lazy, Suspense, useState} from 'react';
 import {Provider} from 'react-redux';
-import {HashRouter, Route, Switch, Redirect} from 'react-router-dom';
+import {HashRouter, Redirect, Route, Switch} from 'react-router-dom';
 import {ToastContainer} from 'react-toastify';
 
 import store from '../redux';
@@ -19,10 +19,7 @@ const App: React.FC<{}> = () => {
 	const [renderElements, setElement] = useState<any[]>([]);
 
 	const addElement = (elem: any) => {
-		if (elem)
-			setElement([...renderElements, elem]);
-		else
-			setElement(renderElements.slice(0, -1));
+		setElement(elem ? [...renderElements, elem] : renderElements.slice(0, -1));
 	};
 
 	return (

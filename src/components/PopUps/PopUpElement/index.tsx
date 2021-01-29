@@ -1,32 +1,40 @@
 import React from 'react';
+import {useSelector} from 'react-redux';
 
+import {selectCallState} from '../../../redux/call/slice';
 import PopUpContext from '../../../utils/context/PopUpContext';
 import Content from './Content';
+import CallPopUp from '../Call';
 
 
-const PopUpElement: React.FC<{}> = () => (
-	<PopUpContext.Consumer> 
-		{
-			({renderElements, setElement}) => {
-				if(!renderElements.length)
-					return;
+const PopUpElement: React.FC = () => {
+	const {isCalling, isSpeaking} = useSelector(selectCallState);
 
-				const handler = (e: React.MouseEvent) => {
-					setElement(null);
-				};
+	return (
+		<PopUpContext.Consumer>
+			{
+				({renderElements, setElement}) => {
+					if (!renderElements.length && !isCalling && !isSpeaking)
+						return;
 
-				return (
-					<>
-						{
-							renderElements.map((elem, key) => (
+					const handler = () => setElement(null);
+
+					return (
+						<>
+							{renderElements.map((elem, key) => (
 								<Content handler={handler} RenderElement={elem} key={key}/>
-							))
-						}
-					</>
-				);
+							))}
+
+							{
+								(isCalling || isSpeaking) &&
+								<Content handler={handler} RenderElement={() => <CallPopUp/>}/>
+							}
+						</>
+					);
+				}
 			}
-		}
-	</PopUpContext.Consumer>
-);
+		</PopUpContext.Consumer>
+	);
+};
 
 export default PopUpElement;

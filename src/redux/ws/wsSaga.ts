@@ -4,6 +4,7 @@ import wsAPISaga from './wsAPI';
 import wsDialogSaga from './dialog/rootSaga';
 import wsUserSaga from './user/rootSaga';
 import wsMessageSaga from './message/rootSaga';
+import wsCallSaga from './call';
 
 
 function *wsSaga() {
@@ -11,7 +12,8 @@ function *wsSaga() {
 		wsAPISaga(),
 		wsDialogSaga(),
 		wsUserSaga(),
-		wsMessageSaga()
+		wsMessageSaga(),
+		wsCallSaga()
 	]);
 }
 
