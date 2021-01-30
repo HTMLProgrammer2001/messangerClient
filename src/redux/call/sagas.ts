@@ -1,4 +1,4 @@
-import {all, call, select, takeLatest, put, take, fork} from 'redux-saga/effects';
+import {all, call, select, takeLatest, put, take, fork, delay, race} from 'redux-saga/effects';
 import {channel} from 'redux-saga';
 import {MediaConnection} from 'peerjs';
 
@@ -28,6 +28,15 @@ function *callDisconnectedSaga({payload: withUserID}: ReturnType<typeof callConn
 	yield call(ws.disconnectCall.bind(ws), withUserID);
 }
 
+function *sendCall(id: string){
+	for(let i = 0; i < 90; i++) {
+		yield call(ws.sendCall.bind(ws), id);
+		yield delay(1000);
+	}
+
+	return true;
+}
+
 function *callStartSaga({payload: withUserID}: ReturnType<typeof callConnected>) {
 	//get current user id
 	const {user} = yield select(selectMeState);
@@ -49,7 +58,15 @@ function *callStartSaga({payload: withUserID}: ReturnType<typeof callConnected>)
 		});
 	});
 
-	yield call(ws.sendCall.bind(ws), withUserID);
+	//start race
+	const {send, connected, disconnected} = yield race({
+		send: call(sendCall, withUserID),
+		connected: take(callConnected.type),
+		disconnected: take(callDisconnect.type)
+	});
+
+	if(send)
+		yield put(callDisconnect(withUserID));
 }
 
 function *callWatchSaga() {
