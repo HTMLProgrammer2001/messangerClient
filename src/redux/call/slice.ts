@@ -9,16 +9,14 @@ type ICallState = {
 	isCalling: boolean,
 	isSpeaking: boolean,
 	isInitiator: boolean,
-	callWith: string,
-	stream: MediaStream
+	callWith: string
 }
 
 const initialState: ICallState = {
 	isCalling: false,
 	isSpeaking: false,
 	isInitiator: false,
-	callWith: null,
-	stream: null
+	callWith: null
 };
 
 //create slice
@@ -45,9 +43,6 @@ const callSlice = createSlice({
 		},
 		error(state, action: PayloadAction<null>){
 			return {...initialState};
-		},
-		setStream(state, action: PayloadAction<MediaStream>){
-			state.stream = action.payload;
 		}
 	}
 });
@@ -59,7 +54,7 @@ export const selectCallUser = (state: RootState) => selectUsers(state)[state.cal
 //exports
 export const {
 	start: callStart, error: callError, connected: callConnected,
-	disconnect: callDisconnect, receive: callReceive, setStream: callSetStream
+	disconnect: callDisconnect, receive: callReceive
 } = callSlice.actions;
 
 export default callSlice.reducer;

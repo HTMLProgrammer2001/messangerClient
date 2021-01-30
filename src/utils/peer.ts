@@ -1,23 +1,42 @@
-import Peer from 'peerjs';
+import Peer, {MediaConnection} from 'peerjs';
 
 
 class PeerService{
 	private peer: Peer = null;
 	private stream: MediaStream = null;
 	private peerID: string = null;
+	private streamHandler: any = null;
 
 	async open(userID: string){
+		if(this.peer && !this.peer.disconnected && this.peerID == userID)
+			return;
+
 		this.peer = new Peer(userID, {
 			host: process.env.WEBRTC_HOST || 'localhost',
 			port: +process.env.WEBRTC_PORT || 9000
 		});
 
 		this.peerID = userID;
+
+		this.peer.on('call', (call: MediaConnection) => {
+			alert('Call');
+			this.getStream().then(stream => {
+				call.answer(stream);
+
+				call.on('stream', (userStream) => {
+					if(this.streamHandler)
+						this.streamHandler(userStream);
+				});
+			});
+		});
 	}
 
 	getID(): string{
-		console.log(this.peerID);
 		return this.peerID;
+	}
+
+	setHandler(fn: any){
+		this.streamHandler = fn;
 	}
 
 	async getStream(){
@@ -31,25 +50,24 @@ class PeerService{
 		return this.stream;
 	}
 
-	addHandler(event: string, callBack: any){
-		this.peer?.on(event, callBack);
-	}
-
-	removeHandler(event: string, callback: any){
-		this.peer?.off('event', callback);
-	}
-
 	disconnect(){
+		//stop stream
+		this.stream?.getTracks().forEach(track => track.stop());
+
+		//disconnect
 		this.peer?.disconnect();
+
+		//reset data
 		this.stream = null;
 		this.peer = null;
 	}
 
 	async call(to: string){
 		try {
-			console.log(`Call ${to}`);
 			const stream = await this.getStream();
-			return this.peer?.call(to, stream, {});
+			const call = this.peer?.call(to, stream);
+
+			call.on('stream', this.streamHandler);
 		}
 		catch (e) {
 			console.log(e);

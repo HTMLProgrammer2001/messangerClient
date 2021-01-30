@@ -1,8 +1,10 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {MediaConnection} from 'peerjs';
 
 import styles from './styles.module.scss';
 import {callConnected, callDisconnect, selectCallState, selectCallUser} from '../../../redux/call/slice';
+import PeerService from '../../../utils/peer';
 
 import SendControl from './Controls/SendControl';
 import ReceiveControl from './Controls/ReceiveControl';
@@ -11,7 +13,7 @@ import SpeakControl from './Controls/SpeakControl';
 
 const CallPopUp: React.FC = () => {
 	//get data
-	const {isCalling, isInitiator, isSpeaking, stream, callWith} = useSelector(selectCallState),
+	const {isCalling, isInitiator, isSpeaking, callWith} = useSelector(selectCallState),
 		user = useSelector(selectCallUser),
 		dispatch = useDispatch();
 
@@ -23,15 +25,14 @@ const CallPopUp: React.FC = () => {
 		onAccept = () => dispatch(callConnected(callWith));
 
 	useEffect(() => {
-		// return () => dispatch(callDisconnect(callWith));
+		PeerService.setHandler((stream: MediaStream) => {
+			if(!isSpeaking || !videoRef.current)
+				return;
+
+			videoRef.current.srcObject = stream;
+			videoRef.current.addEventListener('loadedmetadata', () => videoRef.current.play());
+		});
 	}, []);
-
-	useEffect(() => {
-		if(!videoRef.current || !stream)
-			return;
-
-		videoRef.current.srcObject = stream;
-	}, [stream, videoRef.current]);
 
 	if(!isCalling && !isSpeaking)
 		return null;
@@ -39,8 +40,8 @@ const CallPopUp: React.FC = () => {
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.video_wrap}>
-				{(isCalling || !stream) && <img src={user.avatar} className={styles.video_view} alt="Video avatar"/>}
-				{isSpeaking && stream && <video ref={videoRef} className={styles.video_view}/>}
+				{isCalling && <img src={user.avatar} className={styles.video_view} alt="Video avatar"/>}
+				{isSpeaking && <video ref={videoRef} className={styles.video_view}/>}
 
 				<div className={styles.info}>
 					<div className={styles.name}>{user.name}</div>

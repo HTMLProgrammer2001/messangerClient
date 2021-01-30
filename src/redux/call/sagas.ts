@@ -1,8 +1,7 @@
-import {all, call, select, takeLatest, put, take, fork, delay, race} from 'redux-saga/effects';
+import {all, call, delay, fork, put, race, select, take, takeLatest} from 'redux-saga/effects';
 import {channel} from 'redux-saga';
-import {MediaConnection} from 'peerjs';
 
-import {callConnected, callDisconnect, callStart, callSetStream} from './slice';
+import {callConnected, callDisconnect, callStart} from './slice';
 import {selectMeState} from '../me/slice';
 
 import PeerService from '../../utils/peer';
@@ -42,24 +41,10 @@ function *callStartSaga({payload: withUserID}: ReturnType<typeof callConnected>)
 	const {user} = yield select(selectMeState);
 
 	//open peer
-	yield call(async () => {
-		await PeerService.open(user);
-		PeerService.addHandler('call', async (call: MediaConnection) => {
-			console.log('Call');
-			call.answer(await PeerService.getStream());
-
-			call.on('stream', (userStream) => {
-				callChannel.put(callSetStream(userStream));
-			});
-
-			call.on('close', () => {
-				callChannel.put(callDisconnect(''));
-			});
-		});
-	});
+	yield call(() => PeerService.open(user));
 
 	//start race
-	const {send, connected, disconnected} = yield race({
+	const {send} = yield race({
 		send: call(sendCall, withUserID),
 		connected: take(callConnected.type),
 		disconnected: take(callDisconnect.type)

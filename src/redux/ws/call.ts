@@ -2,8 +2,7 @@ import {createAction} from '@reduxjs/toolkit';
 import {all, call, put, select, takeEvery} from 'redux-saga/effects';
 
 import {IUser} from '../../interfaces/IUser';
-import store from '../';
-import {callConnected, callDisconnect, callReceive, selectCallState, callSetStream} from '../call/slice';
+import {callConnected, callDisconnect, callReceive, selectCallState} from '../call/slice';
 import {selectMeState} from '../me/slice';
 import {usersAdd} from '../users';
 import PeerService from '../../utils/peer';
@@ -15,21 +14,9 @@ export const wsCallReceive = createAction<IUser>('WS/call/receive');
 export const wsCallDisconnect = createAction<string>('WS/call/disconnect');
 
 //sagas
-function *callAcceptSaga({payload: peerID}: ReturnType<typeof wsCallAccept>) {
+function *callAcceptSaga({payload}: ReturnType<typeof wsCallAccept>) {
 	yield put(callConnected());
-	yield call(async () => {
-		const call = await PeerService.call(peerID);
-
-		if(call){
-			call.on('stream', userStream => {
-				store.dispatch(callSetStream(userStream));
-			});
-
-			call.on('close', () => {
-				store.dispatch(callDisconnect());
-			});
-		}
-	});
+	yield call(() => PeerService.call(payload));
 }
 
 function *receiveSaga({payload}: ReturnType<typeof wsCallReceive>) {
