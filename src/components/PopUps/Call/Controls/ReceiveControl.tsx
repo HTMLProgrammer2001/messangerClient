@@ -10,8 +10,13 @@ type IReceiveControl = {
 
 const ReceiveControl: React.FC<IReceiveControl> = ({cancel, accept}) => (
 	<div className={styles.control}>
-		<div className={styles.control_accept} onClick={accept}>Accept</div>
-		<div className={styles.control_cancel} onClick={cancel}>Cancel</div>
+		<div className={styles.control_accept} onClick={accept}>
+			<i className="fas fa-phone"/>
+		</div>
+
+		<div className={styles.control_cancel} onClick={cancel}>
+			<i className="fas fa-phone-slash"/>
+		</div>
 	</div>
 );
 

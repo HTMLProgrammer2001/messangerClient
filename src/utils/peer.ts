@@ -19,7 +19,6 @@ class PeerService{
 		this.peerID = userID;
 
 		this.peer.on('call', (call: MediaConnection) => {
-			alert('Call');
 			this.getStream().then(stream => {
 				call.answer(stream);
 
@@ -48,6 +47,20 @@ class PeerService{
 		}
 
 		return this.stream;
+	}
+
+	changeVideo(isShow: boolean){
+		if(!this.stream)
+			return;
+
+		this.stream.getVideoTracks().forEach(track => track.enabled = isShow);
+	}
+
+	changeAudio(isShow: boolean){
+		if(!this.stream)
+			return;
+
+		this.stream.getAudioTracks().forEach(track => track.enabled = isShow);
 	}
 
 	disconnect(){

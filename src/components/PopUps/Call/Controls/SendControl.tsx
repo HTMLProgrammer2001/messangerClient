@@ -9,7 +9,9 @@ type ISendControl = {
 
 const SendControl: React.FC<ISendControl> = ({cancel}) => (
 	<div className={styles.control}>
-		<div className={styles.control_cancel} onClick={cancel}>Cancel</div>
+		<div className={styles.control_cancel} onClick={cancel}>
+			<i className="fas fa-phone-slash"/>
+		</div>
 	</div>
 );
 

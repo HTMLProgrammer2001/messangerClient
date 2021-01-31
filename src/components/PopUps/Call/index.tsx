@@ -1,6 +1,6 @@
-import React, {useCallback, useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {MediaConnection} from 'peerjs';
+import cn from 'classnames';
 
 import styles from './styles.module.scss';
 import {callConnected, callDisconnect, selectCallState, selectCallUser} from '../../../redux/call/slice';
@@ -17,24 +17,42 @@ const CallPopUp: React.FC = () => {
 		user = useSelector(selectCallUser),
 		dispatch = useDispatch();
 
+	//state
+	const [isPlay, setPlay] = useState(false),
+		[isAudioPlay, setAudioPlay] = useState(true),
+		[isVideoPlay, setVideoPlay] = useState(true);
+
 	//refs
-	const videoRef = useRef<HTMLVideoElement>(null);
+	const videoRef = useRef<HTMLVideoElement>(null),
+		audioRef = useRef<HTMLAudioElement>(null);
 
 	//handlers
 	const onCancel = () => dispatch(callDisconnect(callWith)),
-		onAccept = () => dispatch(callConnected(callWith));
+		onAccept = () => dispatch(callConnected(callWith)),
+		onAudio = () => {
+			PeerService.changeAudio(!isAudioPlay);
+			setAudioPlay(!isAudioPlay);
+		},
+		onVideo = () => {
+			PeerService.changeVideo(!isVideoPlay);
+			setVideoPlay(!isVideoPlay);
+		};
 
 	useEffect(() => {
 		PeerService.setHandler((stream: MediaStream) => {
-			if(!isSpeaking || !videoRef.current)
+			if (!isSpeaking || !videoRef.current)
 				return;
 
+			//start play
 			videoRef.current.srcObject = stream;
-			videoRef.current.addEventListener('loadedmetadata', () => videoRef.current.play());
+			videoRef.current.addEventListener('loadedmetadata', async () => {
+				await videoRef.current.play();
+				setPlay(true);
+			});
 		});
 	}, []);
 
-	if(!isCalling && !isSpeaking)
+	if (!isCalling && !isSpeaking)
 		return null;
 
 	return (
@@ -43,15 +61,24 @@ const CallPopUp: React.FC = () => {
 				{isCalling && <img src={user.avatar} className={styles.video_view} alt="Video avatar"/>}
 				{isSpeaking && <video ref={videoRef} className={styles.video_view}/>}
 
-				<div className={styles.info}>
+				<div className={cn(styles.info, {[styles.speak]: isPlay})}>
 					<div className={styles.name}>{user.name}</div>
 					{isCalling && <div className={styles.call}>Calling...</div>}
+					{isSpeaking && !isPlay && <div className={styles.call}>Connecting...</div>}
 				</div>
 			</div>
 
 			{isCalling && isInitiator && <SendControl cancel={onCancel}/>}
 			{isCalling && !isInitiator && <ReceiveControl cancel={onCancel} accept={onAccept}/>}
-			{isSpeaking && <SpeakControl cancel={onCancel} micro={() => null} video={() => null}/>}
+			{isSpeaking &&
+				<SpeakControl
+					cancel={onCancel}
+					micro={onAudio}
+					video={onVideo}
+					isMicro={isAudioPlay}
+					isVideo={isVideoPlay}
+				/>
+			}
 		</div>
 	);
 };
