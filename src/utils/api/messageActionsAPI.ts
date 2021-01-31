@@ -5,7 +5,7 @@ import {ISendMessageResponse} from '../../interfaces/Responses/chat/ISendMessage
 
 
 const client = axios.create({
-	baseURL: process.env.API_URL || 'http://localhost:5000/'
+	baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000/'
 });
 
 const messageActionsAPI = {

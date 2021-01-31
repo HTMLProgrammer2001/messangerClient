@@ -8,7 +8,7 @@ import {IGetUserResponse} from '../../interfaces/Responses/IGetUserResponse';
 type IDialogsResponse = IPaginateResponse<IDialog>
 
 const client = axios.create({
-	baseURL: process.env.API_URL || 'http://localhost:5000/'
+	baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000/'
 });
 
 
