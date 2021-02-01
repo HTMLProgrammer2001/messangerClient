@@ -1,5 +1,6 @@
 import React from 'react';
 import {FormikProps, Form, Field, withFormik} from 'formik';
+import {Link} from 'react-router-dom';
 import * as Yup from 'yup';
 
 import styles from './styles.module.scss';
@@ -12,7 +13,6 @@ import Logo from '../../Logo';
 import CodeInput from '../../FormElements/CodeInput';
 import FormikInput from '../../FormElements/FormikInput';
 import connectFormToRedux from '../../../utils/HOC/ConnectFormToRedux';
-import {Link} from 'react-router-dom';
 
 
 export type ISignInFormData = {
@@ -37,6 +37,7 @@ const SignInForm: React.FC<ISignInFormProps> = ({verifing, err, cancel, resend, 
 	<Form onSubmit={formik.handleSubmit} className={styles.form} autoComplete="off">
 		<div className={styles.form_header}>
 			<Logo/>
+
 			<button
 				className={styles.form_next}
 				disabled={!formik.isValid || formik.isSubmitting || !formik.dirty}

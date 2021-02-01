@@ -7,7 +7,7 @@ class Websocket{
 	private socket: typeof Socket;
 
 	connect(connectHandler?: () => void){
-		this.socket = connect(process.env.WS_URL || 'http://localhost:5000', {
+		this.socket = connect(process.env.REACT_APP_WS_URL || 'http://localhost:5000', {
 			reconnectionAttempts: Infinity,
 			query: {Token: localStorage.getItem('token')}
 		});

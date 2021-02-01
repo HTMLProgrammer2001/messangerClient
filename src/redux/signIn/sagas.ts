@@ -5,6 +5,7 @@ import {AxiosResponse} from 'axios';
 import {ISignInResponse} from '../../interfaces/Responses/ISignInResponse';
 import {signInCodeVerify, signInError, signInResend, signInSuccess, signInVerify} from './slice';
 import {meSet} from '../me/slice';
+import {usersAdd} from '../users';
 import userActionsAPI from '../../utils/api/userActionsAPI';
 import expressErrorsToObject from '../../utils/helpers/expressErrorsToObject';
 
@@ -31,6 +32,7 @@ export function* signInCodeSaga({payload}: ReturnType<typeof signInCodeVerify>){
 
 		//log in user
 		localStorage.setItem('token', resp.data.token);
+		yield put(usersAdd(resp.data.user));
 		yield put(meSet(resp.data.user._id));
 	}
 	catch(e){

@@ -8,11 +8,11 @@ import SignInForm, {ISignInFormData} from './SignInForm';
 import IsAuthenticated from '../../../utils/HOC/IsAuthenticated';
 
 
-export const SignInPage: React.FC<{}> = () => {
+export const SignInPage: React.FC = () => {
 	const {verifing, errors, isLoading} = useSelector(selectSignInState),
 		dispatch = useDispatch();
 
-	const {resetSignIn, signIn} = bindActionCreators({
+	const {resetSignIn, signIn, resendSignIn} = bindActionCreators({
 		signIn: (vals: ISignInFormData) => verifing ? signInCodeVerify(vals) : signInVerify(vals),
 		resetSignIn: signInReset,
 		resendSignIn: signInResend
@@ -29,7 +29,7 @@ export const SignInPage: React.FC<{}> = () => {
 			<div className={styles.formWrap}>
 				<SignInForm
 					onSubmit={signIn}
-					resend={signInResend}
+					resend={resendSignIn}
 					cancel={resetSignIn}
 					verifing={verifing}
 					err={errors}
