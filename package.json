@@ -2,7 +2,6 @@
   "name": "Messenger",
   "version": "0.1.0",
   "private": false,
-  "homepage": "https://htmlprogrammer2001.github.io/messangerClient",
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.0",
     "axios": "^0.20.0",
@@ -34,6 +33,7 @@
   "scripts": {
     "start": "dotenv -e .env.development react-scripts start",
     "build": "dotenv -e .env.production react-scripts build",
+    "docker": "dotenv -e .env.docker react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "ci": "cross-env CI=true react-scripts test -u"
