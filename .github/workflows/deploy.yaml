@@ -20,20 +20,15 @@ jobs:
                   npm install
 #                  npm run ci
 
-            - name: Build 🔧
+            - name: Build and deploy image 🚀
               env:
                   CI: ""
-                  API_URL: "https://messangerkx.herokuapp.com/"
-              run: |
-                  npm run build
-
-            - name: Deploy 🚀
               uses: kciter/aws-ecr-action@master
               with:
                   access_key_id: ${{ secrets.AWS_ACCESS }}
                   secret_access_key: ${{ secrets.AWS_SECRET }}
                   account_id: ${{ secrets.AWS_ACCOUNT }}
-                  repo: messangerclient
+                  repo: messanger/client
                   region: eu-central-1
                   tags: latest, ${{github.sha}}
                   create_repo: true
