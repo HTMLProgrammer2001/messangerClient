@@ -20,15 +20,14 @@ jobs:
                   npm install
 #                  npm run ci
 
-            - name: Build and deploy image 🚀
-              env:
-                  CI: ""
-              uses: kciter/aws-ecr-action@master
+            - name: Build image
+              run: docker build -t messanger/client .
+
+            - name: Deploy image 🚀
+              uses: jwalton/gh-ecr-push@v1
               with:
-                  access_key_id: ${{ secrets.AWS_ACCESS }}
-                  secret_access_key: ${{ secrets.AWS_SECRET }}
-                  account_id: ${{ secrets.AWS_ACCOUNT }}
-                  repo: messanger/client
+                  access-key-id: ${{ secrets.AWS_ACCESS }}
+                  secret-access-key: ${{ secrets.AWS_SECRET }}
                   region: eu-central-1
-                  tags: latest, ${{github.sha}}
-                  create_repo: true
+                  local-image: messanger/client
+                  image: messanger/client:${{github.sha}}
