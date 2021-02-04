@@ -52,8 +52,12 @@ server {
         proxy_set_header Host ${WEBSOCKET_URL};
     }
 
-    location /webrtc {
-        proxy_pass http://webrtc;
+    location = /webrtc {
+        return 302 /webrtc/;
+    }
+
+    location /webrtc/ {
+        proxy_pass http://webrtc/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";

@@ -1,4 +1,4 @@
-name: Deploy trackTeacher front
+name: Deploy messanger front
 on:
     push:
         branches:
@@ -21,7 +21,7 @@ jobs:
 #                  npm run ci
 
             - name: Build image
-              run: docker build -t messanger/client .
+              run: docker build -t messanger/client:prod.${{github.sha}} .
 
             - name: Deploy image 🚀
               uses: jwalton/gh-ecr-push@v1
@@ -29,5 +29,6 @@ jobs:
                   access-key-id: ${{ secrets.AWS_ACCESS }}
                   secret-access-key: ${{ secrets.AWS_SECRET }}
                   region: eu-central-1
-                  local-image: messanger/client
-                  image: messanger/client:${{github.sha}}
+                  local-image: messanger/client:prod.${{github.sha}}
+                  is-semver: true
+                  image: messanger/client

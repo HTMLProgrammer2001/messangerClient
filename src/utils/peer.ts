@@ -13,7 +13,8 @@ class PeerService{
 
 		this.peer = new Peer(userID, {
 			host: process.env.REACT_APP_WEBRTC_HOST || 'localhost',
-			port: +process.env.REACT_APP_WEBRTC_PORT || 9000
+			port: +process.env.REACT_APP_WEBRTC_PORT || 9000,
+			path: 'webrtc'
 		});
 
 		this.peerID = userID;
