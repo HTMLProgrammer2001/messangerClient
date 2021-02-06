@@ -1,0 +1,35 @@
+@import "../../../styles/includes/main";
+
+.wrapper{
+    @include flex(flex-start, flex-start, column);
+
+    background: $bgElem;
+
+    height: 500px;
+    max-height: 100%;
+}
+
+.content{
+    @include flex(flex-start, flex-start, column);
+    flex-basis: 100%;
+    width: 100%;
+    padding: 1rem;
+}
+
+.header{
+    @extend %header;
+    width: 100%;
+}
+
+.saveBut{
+    @extend %button_text;
+    color: $blue;
+}
+
+.dialogs{
+    flex-basis: 100%;
+}
+
+.form{
+    width: 100%;
+}

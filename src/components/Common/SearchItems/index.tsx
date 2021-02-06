@@ -23,7 +23,7 @@ const SearchItems: React.FC<ISearchItemsProps> = ({items, selected, toggle}) => 
 			))
 		}
 
-		{!items.length && <div>Nothing was found</div>}
+		{!items.length && <div className={styles.noData}>Nothing was found</div>}
 	</div>
 );
 

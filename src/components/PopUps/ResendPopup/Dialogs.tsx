@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
+import styles from './styles.module.scss';
 import {ISearchItemData} from '../../Common/SearchItems/SearchItem';
 import {selectDialogsResendState, selectResendDialogs, resendLoadMore, resendLoadDialogsStart} from '../../../redux/resend/dialogs/slice';
 
@@ -35,7 +36,7 @@ const Dialogs: React.FC<IDialogsProps> = ({toggle, selected}) => {
 	}));
 
 	return (
-		<div>
+		<div className={styles.dialogs}>
 			<SearchItems items={parsed} selected={selected} toggle={toggle}/>
 
 			{isLoading && <Loader/>}

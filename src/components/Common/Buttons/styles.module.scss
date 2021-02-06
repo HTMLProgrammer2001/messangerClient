@@ -2,6 +2,7 @@
 
 .buttonsRow{
     @include flex(flex-end, center);
+    width: 100%;
 }
 
 .button{

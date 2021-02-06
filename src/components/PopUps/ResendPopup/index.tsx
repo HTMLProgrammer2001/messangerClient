@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import cn from 'classnames';
 
-import styles from '../NewNamePopup/styles.module.scss';
+import styles from './styles.module.scss';
 import {resendStart, selectResendState} from '../../../redux/resend/state/slice';
 import {resendLoadDialogsStart} from '../../../redux/resend/dialogs/slice';
 
@@ -26,7 +27,7 @@ const ResendPopup: React.FC = () => {
 		<div className={styles.wrapper}>
 			<div className={styles.header}>Resend</div>
 
-			<div className="container px-1">
+			<div className={cn("container px-1", styles.content)}>
 				<FilterForm onFilter={onFilter}/>
 				<Dialogs toggle={toggle} selected={selected}/>
 

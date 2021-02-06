@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import styles from '../../pages/MainPage/SearchBar/styles.module.scss';
+import styles from './styles.module.scss';
 
 
 type IFilterFormProps = {
