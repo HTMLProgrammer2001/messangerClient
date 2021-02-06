@@ -13,17 +13,10 @@ jobs:
               with:
                   persist-credentials: false
 
-            - name: Install and test 🔧
-              env:
-                  CI: ""
-              run: |
-                  npm install
-#                  npm run ci
-
             - name: Build image
               run: docker build -t messanger/client:prod.${{github.sha}} .
 
-            - name: Deploy image 🚀
+            - name: Push image to ecr
               uses: jwalton/gh-ecr-push@v1
               with:
                   access-key-id: ${{ secrets.AWS_ACCESS }}
@@ -32,3 +25,12 @@ jobs:
                   local-image: messanger/client:prod.${{github.sha}}
                   is-semver: true
                   image: messanger/client
+
+            - name: Deploy
+              uses: ItsKarma/aws-cli@v1.70.0
+              with:
+                args: elasticbeanstalk restart-app-server --environment-name Messanger-env
+              env:
+                AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS }}
+                AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET }}
+                AWS_DEFAULT_REGION: "eu-central-1"

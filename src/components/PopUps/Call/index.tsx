@@ -23,8 +23,7 @@ const CallPopUp: React.FC = () => {
 		[isVideoPlay, setVideoPlay] = useState(true);
 
 	//refs
-	const videoRef = useRef<HTMLVideoElement>(null),
-		audioRef = useRef<HTMLAudioElement>(null);
+	const videoRef = useRef<HTMLVideoElement>(null);
 
 	//handlers
 	const onCancel = () => dispatch(callDisconnect(callWith)),

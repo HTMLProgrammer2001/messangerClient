@@ -1,10 +1,10 @@
 import React, {useContext, useEffect} from 'react';
 
 import styles from '../AboutPopup/styles.module.scss';
-import SearchForm from './Elements/SearchForm';
-import UsersList from './Elements/UsersList';
-import Buttons from '../../Common/Buttons/';
 
+import SearchForm from '../../Common/SearchForm';
+import UsersList from '../../Common/SearchItems';
+import Buttons from '../../Common/Buttons/';
 import PopUpContext from '../../../utils/context/PopUpContext';
 import NewGroupNamePopup from '../../PopUps/NewGroupNamePopup';
 
@@ -20,9 +20,7 @@ const NewGroupPopup: React.FC<{}> = () => {
 
 	const {setElement} = useContext(PopUpContext);
 
-	const onNext = () => {
-		setElement(() => <NewGroupNamePopup/>);
-	};
+	const onNext = () => setElement(() => <NewGroupNamePopup/>);
 
 	return (
 		<div className={styles.wrapper}>
@@ -30,7 +28,7 @@ const NewGroupPopup: React.FC<{}> = () => {
 
 			<div className={styles.content}>
 				<SearchForm onSubmit={usersStart}/>
-				<UsersList/>
+				<UsersList toggle={() => null} selected={[]} items={[]}/>
 				<Buttons isValid={isValid} onNext={onNext}/>
 			</div>
 		</div>

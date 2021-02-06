@@ -11,7 +11,7 @@ type IVolumeProps = {
 
 const Volume: React.FC<IVolumeProps> = ({onChange, val}) => {
 	//state
-	const [isHover, setHover] = useState(true);
+	const [isHover, setHover] = useState(false);
 
 	//refs
 	const line = useRef<HTMLDivElement>(null);

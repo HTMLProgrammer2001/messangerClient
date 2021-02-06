@@ -1,7 +1,7 @@
 import React from 'react';
 import {Field, FormikProps, withFormik} from 'formik';
 
-import FormikInput from '../../../FormElements/FormikInput';
+import FormikInput from '../FormElements/FormikInput';
 
 export type INewGroupData = {
 	text: string

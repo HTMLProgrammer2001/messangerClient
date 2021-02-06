@@ -56,6 +56,12 @@
 
         border-radius: 50%;
         overflow: hidden;
+
+        &:after{
+            content: "";
+            display: block;
+            padding-bottom: 100%;
+        }
     }
 
     &_view{

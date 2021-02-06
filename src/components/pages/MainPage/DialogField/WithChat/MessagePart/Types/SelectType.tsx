@@ -2,16 +2,13 @@ import React, {useContext} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import styles from '../styles.module.scss';
-import {
-	selectChatSelectedCount,
-	selectChatSelectedForCurrent,
-	chatSelectedClear,
-	selectChatSelectedState
-} from '../../../../../../../redux/chat/selected';
+import {selectChatSelectedCount, selectChatSelectedForCurrent, chatSelectedClear, selectChatSelectedState} from '../../../../../../../redux/chat/selected';
 import {chatDeleteStart} from '../../../../../../../redux/chat/delete/slice';
 import {chatEditSetMessage} from '../../../../../../../redux/chat/edit/slice';
+
 import PopUpContext from '../../../../../../../utils/context/PopUpContext';
 import DeleteMessagesPopup from '../../../../../../PopUps/DeleteMessages';
+import ResendPopup from '../../../../../../PopUps/ResendPopup';
 
 
 const SelectType: React.FC<{}> = () => {
@@ -26,23 +23,25 @@ const SelectType: React.FC<{}> = () => {
 
 	//handlers
 	const deleteHandler = () => {
-		if(isCurrent)
-			setElement(() => <DeleteMessagesPopup/>);
-		else
-			dispatch(chatDeleteStart({messages: selected, other: false}));
-	},
-	clearSelect = () => dispatch(chatSelectedClear()),
-	editHandler = () => dispatch(chatEditSetMessage(selected[0]));
+			if (isCurrent)
+				setElement(() => <DeleteMessagesPopup/>);
+			else
+				dispatch(chatDeleteStart({messages: selected, other: false}));
+		},
+		clearSelect = () => dispatch(chatSelectedClear()),
+		editHandler = () => dispatch(chatEditSetMessage(selected[0])),
+		resendHandler = () => setElement(() => <ResendPopup/>);
 
 	return (
 		<div className={styles.user_row}>
-			<button className={styles.user_but}>Resend</button>
+			<button className={styles.user_but} onClick={resendHandler}>Resend</button>
 
 			<button
 				className={styles.user_but}
 				disabled={count != 1 || !isCurrent}
 				onClick={editHandler}
-			>Edit</button>
+			>Edit
+			</button>
 
 			<button className={styles.user_but} onClick={deleteHandler}>Delete({count})</button>
 			<button className={styles.user_but} onClick={clearSelect}>Cancel</button>

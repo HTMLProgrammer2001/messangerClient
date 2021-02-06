@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import styles from './styles.module.scss';
-import {searchStart, selectSearchText} from '../../../../redux/search/state/slice';
+import {searchStart} from '../../../../redux/search/state/slice';
 
 
 const SearchDialogForm: React.FC<{}> = () => {

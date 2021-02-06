@@ -6,10 +6,11 @@ import PopUpContext from '../../../utils/context/PopUpContext';
 
 type IButtonsProps = {
 	isValid: boolean,
-	onNext: () => void
+	onNext: () => void,
+	nextText?: string
 };
 
-const Buttons: React.FC<IButtonsProps> = ({isValid, onNext}) => {
+const Buttons: React.FC<IButtonsProps> = ({isValid, onNext, nextText}) => {
 	const {setElement} = useContext(PopUpContext);
 
 	return (
@@ -26,7 +27,7 @@ const Buttons: React.FC<IButtonsProps> = ({isValid, onNext}) => {
 				className={styles.button}
 				disabled={!isValid}
 				onClick={onNext}
-			>Next
+			>{nextText || 'Next'}
 			</button>
 		</div>
 	);
