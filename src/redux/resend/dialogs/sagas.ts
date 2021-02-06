@@ -33,9 +33,9 @@ function *searchDialogsName(name: string, offset = 1) {
 		};
 
 		//set new data to store
-		yield put(dialogsAddMany(normalizedData.entities.dialogs));
 		yield put(usersAddMany(normalizedData.entities.users));
 		yield put(messagesAddMany(normalizedData.entities.messages));
+		yield put(dialogsAddMany(normalizedData.entities.dialogs));
 
 		//success
 		yield put(resendLoadDialogsSuccess(dialogsData));

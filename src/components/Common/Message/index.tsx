@@ -9,6 +9,7 @@ import AudioMessage from './MessageTypes/AudioMessage';
 import VideoMessage from './MessageTypes/VideoMessage';
 import DocumentMessage from './MessageTypes/DocumentMessage';
 import SpecialMessage from './MessageTypes/SpecialMessage';
+import ResendMessage from './MessageTypes/ResendMessage';
 
 
 export type IMessageProps = {
@@ -44,9 +45,16 @@ const Message: React.FC<IMessageProps> = ({message, isLoading = false, progress 
 		case MessageTypes.SPECIAL:
 			Elem = SpecialMessage;
 			break;
+
+		case MessageTypes.RESEND:
+			Elem = ResendMessage;
+			break;
 	}
 
-	return <Elem message={message} isLoading={isLoading} progress={progress}/>
+	return Elem ?
+		<Elem message={message} isLoading={isLoading} progress={progress}/>
+			:
+		<div>Unknown message type</div>;
 };
 
 export default Message;

@@ -69,9 +69,12 @@ const denormalizeMessage = (messageIds: string[], entities: {
 }) => {
 	const author = new schema.Entity('users', {}, {idAttribute: '_id'}),
 		dialog = new schema.Entity('dialogs', {}, {idAttribute: '_id'}),
-		message = new schema.Entity('messages', {dialog, author}, {idAttribute: '_id'});
+		message = new schema.Entity('messages', {dialog, author}, {idAttribute: '_id'}),
+		messages = new schema.Array(message);
 
-	return denormalize(messageIds, [message], entities);
+	message.define({resend: messages});
+
+	return denormalize(messageIds, messages, entities);
 };
 
 export const selectChatMessages = (state: RootState) => (

@@ -2,6 +2,7 @@ import axios, {CancelToken} from 'axios';
 
 import {ISendMessage} from '../../redux/sendMessage/slice';
 import {ISendMessageResponse} from '../../interfaces/Responses/chat/ISendMessageResponse';
+import {IMessage} from '../../interfaces/IMessage';
 
 
 const client = axios.create({
@@ -20,9 +21,7 @@ const messageActionsAPI = {
 		return client.post<ISendMessageResponse>('/messages', form, {
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
 			cancelToken: cancelToken,
-			onUploadProgress: progressEvent => {
-				callback(progressEvent.loaded/progressEvent.total);
-			}
+			onUploadProgress: progressEvent => callback(progressEvent.loaded/progressEvent.total)
 		});
 	},
 
@@ -46,6 +45,12 @@ const messageActionsAPI = {
 			onUploadProgress: progressEvent => {
 				callback(progressEvent.loaded/progressEvent.total);
 			}
+		});
+	},
+
+	async resendMessages(messages: string[], to: string[]){
+		return client.post<{messages: IMessage[]}>('/messages/resend', {messages, to}, {
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
 		});
 	}
 };

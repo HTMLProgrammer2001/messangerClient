@@ -12,5 +12,6 @@ export type IMessage = {
 	url?: string,
 	size?: number,
 	dialog?: IDialog,
-	readed?: boolean
+	readed?: boolean,
+	resend?: IMessage[]
 };
