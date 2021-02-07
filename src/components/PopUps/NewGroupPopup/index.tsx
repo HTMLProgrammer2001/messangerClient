@@ -1,35 +1,37 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useState} from 'react';
 
-import styles from '../AboutPopup/styles.module.scss';
+import styles from '../ResendPopup/styles.module.scss';
 
 import SearchForm from '../../Common/SearchForm';
-import UsersList from '../../Common/SearchItems';
 import Buttons from '../../Common/Buttons/';
 import PopUpContext from '../../../utils/context/PopUpContext';
 import NewGroupNamePopup from '../../PopUps/NewGroupNamePopup';
+import UsersWrapper from './UsersWrapper';
 
 
 const NewGroupPopup: React.FC<{}> = () => {
-	const groupSet = (...any) => null,
-		isValid = false,
-		usersStart = (...any) => null;
-
-	useEffect(() => {
-		groupSet([]);
-	}, []);
-
 	const {setElement} = useContext(PopUpContext);
+	const [selected, setSelected] = useState<string[]>([]);
 
-	const onNext = () => setElement(() => <NewGroupNamePopup/>);
+	const onNext = () => setElement(() => <NewGroupNamePopup/>),
+		toggle = (id: string) => {
+			setSelected(
+				selected.includes(id) ?
+					selected.filter(i => i != id) :
+					[...selected, id])
+		},
+		onFilter = ({text}: {text: string}) => {
+
+		};
 
 	return (
 		<div className={styles.wrapper}>
 			<h3 className={styles.header}>New group</h3>
 
 			<div className={styles.content}>
-				<SearchForm onSubmit={usersStart}/>
-				<UsersList toggle={() => null} selected={[]} items={[]}/>
-				<Buttons isValid={isValid} onNext={onNext}/>
+				<SearchForm onSubmit={onFilter}/>
+				<UsersWrapper toggle={toggle} selected={selected}/>
+				<Buttons isValid={!!selected.length} onNext={onNext} nextText={`Next(${selected.length})`}/>
 			</div>
 		</div>
 	);

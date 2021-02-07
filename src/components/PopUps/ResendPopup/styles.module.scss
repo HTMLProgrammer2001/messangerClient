@@ -33,3 +33,15 @@
 .form{
     width: 100%;
 }
+
+.more{
+    width: 100%;
+    
+    text-align: center;
+    color: $blue;
+    text-decoration: underline;
+    
+    &:hover{
+        text-decoration: none;
+    }
+}

@@ -3,6 +3,7 @@ import {createAction} from '@reduxjs/toolkit';
 
 import {IMessage} from '../../../interfaces/IMessage';
 import {messagesAdd} from '../../messages';
+import {searchChange} from '../../search/dialogs/slice';
 import {dialogsAdd, dialogAddCount} from '../../dialogs';
 import {usersAdd} from '../../users';
 import {selectChatDialogState} from '../../chat/dialog/slice';
@@ -20,6 +21,7 @@ function *newMessageSaga({payload: message}: ReturnType<typeof wsNewMessage>) {
 
 	//@ts-ignore
 	yield put(messagesAdd({...message, author: message.author._id, dialog: message.dialog._id}));
+	yield put(searchChange(message.dialog._id));
 
 	const {dialog: curDialog} = yield select(selectChatDialogState);
 

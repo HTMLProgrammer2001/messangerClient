@@ -35,6 +35,19 @@ const searchAPI = {
 			params: {text, page: offset, pageSize: 10},
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
 		});
+	},
+
+	getFriendsByName(name: string, offset: number = 1){
+		return client.get('/users/friends/name', {
+			params: {name, page: offset},
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+		});
+	},
+	getFriendsByNick(nick: string, offset = 1){
+		return client.get('/users/friends/nick', {
+			params: {nick, page: offset},
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+		});
 	}
 };
 

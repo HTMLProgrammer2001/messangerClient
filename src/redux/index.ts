@@ -23,13 +23,14 @@ import ban from './ban/slice';
 import sendMessage from './sendMessage/slice';
 import call from './call/slice';
 import resend from './resend/';
+import group from './group/';
 
 
 //create reducer
 let reducer = combineReducers({
 	app, me, signIn,
 	logIn, dialogs, chat,
-	users, editMe,
+	users, editMe, group,
 	search, change, messages,
 	createPersonal, clear, ban,
 	sendMessage, call, resend

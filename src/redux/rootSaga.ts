@@ -17,6 +17,7 @@ import sendMessage from './sendMessage/sagas';
 import wsSaga from './ws/wsSaga';
 import callSaga from './call/sagas';
 import resendSaga from './resend/resendSaga';
+import groupSaga from './group/groupSaga';
 
 
 //create root saga that we can run
@@ -27,7 +28,7 @@ function* rootSaga(){
 		chatSaga(), me(), resendSaga(),
 		editMe(), change(), search(),
 		createPersonal(), clear(), ban(),
-		sendMessage(), wsSaga(), callSaga()
+		sendMessage(), wsSaga(), callSaga(), groupSaga()
 	]);
 }
 

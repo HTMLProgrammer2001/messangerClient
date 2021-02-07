@@ -40,7 +40,7 @@ const Dialogs: React.FC<IDialogsProps> = ({toggle, selected}) => {
 			<SearchItems items={parsed} selected={selected} toggle={toggle}/>
 
 			{isLoading && <Loader/>}
-			{hasMore && <div onClick={loadMore}>Load more</div>}
+			{!isLoading && hasMore && <div onClick={loadMore} className={styles.more}>Load more</div>}
 		</div>
 	);
 };

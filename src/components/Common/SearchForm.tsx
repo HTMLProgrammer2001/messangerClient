@@ -8,17 +8,18 @@ export type INewGroupData = {
 };
 
 type IOwnProps = {
-	onSubmit: (vals: INewGroupData) => void
+	onSubmit: (vals: INewGroupData) => void,
+	placeholder?: string
 }
 
 type INewGroupProps = FormikProps<INewGroupData> & IOwnProps;
 
-const SearchForm: React.FC<INewGroupProps> = ({handleSubmit}) => (
-	<form onSubmit={handleSubmit}>
+const SearchForm: React.FC<INewGroupProps> = ({handleSubmit, placeholder}) => (
+	<form onSubmit={handleSubmit} style={{width: '100%'}}>
 		<Field
 			name="text"
 			type="text"
-			placeholder="Enter username or nick"
+			placeholder={placeholder || "Enter username or nick"}
 			component={FormikInput}
 			style={{marginTop: 0}}
 		/>

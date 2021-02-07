@@ -1,9 +1,10 @@
 import {takeEvery, call, put, all, select} from 'redux-saga/effects';
 import {toast} from 'react-toastify';
 
-import {resendStart, resendError, resendSuccess} from './slice';
+import {resendStart} from './slice';
 import {selectChatSelectedState, chatSelectedClear} from '../../chat/selected';
 import {selectChatDialogState} from '../../chat/dialog/slice';
+import {searchChange} from '../../search/dialogs/slice';
 import {chatMessagesAdd} from '../../chat/messages/slice';
 import {usersAddMany} from '../../users';
 import {dialogsAddMany} from '../../dialogs';
@@ -32,7 +33,9 @@ function* resendSaga({payload: to}: ReturnType<typeof resendStart>){
 		if(entities.dialogs[dialog])
 			yield put(chatMessagesAdd({message: entities.dialogs[dialog].lastMessage as any, first: true}));
 
-		yield put(resendSuccess());
+		for(let msg of resp.data.messages)
+			yield put(searchChange(msg.dialog._id));
+
 		yield put(chatSelectedClear());
 
 		//show success message
@@ -40,7 +43,6 @@ function* resendSaga({payload: to}: ReturnType<typeof resendStart>){
 	}
 	catch (e) {
 		toast.error(e.response?.data.message || e.message);
-		yield put(resendError());
 	}
 }
 

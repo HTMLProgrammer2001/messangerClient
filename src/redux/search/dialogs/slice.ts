@@ -67,6 +67,9 @@ const searchDialogsSlice = createSlice({
 		newDialog(state, action: PayloadAction<string>){
 			state.data = [action.payload, ...state.data];
 			state.total += 1;
+		},
+		changeSearch(state, action: PayloadAction<string>){
+			state.data = [...new Set([...state.data, action.payload])];
 		}
 	}
 });
@@ -96,7 +99,8 @@ export const selectSearchDialogsStateData = (state: RootState) => (
 //exports
 export const {
 	startName: searchDialogsStartName, startNick: searchDialogsStartNick, newDialog: searchDialogsNew,
-	error: searchDialogsError, success: searchDialogsSuccess, clear: searchDialogsClear
+	error: searchDialogsError, success: searchDialogsSuccess, clear: searchDialogsClear,
+	changeSearch: searchChange
 } = searchDialogsSlice.actions;
 
 export default searchDialogsSlice.reducer;
