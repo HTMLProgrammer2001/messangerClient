@@ -13,9 +13,7 @@ const TextMessage: React.FC<IMessageProps> = ({message, isLoading}) => {
 	return (
 		<Wrapper message={message}>
 			<div onClick={() => isLoading && dispatch(sendMessageCancel(message._id))}>
-				<pre className={styles.text}>
-					{message.message}
-				</pre>
+				<p className={styles.text}>{message.message}</p>
 			</div>
 		</Wrapper>
 	);

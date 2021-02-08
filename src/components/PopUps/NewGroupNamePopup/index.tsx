@@ -1,22 +1,25 @@
 import React from 'react';
-import {useDispatch} from 'react-redux';
 
 import styles from '../AboutPopup/styles.module.scss';
 import NameForm from './NameForm';
+import ClosePopUp from '../../Common/ClosePopUp';
 
 
-const NewGroupNamePopup: React.FC<{}> = () => {
-	const dispatch = useDispatch();
+type INewGroupNamePopupProps = {
+	create: (name: string) => void
+}
 
-	return (
-		<div className={styles.wrapper}>
-			<h3 className={styles.header}>New group name</h3>
-
-			<div className={styles.content}>
-				<NameForm/>
-			</div>
+const NewGroupNamePopup: React.FC<INewGroupNamePopupProps> = ({create}) => (
+	<div className={styles.wrapper}>
+		<div className={styles.header}>
+			<h3>New group name</h3>
+			<ClosePopUp/>
 		</div>
-	);
-};
+
+		<div className={styles.content}>
+			<NameForm onSubmit={(vals) => create(vals.name)}/>
+		</div>
+	</div>
+);
 
 export default NewGroupNamePopup;

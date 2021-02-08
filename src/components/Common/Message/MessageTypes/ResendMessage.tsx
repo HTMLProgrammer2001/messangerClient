@@ -15,7 +15,8 @@ const ResendMessage: React.FC<IMessageProps> = ({message, isLoading}) => {
 	return (
 		<Wrapper message={message}>
 			<div onClick={() => isLoading && dispatch(sendMessageCancel(message._id))} className={styles.resend}>
-				{message.resend?.map(msg => <MessageType message={msg} key={msg._id}/>)}
+				{message.resend?.map((msg, i) =>
+					<MessageType message={msg} key={message._id + '_' + msg._id + '_' + i}/>)}
 			</div>
 		</Wrapper>
 	);

@@ -48,8 +48,6 @@ const NewNameForm: React.FC<INewNameFormProps> = ({isLoading, err, submitForm, i
 
 export default withFormik<IOwnProps, INewNameFormData>({
 	mapPropsToValues: (props) => ({name: props.defaultValue || ''}),
-	validationSchema: Yup.object().shape({
-		name: name().required()
-	}),
+	validationSchema: Yup.object().shape({name: name().required()}),
 	handleSubmit: (vals, formikBag) => formikBag.props.handleSubmit(vals)
 })(connectFormToRedux<INewNameFormProps>(NewNameForm));

@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import styles from '../ResendPopup/styles.module.scss';
 import {ISearchItemData} from '../../Common/SearchItems/SearchItem';
-import {selectCreateGroupUsers, selectGroupCreateUsersState, createGroupUsersStart} from '../../../redux/group/create/users/slice';
+import {selectCreateGroupUsers, selectGroupCreateUsersState, createGroupUsersStart, createGroupUsersMore} from '../../../redux/group/create/users/slice';
 
 import SearchItems from '../../Common/SearchItems';
 import Loader from '../../Common/Loader';
@@ -25,7 +25,7 @@ const UsersWrapper: React.FC<IUsersWrapperProps> = ({toggle, selected}) => {
 	}, []);
 
 	//handlers
-	const loadMore = () => dispatch({});
+	const loadMore = () => dispatch(createGroupUsersMore());
 
 	//convert to necessary format
 	const parsed: ISearchItemData[] = users.map(user => ({

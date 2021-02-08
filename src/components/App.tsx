@@ -19,7 +19,8 @@ const App: React.FC<{}> = () => {
 	const [renderElements, setElement] = useState<any[]>([]);
 
 	const addElement = (elem: any) => {
-		setElement(elem ? [...renderElements, elem] : renderElements.slice(0, -1));
+		if(!elem) console.log(renderElements);
+		setElement(elem ? [...renderElements, elem] : renderElements.slice(0, renderElements.length - 1));
 	};
 
 	return (

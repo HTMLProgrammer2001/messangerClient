@@ -3,8 +3,8 @@ import {useDispatch} from 'react-redux';
 import cn from 'classnames';
 
 import styles from './styles.module.scss';
-import {resendStart} from '../../../redux/resend/state/slice';
 import {resendLoadDialogsStart} from '../../../redux/resend/dialogs/slice';
+import resendThunk from '../../../redux/resend/state/thunks';
 
 import Buttons from '../../Common/Buttons';
 import Dialogs from './Dialogs';
@@ -17,14 +17,17 @@ const ResendPopup: React.FC = () => {
 		{setElement} = useContext(PopUpContext);
 
 	//state
-	const [selected, setSelected] = useState<Array<string>>([]);
+	const [selected, setSelected] = useState<Array<string>>([]),
+		[isLoading, setLoading] = useState(false);
 
 	//handlers
 	const onFilter = ({text}: {text: string}) => dispatch(resendLoadDialogsStart(text)),
 		toggle = (id: string) => setSelected(selected.includes(id) ? selected.filter(i => i != id) : [...selected, id]),
-		onNext = () => {
-			dispatch(resendStart(selected));
-			setElement(null);
+		onNext = async () => {
+			setLoading(true);
+
+			const isSuccess = await dispatch(resendThunk(selected));
+			isSuccess ? setElement(null) : setLoading(false);
 		};
 
 	return (
@@ -36,7 +39,7 @@ const ResendPopup: React.FC = () => {
 				<Dialogs toggle={toggle} selected={selected}/>
 
 				<Buttons
-					isValid={!!selected.length}
+					isValid={!!selected.length && !isLoading}
 					onNext={onNext}
 					nextText={`Next(${selected.length})`}
 				/>

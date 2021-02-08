@@ -8,8 +8,12 @@ export type IGroupNameFormData = {
 	name: string
 };
 
-type INameFormProps = FormikProps<IGroupNameFormData>;
-const NameForm: React.FC<INameFormProps> = ({handleSubmit, isSubmitting, errors}) => (
+type IOwnProps = {
+	onSubmit: (vals: IGroupNameFormData) => void
+}
+
+type INameFormProps = FormikProps<IGroupNameFormData> & IOwnProps;
+const NameForm: React.FC<INameFormProps> = ({handleSubmit}) => (
 	<form onSubmit={handleSubmit}>
 		<Field
 			name="text"
@@ -18,12 +22,9 @@ const NameForm: React.FC<INameFormProps> = ({handleSubmit, isSubmitting, errors}
 			component={FormikInput}
 			style={{marginTop: 0}}
 		/>
-
-		{errors && <div className="red">{errors}</div>}
-		{isSubmitting && <div>Loading</div>}
 	</form>
 );
 
-export default withFormik<{}, IGroupNameFormData>({
-	handleSubmit: (vals) => console.log(vals)
+export default withFormik<IOwnProps, IGroupNameFormData>({
+	handleSubmit: (vals, bag) => bag.props.onSubmit(vals)
 })(NameForm);

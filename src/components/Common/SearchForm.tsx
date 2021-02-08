@@ -22,6 +22,7 @@ const SearchForm: React.FC<INewGroupProps> = ({handleSubmit, placeholder}) => (
 			placeholder={placeholder || "Enter username or nick"}
 			component={FormikInput}
 			style={{marginTop: 0}}
+			required={false}
 		/>
 	</form>
 );

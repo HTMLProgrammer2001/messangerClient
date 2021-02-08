@@ -6,6 +6,7 @@ import styles from './styles.module.scss';
 import NewNameForm, {INewNameFormData} from './NewNameForm';
 import {selectEditMeNameState, editMeNameStart} from '../../../redux/editMe/name/slice';
 import {selectMeInfo} from '../../../redux/me/slice';
+import ClosePopUp from '../../Common/ClosePopUp';
 
 
 const NewNamePopUp: React.FC<{}> = () => {
@@ -14,14 +15,13 @@ const NewNamePopUp: React.FC<{}> = () => {
 
 	const dispatch = useDispatch();
 
-	const handleSubmit = (vals: INewNameFormData) => {
-		dispatch(editMeNameStart(vals));
-	};
+	const handleSubmit = (vals: INewNameFormData) => dispatch(editMeNameStart(vals));
 
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.header}>
-				Change name
+				<h3>Change name</h3>
+				<ClosePopUp/>
 			</div>
 
 			<div className="container px-1">

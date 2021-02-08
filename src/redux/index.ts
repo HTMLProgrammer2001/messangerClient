@@ -1,6 +1,7 @@
-import {createStore, applyMiddleware, combineReducers} from 'redux';
+import {applyMiddleware, combineReducers, createStore} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
+import thunk from 'redux-thunk';
 
 //import root saga
 import rootSaga from './rootSaga';
@@ -37,7 +38,7 @@ let reducer = combineReducers({
 });
 
 let saga = createSagaMiddleware(),
-	store = createStore(reducer, composeWithDevTools(applyMiddleware(saga)));
+	store = createStore(reducer, composeWithDevTools(applyMiddleware(saga, thunk)));
 
 //start saga
 saga.run(rootSaga);

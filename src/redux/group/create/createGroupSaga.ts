@@ -4,9 +4,7 @@ import usersSaga from './users/sagas';
 
 
 function *createGroupSaga() {
-	yield all([
-		usersSaga()
-	]);
+	yield all([usersSaga()]);
 }
 
 export default createGroupSaga;
