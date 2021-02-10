@@ -1,5 +1,6 @@
 import {IMessage} from './IMessage';
 import {IUser} from './IUser';
+import {ParticipantsTypes} from '../constants/ParticipantTypes';
 
 
 export type IDialog = {
@@ -9,6 +10,8 @@ export type IDialog = {
 	name: string,
 	lastMessage?: IMessage,
 	unread: number,
+	partCount: number,
 	user?: IUser,
-	isActive: boolean
+	isActive: boolean,
+	myRole: ParticipantsTypes
 };

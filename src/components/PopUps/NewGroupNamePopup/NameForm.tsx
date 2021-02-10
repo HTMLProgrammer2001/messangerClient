@@ -5,7 +5,7 @@ import FormikInput from '../../FormElements/FormikInput';
 
 
 export type IGroupNameFormData = {
-	name: string
+	text: string
 };
 
 type IOwnProps = {

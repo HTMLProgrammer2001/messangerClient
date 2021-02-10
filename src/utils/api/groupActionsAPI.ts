@@ -1,6 +1,7 @@
-import axios from 'axios';
+import axios, {CancelToken} from 'axios';
 
 import {IDialog} from '../../interfaces/IDialog';
+import {IGetParticipantsResponse} from '../../interfaces/Responses/group/IGetParticipantsResponse';
 
 
 const client = axios.create({
@@ -11,6 +12,13 @@ const groupActionsAPI = {
 	create(participants: string[], name: string){
 		return client.post<{dialog: IDialog}>('/groups', {participants, name}, {
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+		});
+	},
+	getParticipants(dialogID: string, cancel: CancelToken){
+		return client.get<IGetParticipantsResponse>('/groups/participants', {
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
+			params: {dialog: dialogID},
+			cancelToken: cancel
 		});
 	}
 };

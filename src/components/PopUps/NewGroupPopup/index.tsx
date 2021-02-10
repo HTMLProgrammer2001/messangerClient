@@ -20,12 +20,11 @@ const NewGroupPopup: React.FC<{}> = () => {
 		dispatch = useDispatch();
 
 	const onCreate = async (name: string) => {
-			//close name popup
-			setElement(null);
-			setLoading(true);
-
 			//start creating
+			setLoading(true);
 			const isSuccess = await dispatch(createGroupThunk(selected, name));
+
+			//stop loading
 			isSuccess ? setElement(null) : setLoading(false);
 		},
 		onNext = () => setElement(() => <NewGroupNamePopup create={onCreate}/>),
@@ -38,7 +37,7 @@ const NewGroupPopup: React.FC<{}> = () => {
 	return (
 		<div className={styles.wrapper}>
 			<h3 className={styles.header}>
-				New group
+				<span>New group</span>
 				<ClosePopUp/>
 			</h3>
 

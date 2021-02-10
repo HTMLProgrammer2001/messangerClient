@@ -1,25 +1,34 @@
-import React from 'react';
+import React, {useContext} from 'react';
 
 import styles from '../AboutPopup/styles.module.scss';
 import NameForm from './NameForm';
 import ClosePopUp from '../../Common/ClosePopUp';
+import PopUpContext from '../../../utils/context/PopUpContext';
 
 
 type INewGroupNamePopupProps = {
 	create: (name: string) => void
 }
 
-const NewGroupNamePopup: React.FC<INewGroupNamePopupProps> = ({create}) => (
-	<div className={styles.wrapper}>
-		<div className={styles.header}>
-			<h3>New group name</h3>
-			<ClosePopUp/>
-		</div>
+const NewGroupNamePopup: React.FC<INewGroupNamePopupProps> = ({create}) => {
+	const {setElement} = useContext(PopUpContext),
+		handler = (vals: {text: string}) => {
+			setElement(null);
+			create(vals.text)
+		};
 
-		<div className={styles.content}>
-			<NameForm onSubmit={(vals) => create(vals.name)}/>
+	return (
+		<div className={styles.wrapper}>
+			<div className={styles.header}>
+				<h3>New group name</h3>
+				<ClosePopUp/>
+			</div>
+
+			<div className={styles.content}>
+				<NameForm onSubmit={handler}/>
+			</div>
 		</div>
-	</div>
-);
+	);
+};
 
 export default NewGroupNamePopup;
