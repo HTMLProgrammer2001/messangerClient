@@ -3,13 +3,13 @@ import {useDispatch} from 'react-redux';
 
 import styles from '../ResendPopup/styles.module.scss';
 import {createGroupUsersStart} from '../../../redux/group/create/users/slice';
+import createGroupThunk from '../../../redux/group/create/state/thunks';
 
 import SearchForm from '../../Common/SearchForm';
 import Buttons from '../../Common/Buttons/';
 import PopUpContext from '../../../utils/context/PopUpContext';
 import NewGroupNamePopup from '../../PopUps/NewGroupNamePopup';
 import UsersWrapper from './UsersWrapper';
-import createGroupThunk from '../../../redux/group/create/state/thunks';
 import ClosePopUp from '../../Common/ClosePopUp';
 
 

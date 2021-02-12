@@ -5,21 +5,48 @@ import {IGetParticipantsResponse} from '../../interfaces/Responses/group/IGetPar
 
 
 const client = axios.create({
-	baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000/'
+	baseURL: (process.env.REACT_APP_API_URL || 'http://localhost:5000') + '/groups'
 });
 
 const groupActionsAPI = {
 	create(participants: string[], name: string){
-		return client.post<{dialog: IDialog}>('/groups', {participants, name}, {
+		return client.post<{dialog: IDialog}>('/', {participants, name}, {
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
 		});
 	},
+
 	getParticipants(dialogID: string, cancel: CancelToken){
-		return client.get<IGetParticipantsResponse>('/groups/participants', {
+		return client.get<IGetParticipantsResponse>('/participants', {
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
 			params: {dialog: dialogID},
 			cancelToken: cancel
 		});
+	},
+
+	changeAdmin(dialogID: string, partID: string, cancel?: CancelToken){
+		return client.post('/changeAdmin', {dialog: dialogID, user: partID}, {
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
+			cancelToken: cancel
+		});
+	},
+
+	changeOwner(dialogID: string, partID: string, cancel?: CancelToken){
+		return client.post('/changeOwner', {dialog: dialogID, user: partID}, {
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
+			cancelToken: cancel
+		});
+	},
+
+	leave(dialogID: string){
+		return client.post('/leave', {dialog: dialogID}, {
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+		})
+	},
+
+	deleteGroup(dialogID: string){
+		return client.delete(`/${dialogID}`, {
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+		})
 	}
 };
 

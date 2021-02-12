@@ -36,10 +36,11 @@ const App: React.FC<{}> = () => {
 
 							<Route path='/' render={() => <Redirect to='/'/>}/>
 						</Switch>
+
+						<PopUpElement/>
 					</HashRouter>
 				</Suspense>
 
-				<PopUpElement/>
 				<ToastContainer/>
 			</Provider>
 		</PopUpContext.Provider>

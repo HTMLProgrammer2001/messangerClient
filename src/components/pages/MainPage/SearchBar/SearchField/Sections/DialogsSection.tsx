@@ -15,7 +15,7 @@ import dateToString from '../../../../../../utils/helpers/dateToString';
 import secondsToTime from '../../../../../../utils/helpers/secondsToTime';
 
 
-const DialogsSection: React.FC<{}> = () => {
+const DialogsSection: React.FC = () => {
 	//get data from store
 	const dialogs = useSelector(selectSearchDialogsStateData),
 		{isLoading, offset, total, totalPages} = useSelector(selectSearchDialogsState),

@@ -3,8 +3,10 @@
 .wrapper{
     background: #fff;
 
-    width: 350px;
+    width: 450px;
     max-width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .header{
@@ -76,4 +78,72 @@
 
 .switcher{
     @include flex(space-between, center);
+}
+
+.participant{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: .25rem 0;
+
+    &_data{
+        display: flex;
+    }
+
+    &_info{
+        margin-left: .25rem;
+    }
+
+    &_name{
+        color: black;
+
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+
+    &_last{
+        color: $gray;
+    }
+
+    &_actions{
+        margin: 0;
+        list-style: none;
+        display: flex;
+
+        color: $blue;
+        cursor: pointer;
+
+        &>li{
+            &::after{
+                content: '|';
+                margin: 5px;
+            }
+
+            &:last-child::after{
+                content: '';
+            }
+
+            &:hover{
+                text-decoration: underline;
+            }
+
+            &.disabled{
+                color: $gray;
+            }
+        }
+    }
+}
+
+.action{
+    cursor: pointer;
+
+    &:hover{
+        color: $blue;
+    }
+
+    &.disabled:hover, &.disabled{
+        color: $gray;
+    }
 }

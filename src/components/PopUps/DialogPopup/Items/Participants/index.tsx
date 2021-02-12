@@ -1,14 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import axios from 'axios';
-import {toast} from 'react-toastify';
+import React, {useEffect} from 'react';
 import {useSelector} from 'react-redux';
 
 import styles from '../../styles.module.scss';
 import {IDialog} from '../../../../../interfaces/IDialog';
 import {IParticipant} from '../../../../../interfaces/IParticipants';
-
-import groupActionsAPI from '../../../../../utils/api/groupActionsAPI';
 import {selectMeState} from '../../../../../redux/me/slice';
+import useParticipants from '../../../../../utils/hooks/loaders/useParticipants';
+
 import Loader from '../../../../Common/Loader';
 import ParticipantItem from './ParticipantItem';
 
@@ -19,44 +17,38 @@ type IDialogParticipantsProps = {
 
 const DialogParticipants: React.FC<IDialogParticipantsProps> = ({dialog}) => {
 	//create data
-	const [participants, setParticipants] = useState<IParticipant[]>([]),
-		[isLoading, setLoading] = useState(false),
-		[wasError, setError] = useState(false),
-		cancelSource = axios.CancelToken.source();
-
-	const {user: me} = useSelector(selectMeState);
-
-	//handlers
-	const loadParticipants = async () => {
-		setLoading(true);
-		setError(false);
-
-		try {
-			const {data} = await groupActionsAPI.getParticipants(dialog._id, cancelSource.token);
-			setParticipants(data.participants);
-		} catch (e) {
-			toast.error(e.response?.data.message || e.message);
-			setError(true);
-		} finally {
-			setLoading(false);
-		}
-	};
+	const {user: me} = useSelector(selectMeState),
+		{
+			isLoading, cancelSource, wasError,
+			loadParticipants, participants, setParticipants
+		} = useParticipants(dialog._id);
 
 	useEffect(() => {
 		loadParticipants();
 		return () => cancelSource.cancel();
 	}, []);
 
+	const changeParticipantHandler = (newPart: IParticipant) => {
+		setParticipants(
+			participants
+				.map(part => part.user == newPart?.user ? newPart : part)
+				.filter(part => !!part.role)
+		);
+	};
+
 	if (!dialog.isActive)
 		return null;
 
 	//sort participants
 	const sortedParticipants = participants.sort((a, b) => {
+		//current user always first in the list
 		if(a.user._id == me)
 			return -1;
-		else if(b.user._id == me)
+
+		if(b.user._id == me)
 			return 1;
 
+		//other by alphabet
 		return a.user.name.localeCompare(b.user.name);
 	});
 
@@ -71,6 +63,7 @@ const DialogParticipants: React.FC<IDialogParticipantsProps> = ({dialog}) => {
 				{sortedParticipants.map(part => (
 					<ParticipantItem
 						participant={part}
+						changeHandler={changeParticipantHandler}
 						dialog={dialog}
 						key={part.user._id}
 						isMe={me == part.user._id}
