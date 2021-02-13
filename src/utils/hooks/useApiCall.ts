@@ -16,7 +16,7 @@ const useApi = <T extends (...args: any[]) => any>(api: T) => {
 			try {
 				//make api call
 				cancelSource = axios.CancelToken.source();
-				await api(...args, cancelSource);
+				await api(...args, cancelSource.token);
 
 				return null;
 			} catch (e) {

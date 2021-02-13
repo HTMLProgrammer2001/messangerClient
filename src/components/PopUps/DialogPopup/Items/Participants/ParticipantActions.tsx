@@ -19,6 +19,7 @@ const ParticipantActions: React.FC<IActionProps> = ({myRole, part, isMe, dlgID, 
 	const adminState = useApi(groupActionsAPI.changeAdmin),
 		ownerState = useApi(groupActionsAPI.changeOwner),
 		leaveState = useApi(groupActionsAPI.leave),
+		banState = useApi(groupActionsAPI.ban),
 		actionsElems: any[] = [];
 
 	//handlers
@@ -49,10 +50,26 @@ const ParticipantActions: React.FC<IActionProps> = ({myRole, part, isMe, dlgID, 
 			if (msg) return toast.error(msg);
 
 			changeHandler({...part, role: 0});
+		},
+		banHandler = async () => {
+			if (banState.isLoading)
+				return banState.cancel();
+
+			const msg = await banState.call(dlgID, part.user._id);
+			if (msg) return toast.error(msg);
+
+			changeHandler({...part, role: 0});
 		};
 
 	if (myRole <= ParticipantsTypes.ADMIN && part.role >= ParticipantsTypes.ADMIN && myRole != part.role)
-		actionsElems.push(<li>Ban</li>);
+		actionsElems.push(
+			<li
+				onClick={banHandler}
+				className={banState.isLoading ? styles.disabled : ''}
+			>
+				Ban
+			</li>
+		);
 
 	if (myRole == ParticipantsTypes.OWNER)
 		actionsElems.push(

@@ -22,7 +22,7 @@ import chatAPI from '../../../utils/api/chatAPI';
 const normalizeDialog = (data: IDialog) => {
 	const author = new schema.Entity('users', {}, {idAttribute: '_id'}),
 		message = new schema.Entity('messages', {author}, {idAttribute: '_id'}),
-		dialog = new schema.Entity('dialogs', {lastMessage: message});
+		dialog = new schema.Entity('dialogs', {lastMessage: message}, {idAttribute: '_id'});
 
 	return normalize<any, {
 		users: Record<string, IUser>,

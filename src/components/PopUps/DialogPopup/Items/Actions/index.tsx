@@ -7,6 +7,7 @@ import InviteAction from './InviteAction';
 import NotificationAction from './NotificationAction';
 import ClearAction from './ClearAction';
 import DeleteAction from './DeleteAction';
+import {ParticipantsTypes} from '../../../../../constants/ParticipantTypes';
 
 
 type IDialogActionsProps = {
@@ -22,7 +23,7 @@ const DialogActions: React.FC<IDialogActionsProps> = ({dialog}) => {
 			<InviteAction dialog={dialog}/>
 			<NotificationAction dialog={dialog}/>
 			<ClearAction dialog={dialog}/>
-			<DeleteAction dialog={dialog}/>
+			{dialog.myRole <= ParticipantsTypes.OWNER && <DeleteAction dialog={dialog}/>}
 		</div>
 	);
 };

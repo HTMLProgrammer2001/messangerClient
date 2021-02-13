@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import cn from 'classnames';
 import {useHistory, useLocation} from 'react-router';
+import {useDispatch} from 'react-redux';
 
 import styles from './styles.module.scss';
+import {searchSetCurrent} from '../../redux/search/state/slice';
 import Menu from './Menu';
 import DataElem from './DataElem';
 
@@ -11,11 +13,13 @@ const Header: React.FC<{}> = () => {
 	//data for mobile version
 	const [hasBack, setHasBack] = useState(false),
 		location = useLocation(),
-		history = useHistory();
+		history = useHistory(),
+		dispatch = useDispatch();
 
 	//handler for back to dialogs
 	const bachHandler = () => {
 		history.push(location.pathname);
+		dispatch(searchSetCurrent(''));
 	};
 
 	useEffect(() => {

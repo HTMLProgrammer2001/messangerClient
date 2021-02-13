@@ -37,9 +37,17 @@ const groupActionsAPI = {
 		});
 	},
 
-	leave(dialogID: string){
+	leave(dialogID: string, cancel?: CancelToken){
 		return client.post('/leave', {dialog: dialogID}, {
-			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
+			cancelToken: cancel
+		})
+	},
+
+	ban(dialogID: string, userID: string, cancel?: CancelToken){
+		return client.post('/ban', {dialog: dialogID, user: userID}, {
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
+			cancelToken: cancel
 		})
 	},
 

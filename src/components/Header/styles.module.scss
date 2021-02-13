@@ -13,7 +13,7 @@
     width: 30%;
     padding: 1rem;
 
-    @media all and(max-width: 600px) {
+    @media all and(max-width: $mobileSize) {
         width: fit-content;
     }
 }
@@ -106,7 +106,7 @@
     font-size: 1.5rem;
     font-weight: bold;
 
-    @media all and(max-width: 600px) {
+    @media all and(max-width: $mobileSize) {
         display: block;
 
         & + .logo{

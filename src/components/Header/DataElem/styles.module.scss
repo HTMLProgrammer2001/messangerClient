@@ -1,3 +1,5 @@
+@import '../../../styles/includes/main';
+
 .wrapper{
     display: flex;
     align-items: center;
@@ -7,7 +9,7 @@
 }
 
 .data{
-    @media all and(max-width: 600px) {
+    @media all and(max-width: $mobileSize) {
         width: 100%;
         text-align: center;
     }

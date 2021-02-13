@@ -7,11 +7,9 @@
     height: 100%;
 	padding: 10px 0;
 
-    overflow: scroll;
 	border-right: 1px solid #ddd;
-    display: inline-table;
 
-    @media all and(max-width: 600px){
+    @media all and(max-width: $mobileSize){
         display: none;
         overflow: auto;
 
@@ -70,6 +68,8 @@
 
 	&_time{
 		font-size: 0.8rem;
+        width: 100%;
+        max-width: fit-content;
 	}
 
 	&_name{
@@ -96,6 +96,8 @@
 	&_wrap{
 		width: 100%;
 		padding: 10px 0;
+
+        overflow: auto;
 	}
 
 	&_content{

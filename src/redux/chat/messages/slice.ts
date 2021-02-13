@@ -43,7 +43,7 @@ const chatMessageSlice =  createSlice({
 		},
 		success(state, action: PayloadAction<{data: string[], offset: number, totalPages: number}>){
 			state.isLoading = false;
-			state.messages = state.messages.concat(action.payload.data);
+			state.messages = [...new Set(state.messages.concat(action.payload.data))];
 			state.totalPages = action.payload.totalPages;
 			state.offset = action.payload.offset;
 		},
@@ -51,7 +51,9 @@ const chatMessageSlice =  createSlice({
 			return {...initialState};
 		},
 		addMessage(state, {payload}: PayloadAction<{message: string, first: boolean}>){
-			payload.first ? state.messages.unshift(payload.message) : state.messages.push(payload.message);
+			payload.first ?
+				state.messages.unshift(payload.message) :
+				state.messages = [...new Set([...state.messages, payload.message])];
 		},
 		removeMessage(state, action: PayloadAction<string>){
 			state.messages = state.messages.filter(id => id != action.payload);

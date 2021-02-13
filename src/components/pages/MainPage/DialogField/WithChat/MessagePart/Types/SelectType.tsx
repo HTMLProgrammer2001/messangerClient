@@ -2,7 +2,9 @@ import React, {useContext} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import styles from '../styles.module.scss';
+import {ParticipantsTypes} from '../../../../../../../constants/ParticipantTypes';
 import {selectChatSelectedCount, selectChatSelectedForCurrent, chatSelectedClear, selectChatSelectedState} from '../../../../../../../redux/chat/selected';
+import {selectChatDialog} from '../../../../../../../redux/chat/dialog/slice';
 import {chatDeleteStart} from '../../../../../../../redux/chat/delete/slice';
 import {chatEditSetMessage} from '../../../../../../../redux/chat/edit/slice';
 
@@ -15,7 +17,8 @@ const SelectType: React.FC<{}> = () => {
 	//select state
 	const count = useSelector(selectChatSelectedCount),
 		selected = useSelector(selectChatSelectedState),
-		isCurrent = useSelector(selectChatSelectedForCurrent);
+		isCurrent = useSelector(selectChatSelectedForCurrent),
+		{myRole, isActive} = useSelector(selectChatDialog);
 
 	//get data from hooks
 	const {setElement} = useContext(PopUpContext);
@@ -23,7 +26,7 @@ const SelectType: React.FC<{}> = () => {
 
 	//handlers
 	const deleteHandler = () => {
-			if (isCurrent)
+			if ((isCurrent || myRole <= ParticipantsTypes.ADMIN) && isActive)
 				setElement(() => <DeleteMessagesPopup/>);
 			else
 				dispatch(chatDeleteStart({messages: selected, other: false}));
