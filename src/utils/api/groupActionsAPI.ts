@@ -55,6 +55,12 @@ const groupActionsAPI = {
 		return client.delete(`/${dialogID}`, {
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
 		})
+	},
+
+	invite(dialogID: string, users: string[]){
+		return client.post('/invite', {dialog: dialogID, users}, {
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+		});
 	}
 };
 

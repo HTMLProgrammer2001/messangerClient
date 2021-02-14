@@ -1,6 +1,6 @@
 import {all} from 'redux-saga/effects';
 
-import createSaga from './create/createGroupSaga'
+import createSaga from './create/createGroupSaga';
 
 
 function *groupSaga(){

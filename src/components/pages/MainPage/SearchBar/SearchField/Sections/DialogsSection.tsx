@@ -79,7 +79,7 @@ const DialogsSection: React.FC = () => {
 
 						return (
 							<SearchItem
-								key={dialog.nick}
+								key={dialog._id}
 								dlgProps={{...dialog, time, text}}
 								isCurrent={current == dialog.nick}
 								handler={() => changeCurrent(dialog.nick)}

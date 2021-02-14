@@ -1,10 +1,8 @@
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useState} from 'react';
 import axios from 'axios';
-import {useSelector} from 'react-redux';
 import {toast} from 'react-toastify';
 
 import {IParticipant} from '../../../interfaces/IParticipants';
-import {selectMeState} from '../../../redux/me/slice';
 import groupActionsAPI from '../../api/groupActionsAPI';
 
 
