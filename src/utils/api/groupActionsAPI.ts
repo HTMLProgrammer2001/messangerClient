@@ -58,7 +58,28 @@ const groupActionsAPI = {
 	},
 
 	invite(dialogID: string, users: string[]){
-		return client.post('/invite', {dialog: dialogID, users}, {
+		return client.post('/invite',
+			{dialog: dialogID, users},
+			{headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+		});
+	},
+
+	changeTitle(dialogID: string, newTitle: string){
+		return client.put(`/${dialogID}/title`,
+			{title: newTitle},
+			{headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+		});
+	},
+	changeAvatar(dialogID: string, newAvatar: Blob){
+		let form = new FormData();
+		form.set('avatar', newAvatar);
+
+		return client.put(`/${dialogID}/avatar`, form, {
+			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+		});
+	},
+	deleteAvatar(dialogID: string){
+		return client.delete(`/${dialogID}/avatar`, {
 			headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
 		});
 	}

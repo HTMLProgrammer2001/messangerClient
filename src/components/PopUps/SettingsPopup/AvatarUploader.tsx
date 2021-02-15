@@ -23,9 +23,6 @@ const AvatarUploader: React.FC<{}> = () => {
 
 		//start loading
 		dispatch(editMeAvatarStart(formData));
-
-		//hide popup
-		setElement(null);
 	};
 
 	const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,7 +1,9 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useContext, useEffect, useRef} from 'react';
 
 import CropAnimation from './CropAnimation';
 import styles from './styles.module.scss';
+
+import PopUpContext from '../../../utils/context/PopUpContext';
 
 
 type ICropFormProps = {
@@ -10,6 +12,8 @@ type ICropFormProps = {
 }
 
 const CropForm: React.FC<ICropFormProps> = ({onChange, img}) => {
+	const {setElement} = useContext(PopUpContext);
+
 	let animation: CropAnimation = null,
 		elem = useRef<HTMLCanvasElement>(null);
 
@@ -37,6 +41,7 @@ const CropForm: React.FC<ICropFormProps> = ({onChange, img}) => {
 
 	const save = async () => {
 		let blob = await animation.getData();
+		setElement(null);
 		onChange(blob);
 	};
 
