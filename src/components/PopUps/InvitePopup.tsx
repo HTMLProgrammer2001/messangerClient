@@ -7,7 +7,7 @@ import {createGroupUsersStart} from '../../redux/group/create/users/slice';
 import SearchForm from '../Common/SearchForm';
 import Buttons from '../Common/Buttons/';
 import PopUpContext from '../../utils/context/PopUpContext';
-import UsersWrapper from './NewGroupPopup/UsersWrapper';
+import UsersWrapper from './GroupPopup/UsersWrapper';
 import ClosePopUp from '../Common/ClosePopUp';
 import inviteThunk from '../../redux/group/invite/inviteThunk';
 

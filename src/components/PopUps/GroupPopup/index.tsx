@@ -8,7 +8,7 @@ import createGroupThunk from '../../../redux/group/create/state/thunks';
 import SearchForm from '../../Common/SearchForm';
 import Buttons from '../../Common/Buttons/';
 import PopUpContext from '../../../utils/context/PopUpContext';
-import NewGroupNamePopup from '../../PopUps/NewGroupNamePopup';
+import GroupNamePopup from '../GroupNamePopup';
 import UsersWrapper from './UsersWrapper';
 import ClosePopUp from '../../Common/ClosePopUp';
 
@@ -27,7 +27,7 @@ const NewGroupPopup: React.FC<{}> = () => {
 			//stop loading
 			isSuccess ? setElement(null) : setLoading(false);
 		},
-		onNext = () => setElement(() => <NewGroupNamePopup create={onCreate}/>),
+		onNext = () => setElement(() => <GroupNamePopup create={onCreate} title="New group name"/>),
 		toggle = (id: string) => {
 			setSelected(selected.includes(id) ?
 					selected.filter(i => i != id) : [...selected, id])

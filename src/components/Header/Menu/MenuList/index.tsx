@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 import styles from '../../styles.module.scss';
 
-import NewGroupPopup from '../../../PopUps/NewGroupPopup/';
+import NewGroupPopup from '../../../PopUps/GroupPopup/';
 import SettingsPopup from '../../../PopUps/SettingsPopup/';
 import AboutPopup from '../../../PopUps/AboutPopup/';
 import PopUpContext from '../../../../utils/context/PopUpContext';

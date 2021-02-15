@@ -6,11 +6,12 @@ import ClosePopUp from '../../Common/ClosePopUp';
 import PopUpContext from '../../../utils/context/PopUpContext';
 
 
-type INewGroupNamePopupProps = {
-	create: (name: string) => void
+type IGroupNamePopupProps = {
+	create: (name: string) => void,
+	title: string
 }
 
-const NewGroupNamePopup: React.FC<INewGroupNamePopupProps> = ({create}) => {
+const GroupNamePopup: React.FC<IGroupNamePopupProps> = ({create, title}) => {
 	const {setElement} = useContext(PopUpContext),
 		handler = (vals: {text: string}) => {
 			setElement(null);
@@ -20,7 +21,7 @@ const NewGroupNamePopup: React.FC<INewGroupNamePopupProps> = ({create}) => {
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.header}>
-				<h3>New group name</h3>
+				<h3>{title}</h3>
 				<ClosePopUp/>
 			</div>
 
@@ -31,4 +32,4 @@ const NewGroupNamePopup: React.FC<INewGroupNamePopupProps> = ({create}) => {
 	);
 };
 
-export default NewGroupNamePopup;
+export default GroupNamePopup;
