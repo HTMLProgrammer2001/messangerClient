@@ -28,7 +28,7 @@ const MainPage: React.FC<{}> = () => {
 
 		//connect to websocket
 		dispatch(wsConnect());
-		return () => dispatch(wsDisconnect());
+		return () => {dispatch(wsDisconnect())};
 	}, []);
 
 	return (
