@@ -2,6 +2,7 @@
   "name": "Messenger",
   "version": "0.1.0",
   "private": false,
+  "homepage": ".",
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.0",
     "@types/redux-thunk": "^2.1.0",
