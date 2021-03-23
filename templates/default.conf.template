@@ -42,6 +42,7 @@ server {
     location /api/ {
         proxy_pass http://server/;  # note the trailing slash here, it matters!
         proxy_set_header Host ${SERVER_URL};
+	proxy_redirect     off;
     }
 
     location /socket.io {
