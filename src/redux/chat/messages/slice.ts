@@ -51,8 +51,9 @@ const chatMessageSlice =  createSlice({
 			return {...initialState};
 		},
 		addMessage(state, {payload}: PayloadAction<{message: string, first: boolean}>){
-			payload.first ?
-				state.messages.unshift(payload.message) :
+			if(payload.first)
+				state.messages = [...new Set([payload.message, ...state.messages])];
+			else
 				state.messages = [...new Set([...state.messages, payload.message])];
 		},
 		removeMessage(state, action: PayloadAction<string>){

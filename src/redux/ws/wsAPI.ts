@@ -42,7 +42,7 @@ function *connectSaga() {
 		//add handlers
 		ws.addHandler('newMessage', (msg: IMessage) => wsChannel.put(wsNewMessage(msg)));
 		ws.addHandler('newDialog', (dlg: IDialog) => wsChannel.put(wsNewDialog(dlg)));
-		ws.addHandler('banUser', (user: string) => wsChannel.put(wsToggle(user)));
+		ws.addHandler('toggleBan', (user: string) => wsChannel.put(wsToggle(user)));
 		ws.addHandler('updateMessage', (msg: IMessage) => wsChannel.put(updateMessage(msg)));
 		ws.addHandler('deleteMessage', (id: string) => wsChannel.put(deleteMessage(id)));
 		ws.addHandler('online', (id: string) => wsChannel.put(wsUserOnline(id)));

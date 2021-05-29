@@ -21,7 +21,7 @@ class Websocket{
 	}
 
 	changeDialogStatus(dialogID: string, statusType: DialogStatus){
-		this.socket?.emit('changeDialogStatus', dialogID, statusType);
+		this.socket?.emit('changeDialogStatus', {dialog: dialogID, status: statusType});
 	}
 
 	viewMessages(ids: string[]){
